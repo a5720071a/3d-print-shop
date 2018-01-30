@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 
 <div class="upload-content" id="upload-content">
-  <p>อัพโหลดไฟล์โมเดล</p>
+  <div id="upload-content-header">
+    <p class="big-font no-margin">อัพโหลดไฟล์โมเดล</p>
+  </div>
+  <hr align="center" width="100%">
   <p>นามสกุลไฟล์ที่รองรับ</p>
   <ul>
     <li>.obj</li>
     <li>.stl</li>
   </ul>
-  <label for="file-upload" class="custom-file-upload">
-    <i class="fa fa-cloud-upload"></i> Custom Upload
-</label>
-<input id="file-upload" accept=".stl, .obj" type="file"></input>
+  <label for="model-upload" class="custom-file-upload">เลือกไฟล์</label>
+  <input id="model-upload" accept=".stl, .obj" type="file"></input>
 </div>
