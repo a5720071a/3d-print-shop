@@ -1,4 +1,6 @@
-/*
-  Place all the styles related to the matching controller here.
-  They will automatically be included in application.css.
-*/
+.signup-content {
+  position: absolute;
+  background: whitesmoke;
+  border-radius: 1rem;
+  padding: 1rem;
+}

@@ -1,9 +1,15 @@
-<h1>Sign up</h1>
+<!DOCTYPE html>
 
-<%= form_for @user, url: {action: "create"}, html: {class: "signup_form"} do |f| %>
-  <%= f.label :username %></br>
-  <%= f.text_field :username %></br></br>
-  <%= f.label :password %></br>
-  <%= f.password_field :password %></br></br>
-  <%= f.submit "Submit" %>
-<% end %>
+<div class="signup-content" id="signup-content">
+  <div id="signup-content-header">
+    <p class="big-font no-margin">สมัครใช้บริการ</p>
+  </div>
+  <hr align="center" width="100%">
+  <%= form_for @user, url: {action: "create"}, html: {class: "signup_form"} do |f| %>
+    <%= f.label :username %></br>
+    <%= f.text_field :username %></br></br>
+    <%= f.label :password %></br>
+    <%= f.password_field :password %></br></br>
+    <%= f.submit "Submit" %>
+  <% end %>
+</div>
