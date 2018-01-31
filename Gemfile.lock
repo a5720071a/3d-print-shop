@@ -54,6 +54,7 @@ GEM
       ffi (~> 1.0, >= 1.0.11)
     concurrent-ruby (1.0.5)
     crass (1.0.3)
+    down (4.2.1)
     erubi (1.7.0)
     execjs (2.7.0)
     ffi (1.9.18)
@@ -122,6 +123,8 @@ GEM
     selenium-webdriver (3.8.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
+    shrine (2.9.0)
+      down (~> 4.1)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -161,6 +164,7 @@ DEPENDENCIES
   puma (~> 3.7)
   rails (~> 5.1.4)
   selenium-webdriver
+  shrine (~> 2.6, >= 2.6.1)
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3

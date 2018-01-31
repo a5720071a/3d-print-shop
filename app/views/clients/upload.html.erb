@@ -10,6 +10,12 @@
     <li>.obj</li>
     <li>.stl</li>
   </ul>
-  <label for="model-upload" class="custom-file-upload">เลือกไฟล์</label>
-  <input id="model-upload" accept=".stl, .obj" type="file"></input>
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <input name="order[model]" type="hidden" value="<%= @order.cached_model_data %>">
+    <label for="model-upload" class="custom-file-upload">เลือกไฟล์</label>
+    <input id="model-upload" name="order[model]" accept=".stl, .obj" type="file"></br></br>
+    <label for="order-description">Order description</label></br>
+    <input id="order-description" type="text_area" name="order[description]"></br></br>
+    <input type="submit" value="Submit">
+  </form>
 </div>
