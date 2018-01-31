@@ -12,12 +12,28 @@
   
     <div class="navbar big-font">
       <div class="navlink-block">
-        <a class="navlink" href='./'>หน้าหลัก</a>
+        <a class="navlink" href='/'>หน้าหลัก</a>
       </div>
       <div class="navlink-block">
-        <a class="navlink" href='./tutorial'>แนะนำบริการ</a>
+        <a class="navlink" href='/tutorial'>แนะนำบริการ</a>
       </div>
+      <% if current_user %>
+      <div class="navlink-block navlink-block-right">
+        <a class="navlink" href='/'>ยินดีต้อนรับ <%= current_user.username %></a>
+      </div>
+      <div class="navlink-block navlink-block-right">
+        <a class="navlink" href='/logout'>ออกจากระบบ</a>
+      </div>
+      <% else %>
+      <div class="navlink-block navlink-block-right">
+        <a class="navlink" href='/users/new'>สมัครใช้บริการ</a>
+      </div>
+      <div class="navlink-block navlink-block-right">
+        <a class="navlink" href='/login'>เข้าสู่ระบบ</a>
+      </div>
+      <% end %>
     </div>
+    
     
     <%= yield %>
     

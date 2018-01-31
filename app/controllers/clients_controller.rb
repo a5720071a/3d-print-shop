@@ -1,4 +1,5 @@
 class ClientsController < ApplicationController
+  before_action :require_user, only: [:upload]
   def home
   end
   def upload

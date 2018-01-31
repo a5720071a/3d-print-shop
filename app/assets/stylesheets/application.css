@@ -29,6 +29,10 @@ body::after {
   padding: 1rem 0rem 1rem 1rem;
   display: inline-block;
 }
+.navlink-block-right {
+  padding: 1rem 1rem 1rem 0rem;
+  float: right;
+}
 .navlink {
   color: #C0C0C0;
   text-decoration: none;

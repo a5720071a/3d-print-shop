@@ -4,4 +4,8 @@ Rails.application.routes.draw do
   get '/upload' => 'clients#upload'
   get '/browse' => 'clients#browse'
   get '/tutorial' => 'clients#tutorial'
+  resources :users
+  get '/login' => 'sessions#new'
+  post '/login' => 'sessions#create'
+  get '/logout' => 'sessions#destroy'
 end
