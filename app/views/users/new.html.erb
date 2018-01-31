@@ -5,7 +5,7 @@
     <p class="big-font no-margin">สมัครใช้บริการ</p>
   </div>
   <hr align="center" width="100%">
-  <%= form_for @user, url: {action: "create"}, html: {class: "signup_form"} do |f| %>
+  <%= form_for @user, url: signup_path do |f| %>
     <%= f.label :username %></br>
     <%= f.text_field :username %></br></br>
     <%= f.label :password %></br>
