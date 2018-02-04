@@ -48,3 +48,9 @@ node_modules/
 
 # Ignore Yarn's error log
 /yarn-error.log
+/public/packs
+/public/packs-test
+/node_modules
+yarn-debug.log*
+yarn-error.log*
+.yarn-integrity

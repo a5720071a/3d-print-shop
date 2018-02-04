@@ -1,5 +1,12 @@
 {
   "name": "print-shop",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "@rails/webpacker": "^3.2.1",
+    "promptpay-qr": "^0.4.4"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^2.11.1",
+    "promptpay-qr": "^0.4.4"
+  }
 }

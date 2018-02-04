@@ -6,6 +6,7 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application' %>
   </head>
 
   <body>
@@ -45,6 +46,7 @@
         <li><a style="color:white;" href="./browse">Browse shared models</a></li>
         <li><a style="color:white;" href="./upload">Upload your model</a></li>
       </ul>
+      <canvas id="canvas"></canvas>
     </div>
   </body>
 </html>
