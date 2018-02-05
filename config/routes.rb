@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get '/' => 'clients#home'
   get '/upload' => 'clients#upload'
   post '/upload' => 'clients#order'
+  get '/preview' => 'clients#preview'
   get '/browse' => 'clients#browse'
   get '/tutorial' => 'clients#tutorial'
   get '/signup' => 'users#new'

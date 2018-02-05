@@ -54,3 +54,6 @@ node_modules/
 yarn-debug.log*
 yarn-error.log*
 .yarn-integrity
+
+# Ignore webpack uploads
+/public/uploads

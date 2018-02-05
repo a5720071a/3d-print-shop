@@ -4,17 +4,25 @@ class ClientsController < ApplicationController
   protect_from_forgery with: :null_session
   def home
   end
+  
+  
   def upload
     @order = Order.new
   end
   def order
     @order = Order.new(order_params)
     if @order.save
-      redirect_to '/'
+      redirect_to action: "preview", order: "#{@order.id}"
     else
       redirect_to '/404.html'
     end
   end
+  
+  def preview
+    @order = Order.find_by_id(params[:order])
+  end
+  
+  
   def browse
   end
   def tutorial
