@@ -8,11 +8,11 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id 
       redirect_to '/'
     else
-      redirect_to '/users/new' 
+      redirect_to '/signup' 
     end
   end
   private
   def user_params
-    params.require(:user).permit(:username, :password)
-  end
+    params.require(:user).permit(:email, :username, :password)
+  end   
 end
