@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   get '/orders' => 'clients#orders'
   get '/order/:id' => 'clients#show_order'
   get '/manage' => 'management#manage'
+  get '/manage/order/:id' => 'management#show_order'
 end
