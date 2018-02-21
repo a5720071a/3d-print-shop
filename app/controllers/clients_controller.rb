@@ -20,7 +20,7 @@ class ClientsController < ApplicationController
   def orders
     @orders = Order.where user_id: @current_user.id
   end
-  def order
+  def show_order
     @order = Order.find_by_id(params[:id])
   end
   def browse; end

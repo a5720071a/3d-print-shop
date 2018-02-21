@@ -13,6 +13,6 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
   get '/orders' => 'clients#orders'
-  get '/order/:id' => 'clients#order'
+  get '/order/:id' => 'clients#show_order'
   get '/manage' => 'management#manage'
 end
