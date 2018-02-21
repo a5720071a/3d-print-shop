@@ -1,0 +1,8 @@
+<h1>Management#manage</h1>
+<h2>All orders</h2>
+<% if @orders %>
+  <ul>
+  <% [*@orders].each do |order| %>
+    <li><a href="/order/<%= order.id %>"><%= order.id %></a></li>
+  <% end %>
+<% end %>

@@ -17,6 +17,12 @@ class ClientsController < ApplicationController
   def preview
     @order = Order.find_by_id(params[:order])
   end
+  def orders
+    @orders = Order.where user_id: @current_user.id
+  end
+  def order
+    @order = Order.find_by_id(params[:id])
+  end
   def browse; end
   def tutorial; end
   private

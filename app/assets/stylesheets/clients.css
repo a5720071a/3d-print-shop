@@ -1,5 +1,8 @@
 .home-content {
   position: absolute;
+  background: whitesmoke;
+  border-radius: 1rem;
+  padding: 3rem;
 }
 .home-content .btn {
   background: #3498db;

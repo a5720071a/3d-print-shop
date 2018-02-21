@@ -20,7 +20,7 @@
       </div>
       <% if current_user %>
       <div class="navlink-block navlink-block-right">
-        <a class="navlink" href='/'>ยินดีต้อนรับ <%= current_user.username %></a>
+        <a class="navlink" href='/orders'>ยินดีต้อนรับ <%= current_user.username %></a>
       </div>
       <div class="navlink-block navlink-block-right">
         <a class="navlink" href='/logout'>ออกจากระบบ</a>
@@ -39,7 +39,7 @@
     <%= yield %>
     
   
-    <div class="footer" style="width: 100%;background: #393939;position: absolute;top: 100%;">
+    <div class="footer" style="width: 100%; background: #393939; position: absolute; top: 100%;">
       <p style="color: white;">Navigation</p>
       <ul sytle="list-style: none;">
         <li><a style="color:white;" href="./">Homepage</a></li>

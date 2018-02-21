@@ -10,10 +10,11 @@ html * {
 body {
   padding: 0;
   margin: 0;
+  background: lightblue;
 }
 body::after {
   content: "";
-  background-image: url("owl.png");
+  /*background-image: url("owl.png");*/
   opacity: 0.2;
   top: 0;
   left: 0;

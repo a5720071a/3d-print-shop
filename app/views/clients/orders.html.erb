@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<% [*@orders].each do |order| %>
+  <div id="order_<%= order.id %>" style="background:lightblue; margin: 1rem; padding: 1rem; border-radius:1rem;">
+    <p>Order ID: <%= order.id %></p>
+    <ul>
+      <li><%= order.printing_material %></li>
+      <li><%= order.printing_size %></li>
+      <li><%= order.printing_speed %></li>
+      <li><%= order.delivery_method %></li>
+    </ul>
+  </div>
+<% end %>
