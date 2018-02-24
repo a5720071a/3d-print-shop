@@ -42,8 +42,10 @@ document.addEventListener("turbolinks:load", function() {
 
   function init() {
 
-	  container = document.createElement( 'div' );
-	  document.body.appendChild( container );
+    page_content = document.getElementById('page-content');
+	  container = document.createElement('div');
+    container.setAttribute('id', 'model-preview');
+    page_content.appendChild(container);
 
 	  camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 15 );
 	  camera.position.set( 3, 0.15, 3 );

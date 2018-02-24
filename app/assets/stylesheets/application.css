@@ -8,22 +8,17 @@ html * {
   font-size: 100%;
 }
 body {
-  padding: 0;
-  margin: 0;
   background: lightblue;
 }
-body::after {
-  content: "";
-  /*background-image: url("owl.png");*/
-  opacity: 0.2;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  z-index: -1;
+.web-content {
+  margin: 0% 15% 0% 15%;
+  padding: 0;
+  background: white;
 }
 .navbar {
+  top: 0;
+  left: 0;
+  width:100%;
   background: #393939;
 }
 .navlink-block {
@@ -40,6 +35,15 @@ body::after {
 }
 .navlink:hover {
   color: white;
+}
+.page-content {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.page-footer {
+  width: 100%;
+  background: #393939;
 }
 .inline {
   display: inline-block;

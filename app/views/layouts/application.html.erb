@@ -3,50 +3,48 @@
   <head>
     <title>PrintShop</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application' %>
   </head>
+  <body class="no-margin">
+    <div class="web-content" id="web-content">
+      <div class="web-logo" id="web-logo" style="width:100%; background:black;">
+        <p class="no-margin one-rem-padding" style="font-size:200%; color:white;">3D Print Shop</p>
+      </div>
+      <div class="navbar big-font" id="navbar">
+        <div class="navlink-block">
+          <a class="navlink" href='/'>หน้าหลัก</a>
+        </div>
+        <div class="navlink-block">
+          <a class="navlink" href='/tutorial'>แนะนำบริการ</a>
+        </div>
+        <% if current_user %>
+          <div class="navlink-block navlink-block-right">
+            <a class="navlink" href='/logout'>ออกจากระบบ</a>
+          </div>
+          <div class="navlink-block navlink-block-right">
+            <a class="navlink" href='/orders'>ยินดีต้อนรับ <%= current_user.username %></a>
+          </div>
+        <% else %>
+          <div class="navlink-block navlink-block-right">
+            <a class="navlink" href='/signup'>สมัครใช้บริการ</a>
+          </div>
+          <div class="navlink-block navlink-block-right">
+            <a class="navlink" href='/login'>เข้าสู่ระบบ</a>
+          </div>
+        <% end %>
+      </div>
+      
+      <div class="page-content no-margin" id="page-content">
+      <%= yield %>
+      </div>
 
-  <body>
-  
-    <div class="navbar big-font">
-      <div class="navlink-block">
-        <a class="navlink" href='/'>หน้าหลัก</a>
+      <div class="page-footer" id="page-footer">
+        <div class="footer-content one-rem-padding">
+         <canvas id="canvas"></canvas>
+       </div>
       </div>
-      <div class="navlink-block">
-        <a class="navlink" href='/tutorial'>แนะนำบริการ</a>
-      </div>
-      <% if current_user %>
-      <div class="navlink-block navlink-block-right">
-        <a class="navlink" href='/orders'>ยินดีต้อนรับ <%= current_user.username %></a>
-      </div>
-      <div class="navlink-block navlink-block-right">
-        <a class="navlink" href='/logout'>ออกจากระบบ</a>
-      </div>
-      <% else %>
-      <div class="navlink-block navlink-block-right">
-        <a class="navlink" href='/signup'>สมัครใช้บริการ</a>
-      </div>
-      <div class="navlink-block navlink-block-right">
-        <a class="navlink" href='/login'>เข้าสู่ระบบ</a>
-      </div>
-      <% end %>
-    </div>
-    
-    
-    <%= yield %>
-    
-  
-    <div class="footer" style="width: 100%; background: #393939; position: absolute; top: 100%;">
-      <p style="color: white;">Navigation</p>
-      <ul sytle="list-style: none;">
-        <li><a style="color:white;" href="./">Homepage</a></li>
-        <li><a style="color:white;" href="./browse">Browse shared models</a></li>
-        <li><a style="color:white;" href="./upload">Upload your model</a></li>
-      </ul>
-      <canvas id="canvas"></canvas>
     </div>
   </body>
 </html>

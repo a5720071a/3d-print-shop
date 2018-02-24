@@ -7,6 +7,10 @@ class ClientsController < ApplicationController
   end
   def order
     @order = Order.new(order_params)
+    @order.printing_material = "abs_white"
+    @order.printing_size = "100%"
+    @order.printing_speed = "regular"
+    @order.delivery_method = "regular"
     @order.user_id = @current_user.id
     if @order.save
       redirect_to action: "preview", order: "#{ @order.id }"
@@ -27,6 +31,6 @@ class ClientsController < ApplicationController
   def tutorial; end
   private
   def order_params
-    params.require(:order).permit(:model, :printing_material, :printing_speed, :printing_size, :delivery_method)
+    params.require(:order).permit(:model)
   end
 end

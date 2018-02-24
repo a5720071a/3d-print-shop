@@ -2,8 +2,6 @@ $(document).on("turbolinks:load",function(){
   var content;
   if ($("#home-content").length){
     content = $("#home-content");
-  } else if ($("#upload-content").length){
-    content = $("#upload-content");
   }
   if(content){
     var box_height = $(window).height() / 2 - content.outerHeight() / 2;
@@ -17,14 +15,10 @@ $(window).on('resize', function(){
   var content;
   if ($("#home-content").length){
     content = $("#home-content");
-  } else if ($("#upload-content").length){
-    content = $("#upload-content");
   }
   if(content){
-    var box_height = $(window).height() / 2 - content.outerHeight() / 2;
     var box_width = $(window).width() / 2 - content.outerWidth() / 2;
     content.css({position: "absolute"});
-    content.css({top: box_height});
     content.css({left: box_width});
   }
 });

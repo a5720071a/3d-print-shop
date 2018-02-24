@@ -14,3 +14,11 @@
 //= require jquery3
 //= require jquery_ujs
 //= require_tree .
+
+$(document).on("turbolinks:load",function(){
+  var navbar = $("#navbar");
+  var logo = $("#web-logo");
+  var page_content = $("#page-content");
+  var page_content_height = $(window).height() - navbar.outerHeight() - logo.outerHeight();
+  page_content.css({"min-height": page_content_height})
+})

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<div class="upload-content" id="upload-content" style="width:25%;">
+  <div id="upload-content-header">
+    <p class="big-font no-margin">อัพโหลดไฟล์โมเดล</p>
+  </div>
+  <hr align="center" width="100%">
+  <p>นามสกุลไฟล์ที่รองรับ</p>
+  <ul>
+    <li>.obj</li>
+    <li>.stl</li>
+  </ul>
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <input name="order[model]" type="hidden" value="<%= @order.cached_model_data %>">
+    <label for="model-upload" class="custom-file-upload">เลือกไฟล์</label>
+    <input id="model-upload" name="order[model]" accept=".stl, .obj" type="file"></br></br>
+    <label for="printing-material">เลือกวัสดุ</label></br>
+    <select id="printing-material" name="order[printing_material]">
+      <option value="abs_black" selected>ABS Black</option>
+      <option value="abs_white">ABS White</option>
+      <option value="pla_black">PLA Black</option>
+      <option value="pla_white">PLA White</option>
+    </select></br></br>
+    <p>ความเร็วในการปริ้นท์</p>
+    <input type="radio" name="order[printing_speed]" id="regular_speed" value="regular" checked/><label for="regular_speed">ธรรมดา</label>
+    <input type="radio" name="order[printing_speed]" id="express_speed" value="express" /><label for="express_speed">ด่วน</label>
+    </br></br>
+    <p>ตัวเลือกการจัดส่ง</p>
+    <input type="radio" name="order[delivery_method]" id="regular_delivery" value="regular" checked/><label for="regular_speed">ธรรมดา</label>
+    <input type="radio" name="order[delivery_method]" id="express_deliverty" value="express" /><label for="express_speed">ด่วน</label>
+    </br></br>
+    <input name="order[printing_size]" type="hidden" value="100%">
+    <input type="submit" value="Submit">
+  </form>
+</div>
