@@ -10,19 +10,109 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180221094533) do
+ActiveRecord::Schema.define(version: 20180225000828) do
 
-  create_table "orders", force: :cascade do |t|
-    t.text "model_data"
-    t.string "printing_material"
-    t.string "printing_speed"
-    t.string "printing_size"
-    t.string "delivery_method"
-    t.string "transaction_number"
+  create_table "address_books", force: :cascade do |t|
+    t.string "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.index ["user_id"], name: "index_orders_on_user_id"
+    t.integer "users_id"
+    t.index ["users_id"], name: "index_address_books_on_users_id"
+  end
+
+  create_table "carts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "users_id"
+    t.integer "items_id"
+    t.index ["items_id"], name: "index_carts_on_items_id"
+    t.index ["users_id"], name: "index_carts_on_users_id"
+  end
+
+  create_table "filaments", force: :cascade do |t|
+    t.string "description"
+    t.decimal "price_per_gram"
+    t.decimal "remaining"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.decimal "print_height"
+    t.decimal "print_width"
+    t.decimal "print_depth"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "models_id"
+    t.integer "filaments_id"
+    t.integer "print_speeds_id"
+    t.integer "users_id"
+    t.index ["filaments_id"], name: "index_items_on_filaments_id"
+    t.index ["models_id"], name: "index_items_on_models_id"
+    t.index ["print_speeds_id"], name: "index_items_on_print_speeds_id"
+    t.index ["users_id"], name: "index_items_on_users_id"
+  end
+
+  create_table "items_in_orders", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "orders_id"
+    t.integer "items_id"
+    t.index ["items_id"], name: "index_items_in_orders_on_items_id"
+    t.index ["orders_id"], name: "index_items_in_orders_on_orders_id"
+  end
+
+  create_table "model_ratings", force: :cascade do |t|
+    t.string "comment"
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "users_id"
+    t.index ["users_id"], name: "index_model_ratings_on_users_id"
+  end
+
+  create_table "models", force: :cascade do |t|
+    t.text "model_data"
+    t.boolean "share"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "users_id"
+    t.index ["users_id"], name: "index_models_on_users_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "delivery_courier"
+    t.string "feedback_comment"
+    t.integer "feedback_score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "users_id"
+    t.integer "addresses_id"
+    t.string "status"
+    t.index ["addresses_id"], name: "index_orders_on_addresses_id"
+    t.index ["users_id"], name: "index_orders_on_users_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.string "service"
+    t.string "transaction_number"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "orders_id"
+    t.index ["orders_id"], name: "index_payments_on_orders_id"
+  end
+
+  create_table "print_speeds", force: :cascade do |t|
+    t.string "configuration"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_groups", force: :cascade do |t|
+    t.string "group_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -31,7 +121,8 @@ ActiveRecord::Schema.define(version: 20180221094533) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "usergroup"
+    t.integer "user_groups_id"
+    t.index ["user_groups_id"], name: "index_users_on_user_groups_id"
   end
 
 end
