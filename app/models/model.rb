@@ -1,5 +1,5 @@
 class Model < ApplicationRecord
   belongs_to :user
   include ModelUploader::Attachment.new(:model)
-  validates :share, presence: true
+  validates_inclusion_of :share, :in => [true, false]
 end

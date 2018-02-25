@@ -1,15 +1,18 @@
 class ModelsController < ApplicationController
   before_action :require_user
   protect_from_forgery with: :null_session
+  def index
+    @models = Model.where user_id: @current_user.id
+  end
   def new
     @upload = Model.new
   end
-  def upload
+  def create
     @upload = Model.new(upload_params)
-    @upload.share = "False"
+    @upload.share = "false"
     @upload.user_id = @current_user.id
     if @upload.save!
-      redirect_to controller: "orders", action: "print_settings", model: "#{ @upload.id }"
+      redirect_to controller: "orders", action: "new", model: "#{ @upload.id }"
     else
       redirect_to '/upload'
     end

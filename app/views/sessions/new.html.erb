@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <div class="login-content" id="login-content">
   <div id="login-content-header">
     <p class="big-font no-margin">เข้าสู่ระบบ</p>
@@ -10,6 +9,9 @@
     <%= f.text_field :username, :placeholder => "Username" %></br></br>
     <%= f.label :password %></br>
     <%= f.password_field :password, :placeholder => "Password" %></br></br>
+    <% if flash[:failed] %>
+      <p style="color:red;"><%= flash[:failed] %></p>
+    <% end %>
     <%= f.submit "Log in", class: "btn-submit" %>
   <% end %>
 </div>
