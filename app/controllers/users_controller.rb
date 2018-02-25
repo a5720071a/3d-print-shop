@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   end
   def create
     @user = User.new(user_params) 
-    @user.usergroup = 'customer'
+    @user.user_group_id = 1
     if @user.save
       session[:user_id] = @user.id 
       redirect_to '/'

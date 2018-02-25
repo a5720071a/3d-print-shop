@@ -10,23 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180225000828) do
+ActiveRecord::Schema.define(version: 20180225012640) do
 
   create_table "address_books", force: :cascade do |t|
     t.string "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "users_id"
-    t.index ["users_id"], name: "index_address_books_on_users_id"
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_address_books_on_user_id"
   end
 
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "users_id"
-    t.integer "items_id"
-    t.index ["items_id"], name: "index_carts_on_items_id"
-    t.index ["users_id"], name: "index_carts_on_users_id"
+    t.integer "user_id"
+    t.integer "item_id"
+    t.index ["item_id"], name: "index_carts_on_item_id"
+    t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
   create_table "filaments", force: :cascade do |t|
@@ -43,23 +43,23 @@ ActiveRecord::Schema.define(version: 20180225000828) do
     t.decimal "print_depth"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "models_id"
-    t.integer "filaments_id"
-    t.integer "print_speeds_id"
-    t.integer "users_id"
-    t.index ["filaments_id"], name: "index_items_on_filaments_id"
-    t.index ["models_id"], name: "index_items_on_models_id"
-    t.index ["print_speeds_id"], name: "index_items_on_print_speeds_id"
-    t.index ["users_id"], name: "index_items_on_users_id"
+    t.integer "model_id"
+    t.integer "filament_id"
+    t.integer "print_speed_id"
+    t.integer "user_id"
+    t.index ["filament_id"], name: "index_items_on_filament_id"
+    t.index ["model_id"], name: "index_items_on_model_id"
+    t.index ["print_speed_id"], name: "index_items_on_print_speed_id"
+    t.index ["user_id"], name: "index_items_on_user_id"
   end
 
   create_table "items_in_orders", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "orders_id"
-    t.integer "items_id"
-    t.index ["items_id"], name: "index_items_in_orders_on_items_id"
-    t.index ["orders_id"], name: "index_items_in_orders_on_orders_id"
+    t.integer "order_id"
+    t.integer "item_id"
+    t.index ["item_id"], name: "index_items_in_orders_on_item_id"
+    t.index ["order_id"], name: "index_items_in_orders_on_order_id"
   end
 
   create_table "model_ratings", force: :cascade do |t|
@@ -67,8 +67,8 @@ ActiveRecord::Schema.define(version: 20180225000828) do
     t.integer "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "users_id"
-    t.index ["users_id"], name: "index_model_ratings_on_users_id"
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_model_ratings_on_user_id"
   end
 
   create_table "models", force: :cascade do |t|
@@ -76,8 +76,8 @@ ActiveRecord::Schema.define(version: 20180225000828) do
     t.boolean "share"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "users_id"
-    t.index ["users_id"], name: "index_models_on_users_id"
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_models_on_user_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -86,11 +86,11 @@ ActiveRecord::Schema.define(version: 20180225000828) do
     t.integer "feedback_score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "users_id"
-    t.integer "addresses_id"
     t.string "status"
-    t.index ["addresses_id"], name: "index_orders_on_addresses_id"
-    t.index ["users_id"], name: "index_orders_on_users_id"
+    t.integer "user_id"
+    t.integer "address_id"
+    t.index ["address_id"], name: "index_orders_on_address_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "payments", force: :cascade do |t|
@@ -99,8 +99,8 @@ ActiveRecord::Schema.define(version: 20180225000828) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "orders_id"
-    t.index ["orders_id"], name: "index_payments_on_orders_id"
+    t.integer "order_id"
+    t.index ["order_id"], name: "index_payments_on_order_id"
   end
 
   create_table "print_speeds", force: :cascade do |t|
@@ -121,8 +121,8 @@ ActiveRecord::Schema.define(version: 20180225000828) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_groups_id"
-    t.index ["user_groups_id"], name: "index_users_on_user_groups_id"
+    t.integer "user_group_id"
+    t.index ["user_group_id"], name: "index_users_on_user_group_id"
   end
 
 end

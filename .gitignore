@@ -56,4 +56,4 @@ yarn-error.log*
 .yarn-integrity
 
 # Ignore webpack uploads
-/public/uploads
+/public/uploads/*
