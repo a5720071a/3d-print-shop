@@ -22,12 +22,27 @@
           <a class="navlink" href='/#'>แนะนำบริการ</a>
         </div>
         <% if current_user %>
-          <div class="navlink-block navlink-block-right">
-            <a class="navlink" href='/logout'>ออกจากระบบ</a>
-          </div>
-          <div class="navlink-block navlink-block-right">
-            <a class="navlink" href='/my_models'>ยินดีต้อนรับ <%= current_user.username %></a>
-          </div>
+          <% if false %>
+            <div class="navlink-block navlink-block-right">
+              <a class="navlink" href='/logout'>ออกจากระบบ</a>
+            </div>
+            <div class="navlink-block navlink-block-right">
+              <a class="navlink" href='/my_models'>ยินดีต้อนรับ <%= current_user.username %></a>
+            </div>
+          <% end %>
+            <div class="navlink-block navlink-block-right no-padding">
+              <div class="navlink dropdown" onclick="toggle_dropdown()">
+                <p class="no-margin">ยินดีต้อนรับ <%= current_user.username %></p>
+              </div>
+              <div class="dropdown-container" id="dropdown-container">
+                <div class="dropdown-item" style="display:block;">
+                  <a class="navlink" href='/my_models'>โมเดลที่ฉันอัพโหลด</a>
+                </div>
+                <div class="dropdown-item" style="display:block;">
+                  <a class="navlink" href='/logout'>ออกจากระบบ</a>
+                </div>
+              </div>
+            </div>
         <% else %>
           <div class="navlink-block navlink-block-right">
             <a class="navlink" href='/signup'>สมัครใช้บริการ</a>

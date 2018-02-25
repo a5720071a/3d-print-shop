@@ -36,6 +36,20 @@ body {
 .navlink:hover {
   color: white;
 }
+.dropdown {
+  margin: 0;
+  padding: 1rem;
+  text-align: right;
+  cursor: pointer;
+}
+.dropdown-container {
+  top: 1rem;
+  background: #292929;
+  display: none;
+}
+.dropdown-item {
+  padding: 1rem;
+}
 .page-content {
   width: 100%;
   margin: 0;

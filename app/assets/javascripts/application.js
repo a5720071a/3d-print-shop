@@ -22,3 +22,12 @@ $(document).on("turbolinks:load",function(){
   var page_content_height = $(window).height() - navbar.outerHeight() - logo.outerHeight();
   page_content.css({"min-height": page_content_height})
 })
+
+function toggle_dropdown() {
+  var container = $("#dropdown-container");
+  if(container.css("display") == "none"){
+    container.css({display: "inline-block"});
+  } else {
+    container.css({display: "none"});
+  }
+}
