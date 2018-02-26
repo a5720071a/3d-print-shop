@@ -11,30 +11,36 @@
     <%= javascript_pack_tag 'preview' %>
   </head>
   <body>
-    <div class="page-header">
-      <div class="navbar">
-        <div class="navbar-left">
-          <a style="font-size:200%;" href="/">3D Print Shop</a>
-          <a style="margin-left:1rem;" href="/">Tutorial</a>
-          <p style="display:inline; margin-left:1rem;">|</p>
-          <a style="margin-left:1rem;" href="/">Tutorial</a>
-          <p style="display:inline; margin-left:1rem;">|</p>
-          <a style="margin-left:1rem;" href="/">Tutorial</a>
+    <div class="content">
+      <div class="page-header">
+        <div class="navbar">
+          <div class="navbar-left">
+            <a style="font-size:200%;" href="/">3D Print Shop</a>
+            <a style="margin-left:1rem;" href="/">Tutorial</a>
+            <p style="display:inline; margin:0 1rem 0 1rem;">|</p>
+            <a href="/">Tutorial</a>
+            <p style="display:inline; margin:0 1rem 0 1rem;">|</p>
+            <a href="/">Tutorial</a>
+          </div>
+          <div class="navbar-right">
+            <% if current_user %>
+              <p style="display:inline; margin-right:1rem;">Hello, <%= current_user.username %> <i class="user-arrow"></i></p>
+              <a style="margin-right:1rem;" href="/my_models">My uploads</a>
+              <a href="/logout">Log Out</a>
+            <% else %>
+              <a style="margin-right:1rem;" href="/login">Log In</a>
+              <a href="/signup">Sign Up</a>
+            <% end %>
+          </div>
         </div>
-        <div class="navbar-right">
-          <% if current_user %>
-            <p style="display:inline; margin-right:1rem;">Hello, <%= current_user.username %></p>
-            <a href="/my_models">My uploads</a>
-          <% else %>
-            <a href="/login">Login</a>
-          <% end %>
+      </div>
+      <div class="page-content-container">
+        <div class="page-content">
+          <%= yield %>
         </div>
       </div>
     </div>
-    <div class="page-content" id="page-content">
-      <%= yield %>
-    </div>
-    <div class="page-footer" id="page-footer">
+    <div class="footer">
       <div class="footer-content">
         <canvas id="canvas"></canvas>
       </div>

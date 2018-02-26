@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-
-<div class="signup-content" id="signup-content">
-  <div id="signup-content-header">
-    <p class="big-font no-margin">สมัครใช้บริการ</p>
+<div class="panel">
+  <div class="panel-header">
+    <p>สมัครใช้บริการ</p>
   </div>
-  <hr align="center" width="100%">
-  <%= form_for @user, url: signup_path do |f| %>
-    <%= f.label :email, 'e-mail' %></br>
-    <%= f.text_field :email %></br></br>
-    <%= f.label :username %></br>
-    <%= f.text_field :username %></br></br>
-    <%= f.label :password %></br>
-    <%= f.password_field :password %></br></br>
-    <%= f.submit "Submit" %>
-  <% end %>
+  <div class="panel-content">
+    <%= form_for @user, url: signup_path do |f| %>
+      <%= f.label :email, 'e-mail' %></br>
+      <%= f.text_field :email %></br></br>
+      <%= f.label :username %></br>
+      <%= f.text_field :username %></br></br>
+      <%= f.label :password %></br>
+      <%= f.password_field :password %></br></br>
+      <%= f.submit "Sign up", class: "btn-small" %>
+    <% end %>
+  </div>
 </div>

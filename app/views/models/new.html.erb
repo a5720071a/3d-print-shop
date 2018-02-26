@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<div class="upload-content" id="upload-content">
-  <div id="upload-content-header">
-    <p class="big-font no-margin">อัพโหลดไฟล์โมเดลของคุณ</p>
+<div class="panel">
+  <div class="panel-header">
+    <p>อัพโหลดไฟล์โมเดลของคุณ</p>
   </div>
-  <div id="upload-content-details">
+  <div class="panel-content upload">
     <p>นามสกุลไฟล์ที่รองรับ</p>
     <ul>
       <li>.STL</li>
@@ -11,7 +11,7 @@
     <form action="/upload" method="post" enctype="multipart/form-data">
       <input name="upload[model]" type="hidden" value="<%= @upload.cached_model_data %>">
       <label for="model-upload" class="custom-file-upload">เลือกไฟล์</label>
-      <input id="model-upload" name="upload[model]" accept=".stl, .obj" type="file" onchange="this.form.submit()"></br></br>
+      <input id="model-upload" name="upload[model]" accept=".stl, .obj" type="file" onchange="this.form.submit()">
     </form>
   </div>
 </div>
