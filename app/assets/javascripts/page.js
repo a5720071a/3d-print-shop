@@ -1,6 +1,6 @@
 $(document).on("turbolinks:load",function(){
   var content;
-  if ($("#home-content").length){
+  if ($("#homez-content").length){
     content = $("#home-content");
   }
   if(content){
@@ -13,7 +13,7 @@ $(document).on("turbolinks:load",function(){
 })
 $(window).on('resize', function(){
   var content;
-  if ($("#home-content").length){
+  if ($("#homez-content").length){
     content = $("#home-content");
   }
   if(content){

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>PrintShop</title>
+    <title>3D Print Shop</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -9,58 +10,33 @@
     <%= javascript_pack_tag 'promptpayqr' %>
     <%= javascript_pack_tag 'preview' %>
   </head>
-  <body class="no-margin">
-    <div class="web-content" id="web-content">
-      <div class="web-logo" id="web-logo" style="width:100%; background:black;">
-        <p class="no-margin one-rem-padding" style="font-size:200%; color:white;">3D Print Shop</p>
-      </div>
-      <div class="navbar big-font" id="navbar">
-        <div class="navlink-block">
-          <a class="navlink" href='/'>หน้าหลัก</a>
+  <body>
+    <div class="page-header">
+      <div class="navbar">
+        <div class="navbar-left">
+          <a style="font-size:200%;" href="/">3D Print Shop</a>
+          <a style="margin-left:1rem;" href="/">Tutorial</a>
+          <p style="display:inline; margin-left:1rem;">|</p>
+          <a style="margin-left:1rem;" href="/">Tutorial</a>
+          <p style="display:inline; margin-left:1rem;">|</p>
+          <a style="margin-left:1rem;" href="/">Tutorial</a>
         </div>
-        <div class="navlink-block">
-          <a class="navlink" href='/#'>แนะนำบริการ</a>
-        </div>
-        <% if current_user %>
-          <% if false %>
-            <div class="navlink-block navlink-block-right">
-              <a class="navlink" href='/logout'>ออกจากระบบ</a>
-            </div>
-            <div class="navlink-block navlink-block-right">
-              <a class="navlink" href='/my_models'>ยินดีต้อนรับ <%= current_user.username %></a>
-            </div>
+        <div class="navbar-right">
+          <% if current_user %>
+            <p style="display:inline; margin-right:1rem;">Hello, <%= current_user.username %></p>
+            <a href="/my_models">My uploads</a>
+          <% else %>
+            <a href="/login">Login</a>
           <% end %>
-            <div class="navlink-block navlink-block-right no-padding">
-              <div class="navlink dropdown" onclick="toggle_dropdown()">
-                <p class="no-margin">ยินดีต้อนรับ <%= current_user.username %></p>
-              </div>
-              <div class="dropdown-container" id="dropdown-container">
-                <div class="dropdown-item" style="display:block;">
-                  <a class="navlink" href='/my_models'>โมเดลที่ฉันอัพโหลด</a>
-                </div>
-                <div class="dropdown-item" style="display:block;">
-                  <a class="navlink" href='/logout'>ออกจากระบบ</a>
-                </div>
-              </div>
-            </div>
-        <% else %>
-          <div class="navlink-block navlink-block-right">
-            <a class="navlink" href='/signup'>สมัครใช้บริการ</a>
-          </div>
-          <div class="navlink-block navlink-block-right">
-            <a class="navlink" href='/login'>เข้าสู่ระบบ</a>
-          </div>
-        <% end %>
+        </div>
       </div>
-      
-      <div class="page-content no-margin" id="page-content">
+    </div>
+    <div class="page-content" id="page-content">
       <%= yield %>
-      </div>
-
-      <div class="page-footer" id="page-footer">
-        <div class="footer-content one-rem-padding">
-         <canvas id="canvas"></canvas>
-       </div>
+    </div>
+    <div class="page-footer" id="page-footer">
+      <div class="footer-content">
+        <canvas id="canvas"></canvas>
       </div>
     </div>
   </body>
