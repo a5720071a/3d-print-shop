@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<div class="panel">
-  <div class="panel-header">
-    <p>สมัครใช้บริการ</p>
-  </div>
-  <div class="panel-content">
-    <%= form_for @user, url: signup_path do |f| %>
-      <%= f.label :email, 'e-mail' %></br>
-      <%= f.text_field :email %></br></br>
-      <%= f.label :username %></br>
-      <%= f.text_field :username %></br></br>
-      <%= f.label :password %></br>
-      <%= f.password_field :password %></br></br>
-      <%= f.submit "Sign up", class: "btn-small" %>
-    <% end %>
+<div class="page-content">
+  <div class="panel">
+    <div class="panel-header">
+      <p>สมัครใช้บริการ</p>
+    </div>
+    <div class="panel-content">
+      <%= form_for @user, url: signup_path do |f| %>
+        <%= f.label :email, 'e-mail' %></br>
+        <%= f.text_field :email %></br></br>
+        <%= f.label :username %></br>
+        <%= f.text_field :username %></br></br>
+        <%= f.label :password %></br>
+        <%= f.password_field :password %></br></br>
+        <%= f.submit "Sign up", class: "btn-small" %>
+      <% end %>
+    </div>
   </div>
 </div>

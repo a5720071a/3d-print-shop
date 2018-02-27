@@ -44,12 +44,14 @@ document.addEventListener("turbolinks:load", function() {
 
     function init() {
 
-      var preview_box = document.getElementById('preview-content');
+      var preview_box = document.getElementById('preview-box');
 	    container = document.createElement('div');
       container.setAttribute('id', 'model-preview');
+      container.setAttribute('class', 'model-preview');
       preview_box.appendChild(container);
 
-	    camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 15 );
+	    //camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 15 );
+      camera = new THREE.PerspectiveCamera( 35, 1, 1, 15 );
 	    camera.position.set( 3, 0.15, 3 );
 
 	    cameraTarget = new THREE.Vector3( 0, -0.25, 0 );
@@ -89,8 +91,8 @@ document.addEventListener("turbolinks:load", function() {
 		    var mesh = new THREE.Mesh( geometry, meshMaterial );
 
 		    mesh.position.set( 0, -0.5, 0 );
-		    mesh.rotation.set( 0, 0, 0 );
-		    mesh.scale.set( 0.01, 0.01, 0.01 );
+		    mesh.rotation.set( 3 * Math.PI / 2 , 0, 0 );
+		    mesh.scale.set( 0.007, 0.007, 0.007 );
 
 		    mesh.castShadow = true;
 		    mesh.receiveShadow = true;
@@ -109,7 +111,8 @@ document.addEventListener("turbolinks:load", function() {
 
 	    renderer = new THREE.WebGLRenderer( { antialias: true } );
 	    renderer.setPixelRatio( window.devicePixelRatio );
-	    renderer.setSize( window.innerWidth * 0.5, window.innerHeight * 0.5 );
+	    //renderer.setSize( window.innerWidth * 0.5, window.innerHeight * 0.5 );
+      renderer.setSize( 250 , 250 , false );
 
 	    renderer.gammaInput = true;
 	    renderer.gammaOutput = true;
@@ -126,7 +129,7 @@ document.addEventListener("turbolinks:load", function() {
 
 	    //
 
-	    window.addEventListener( 'resize', onWindowResize, false );
+	    // window.addEventListener( 'resize', onWindowResize, false );
 
     }
 
