@@ -24,9 +24,7 @@ $(document).on("turbolinks:load", function() {
       container.setAttribute('class', 'model-preview');
       preview_box.append(container);
 
-      camera = new THREE.PerspectiveCamera( 35, 1, 1, 15 );
-      controls = new OrbitControls( camera );
-
+      camera = new THREE.PerspectiveCamera( 35, 1, 0.1, 15 );
 	    camera.position.set( 3, 0.15, 3 );
 
 
@@ -80,7 +78,7 @@ $(document).on("turbolinks:load", function() {
 	    renderer = new THREE.WebGLRenderer( { antialias: true } );
 	    renderer.setPixelRatio( window.devicePixelRatio );
 	    //renderer.setSize( window.innerWidth * 0.5, window.innerHeight * 0.5 );
-      renderer.setSize( 250 , 250 , false );
+      renderer.setSize( 500 , 500 , false );
 
 	    renderer.gammaInput = true;
 	    renderer.gammaOutput = true;
@@ -97,7 +95,11 @@ $(document).on("turbolinks:load", function() {
 
 	    //
 
-	    renderer.domElement.addEventListener( 'click', changeColor, false );
+	    $("#model-color").on( 'change', function(e){
+        mesh.material.color.setHex( this.value );
+      });
+      controls = new OrbitControls( camera, renderer.domElement );
+      controls.enablePan = false;
 
     }
 
@@ -122,13 +124,6 @@ $(document).on("turbolinks:load", function() {
 	    directionalLight.shadow.mapSize.height = 1024;
 
 	    directionalLight.shadow.bias = -0.005;
-
-    }
-
-    function changeColor() {
-      
-      customColor = [ 0x80c986, 0xededa6, 0x75e5cf, 0xdb78a6, 0xdb7878 ]
-	    mesh.material.color.setHex( customColor[Math.floor(Math.random()*4)] );
 
     }
 
