@@ -1,67 +1,40 @@
 const THREE = require('three')
 const STLLoader = require('three-stl-loader')(THREE)
+const OrbitControls = require('three-orbit-controls')(THREE)
 
-/*
-var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-
-var renderer = new THREE.WebGLRenderer();
-renderer.setSize( window.innerWidth/2, window.innerHeight/2 );
-document.body.appendChild( renderer.domElement );
-
-var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-var cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
-
-camera.position.z = 5;
-
-var animate = function () {
-	requestAnimationFrame( animate );	
-
-	cube.rotation.x += 0.01;
-	cube.rotation.y += 0.01;
-
-	renderer.render(scene, camera);
-};
-
-animate();
-*/
-
-document.addEventListener("turbolinks:load", function() {
-  var model_url_container = document.getElementById("model_url");
-  if(model_url_container != null) {
-    var model_url = model_url_container.innerHTML;
+$(document).on("turbolinks:load", function() {
+  var model_url_container = $("#model_url");
+  if(model_url_container.length) {
+    var model_url = model_url_container.html();
 
     //if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
     var container, stats;
 
-    var camera, cameraTarget, scene, renderer;
+    var camera, cameraTarget, scene, renderer, control, mesh;
 
     init();
     animate();
 
     function init() {
 
-      var preview_box = document.getElementById('preview-box');
+      var preview_box = $('#preview-box');
 	    container = document.createElement('div');
       container.setAttribute('id', 'model-preview');
       container.setAttribute('class', 'model-preview');
-      preview_box.appendChild(container);
+      preview_box.append(container);
 
-	    //camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 15 );
       camera = new THREE.PerspectiveCamera( 35, 1, 1, 15 );
+      controls = new OrbitControls( camera );
+
 	    camera.position.set( 3, 0.15, 3 );
 
-	    cameraTarget = new THREE.Vector3( 0, -0.25, 0 );
+
+	    cameraTarget = new THREE.Vector3( 0, 0, 0 );
 
 	    scene = new THREE.Scene();
 	    scene.background = new THREE.Color( 0x72645b );
 	    scene.fog = new THREE.Fog( 0x72645b, 2, 15 );
-
-
-	    // Ground
 
 	    var plane = new THREE.Mesh(
 		    new THREE.PlaneBufferGeometry( 40, 40 ),
@@ -73,14 +46,9 @@ document.addEventListener("turbolinks:load", function() {
 
 	    plane.receiveShadow = true;
 
-
-	    // ASCII file
-
-	    //var loader = new THREE.STLLoader();
 	    var loader = new STLLoader();
 	    var material = new THREE.MeshPhongMaterial( { color: 0xAAAAAA, specular: 0x111111, shininess: 200 } );
 
-	    // Colored binary STL
 	    loader.load( model_url, function ( geometry ) {
 
 		    var meshMaterial = material;
@@ -88,7 +56,7 @@ document.addEventListener("turbolinks:load", function() {
 			    meshMaterial = new THREE.MeshPhongMaterial({ opacity: geometry.alpha, vertexColors: THREE.VertexColors });
 		    }
 
-		    var mesh = new THREE.Mesh( geometry, meshMaterial );
+		    mesh = new THREE.Mesh( geometry, meshMaterial );
 
 		    mesh.position.set( 0, -0.5, 0 );
 		    mesh.rotation.set( 3 * Math.PI / 2 , 0, 0 );
@@ -129,7 +97,7 @@ document.addEventListener("turbolinks:load", function() {
 
 	    //
 
-	    // window.addEventListener( 'resize', onWindowResize, false );
+	    renderer.domElement.addEventListener( 'click', changeColor, false );
 
     }
 
@@ -157,12 +125,10 @@ document.addEventListener("turbolinks:load", function() {
 
     }
 
-    function onWindowResize() {
-
-	    camera.aspect = window.innerWidth / window.innerHeight;
-	    camera.updateProjectionMatrix();
-
-	    renderer.setSize( window.innerWidth, window.innerHeight );
+    function changeColor() {
+      
+      customColor = [ 0x80c986, 0xededa6, 0x75e5cf, 0xdb78a6, 0xdb7878 ]
+	    mesh.material.color.setHex( customColor[Math.floor(Math.random()*4)] );
 
     }
 
@@ -178,9 +144,6 @@ document.addEventListener("turbolinks:load", function() {
     function render() {
 
 	    var timer = Date.now() * 0.0005;
-
-	    camera.position.x = Math.cos( timer ) * 3;
-	    camera.position.z = Math.sin( timer ) * 3;
 
 	    camera.lookAt( cameraTarget );
 
