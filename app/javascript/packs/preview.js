@@ -78,7 +78,7 @@ $(document).on("turbolinks:load", function() {
 	    renderer = new THREE.WebGLRenderer( { antialias: true } );
 	    renderer.setPixelRatio( window.devicePixelRatio );
 	    //renderer.setSize( window.innerWidth * 0.5, window.innerHeight * 0.5 );
-      renderer.setSize( 500 , 500 , false );
+      renderer.setSize( 250 , 250 , false );
 
 	    renderer.gammaInput = true;
 	    renderer.gammaOutput = true;
@@ -97,6 +97,26 @@ $(document).on("turbolinks:load", function() {
 
 	    $("#model-color").on( 'change', function(e){
         mesh.material.color.setHex( this.value );
+      });
+      $("#quality_ll").on( 'change', function(e){
+        renderer.setSize( 150 , 150 , false );
+        console.log("very low")
+      });
+      $("#quality_l").on( 'change', function(e){
+        renderer.setSize( 200 , 200 , false );
+        console.log("low")
+      });
+      $("#quality_m").on( 'change', function(e){
+        renderer.setSize( 250 , 250 , false );
+        console.log("medium")
+      });
+      $("#quality_h").on( 'change', function(e){
+        renderer.setSize( 375 , 375 , false );
+        console.log("high")
+      });
+      $("#quality_hh").on( 'change', function(e){
+        renderer.setSize( 500 , 500 , false );
+        console.log("very high")
       });
       controls = new OrbitControls( camera, renderer.domElement );
       controls.enablePan = false;

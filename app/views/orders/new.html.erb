@@ -2,6 +2,7 @@
 <div class="page-content">
   <div id="preview-box">
     <p id="model_url" style="display:none"><%= @model.model_url %></p>
+    <h3>Select model color</h3>
     <select id="model-color">
       <option value="0xaaaaaa">0xaaaaaa</option>
       <option value="0xc879ce">0xc879ce</option>
@@ -15,5 +16,13 @@
       <option value="0x8388d3">0x8388d3</option>
       <option value="0xe5c347">0xe5c347</option>
     </select>
+    <form action="">
+      <h3>3D Viewer quality</h3>
+      <input type="radio" name="quality" id="quality_ll" value="ll"> VERY LOW<br>
+      <input type="radio" name="quality" id="quality_l" value="l"> LOW<br>
+      <input type="radio" name="quality" id="quality_m" value="m" checked> MEDIUM<br>
+      <input type="radio" name="quality" id="quality_h" value="h"> HIGH<br>
+      <input type="radio" name="quality" id="quality_hh" value="hh"> VERY HIGH<br>
+    </form>
   </div>
 </div>
