@@ -4,11 +4,12 @@ class UsersController < ApplicationController
   end
   def create
     @user = User.new(user_params) 
-    @user.user_group_id = 1
+    @user.user_group_id = UserGroup.find_by(group_name: "customer").id
     if @user.save
       session[:user_id] = @user.id
       redirect_to '/'
     else
+      flash[:failed] = "Registration failed."
       redirect_to '/signup' 
     end
   end

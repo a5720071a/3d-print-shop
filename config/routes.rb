@@ -16,4 +16,8 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
 
+  get '/staff' => 'staff#index'
+
+  get '/admin' => 'admin#index'
+
 end

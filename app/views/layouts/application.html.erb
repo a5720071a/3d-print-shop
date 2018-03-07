@@ -25,7 +25,9 @@
           <div class="navbar-right">
             <% if current_user %>
               <p style="display:inline; margin-right:1rem;">Hello, <%= current_user.username %> <i class="user-arrow"></i></p>
-              <a style="margin-right:1rem;" href="/my_models">My uploads</a>
+              <% if is_customer? %>
+                <a style="margin-right:1rem;" href="/my_models">My uploads</a>
+              <% end %>
               <a href="/logout">Log Out</a>
             <% else %>
               <a style="margin-right:1rem;" href="/login">Log In</a>

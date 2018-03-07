@@ -1,17 +1,37 @@
 class SessionsController < ApplicationController
-  def new ; end
+  def new
+    @ref = params[:ref] if params[:ref]
+  end
   def create
-    @user = User.find_by_username(params[:session][:username])
+    @user = User.find_by username: params[:session][:username]
     if @user && @user.authenticate(params[:session][:password])
       session[:user_id] = @user.id
-      redirect_to '/'
+      if params[:ref]
+        redirect_to params[:ref]
+      else
+        redirect_to_home
+      end
     else
       flash[:failed] = "Authentication failed."
-      redirect_to '/login'
+      if params[:ref]
+        redirect_to controller: "sessions", action: "new", ref: params[:ref]
+      else
+        redirect_to '/login'
+      end
+    end
+  end
+  def redirect_to_home
+    if is_admin?
+      redirect_to '/admin'
+    elsif is_staff?
+      redirect_to '/staff'
+    else
+      redirect_to '/'
     end
   end
   def destroy
     session[:user_id] = nil
     redirect_to '/'
   end
+
 end
