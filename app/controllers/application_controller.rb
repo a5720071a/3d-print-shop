@@ -14,9 +14,18 @@ class ApplicationController < ActionController::Base
       UserGroup.find_by(id: current_user.user_group_id).group_name == method.to_s[3..-2]
     end
   end
-  [:has_staff_privillege?, :has_admin_privillege?].each do |method|
+  def redirect_to_home
+    if is_admin?
+      redirect_to '/admin'
+    elsif is_staff?
+      redirect_to '/staff'
+    else
+      redirect_to '/'
+    end
+  end
+  [:has_customer_privillege?, :has_staff_privillege?, :has_admin_privillege?].each do |method|
     define_method method do
-      redirect_to '/' unless UserGroup.find_by(id: current_user.user_group_id).group_name == method.to_s[4..8]
+      redirect_to_home unless UserGroup.find_by(id: current_user.user_group_id).group_name == method.to_s[4..-13]
     end
   end
 end

@@ -20,18 +20,8 @@ class SessionsController < ApplicationController
       end
     end
   end
-  def redirect_to_home
-    if is_admin?
-      redirect_to '/admin'
-    elsif is_staff?
-      redirect_to '/staff'
-    else
-      redirect_to '/'
-    end
-  end
   def destroy
     session[:user_id] = nil
     redirect_to '/'
   end
-
 end

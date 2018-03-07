@@ -1,5 +1,5 @@
 class ModelsController < ApplicationController
-  before_action :require_user
+  before_action :require_user, :has_customer_privillege?
   protect_from_forgery with: :null_session
   def index
     @models = Model.where user_id: @current_user.id
