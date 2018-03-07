@@ -12,6 +12,9 @@
         <%= f.text_field :username %></br></br>
         <%= f.label :password %></br>
         <%= f.password_field :password %></br></br>
+        <% if flash[:registration_failed] %>
+          <p style="color:red; padding-bottom:1rem;"><%= flash[:registration_failed] %></p>
+        <% end %>
         <%= f.submit "Sign up", class: "btn-small" %>
       <% end %>
     </div>

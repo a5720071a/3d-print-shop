@@ -9,7 +9,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to '/'
     else
-      flash[:failed] = "Registration failed."
+      flash[:registration_failed] = "Registration failed."
       redirect_to '/signup' 
     end
   end

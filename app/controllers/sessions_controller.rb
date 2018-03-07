@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
         redirect_to_home
       end
     else
-      flash[:failed] = "Authentication failed."
+      flash[:authentication_failed] = "Authentication failed."
       if params[:ref]
         redirect_to controller: "sessions", action: "new", ref: params[:ref]
       else
