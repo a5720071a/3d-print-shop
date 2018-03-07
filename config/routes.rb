@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'application#home'
 
-  get '/my_models' => "models#index"
+  get '/browse' => "models#index"
+  get '/my_models' => "models#my_models"
   get '/upload' => 'models#new'
   post '/upload' => 'models#create'
 
