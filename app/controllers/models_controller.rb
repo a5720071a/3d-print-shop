@@ -11,8 +11,8 @@ class ModelsController < ApplicationController
     @upload = Model.new
   end
   def create
-    @upload = Model.new(upload_params)
-    @upload.share = "false"
+    @upload = Model.new(get_model_data)
+    @upload.share = get_share_option
     @upload.user_id = @current_user.id
     if @upload.save!
       redirect_to controller: "orders", action: "new", model: "#{ @upload.id }"
@@ -21,7 +21,10 @@ class ModelsController < ApplicationController
     end
   end
   private
-  def upload_params
+  def get_model_data
     params.require(:upload).permit(:model)
+  end
+  def get_share_option
+    params.require(:upload).permit(:share)
   end
 end
