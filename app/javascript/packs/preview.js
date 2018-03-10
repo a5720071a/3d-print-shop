@@ -76,7 +76,7 @@ $(document).on("turbolinks:load", function() {
       
       // create user controls
 	    $("#model-color").on( 'change', function(e){
-        mesh.material.color.setHex( this.value );
+        mesh.material.color.setHex( $(this).children(":selected").attr("id").split('_').pop() );
       });
       $("#quality-ll").on( 'change', function(e){
         renderer.setSize( 150 , 150 , false );

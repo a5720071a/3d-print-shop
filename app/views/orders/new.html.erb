@@ -26,17 +26,9 @@
             </br><p style="color:red;">*Minimum dimension : 5 mm.</p>
             <h3>Select model color</h3>
             <select id="model-color" name="filament-id">
-              <option value="0xaaaaaa">ABS, White</option>
-              <option value="0xc879ce">0xc879ce</option>
-              <option value="0xc5f442">0xc5f442</option>
-              <option value="0xed8b9c">0xed8b9c</option>
-              <option value="0x9fed9c">0x9fed9c</option>
-              <option value="0x27c6be">0x27c6be</option>
-              <option value="0x8364bc">0x8364bc</option>
-              <option value="0xd17947">0xd17947</option>
-              <option value="0x5aede0">0x5aede0</option>
-              <option value="0x8388d3">0x8388d3</option>
-              <option value="0xe5c347">0xe5c347</option>
+              <% @filaments.each do |filament| %>
+                <option id="<%= filament.id %>_<%= filament.hex_color_value %>"><%= filament.description %></option>
+              <% end %>
             </select>
             <h3>Select printing speed</h3>
             <input type="radio" name="print-speed-id" id="speed-regular" value="1" checked> Regular
