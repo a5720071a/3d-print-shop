@@ -5,23 +5,24 @@
       <p>Customize your print</p>
     </div>
     <div class="panel-content">
-      <p id="model_url" style="display:none;"><%= @model.model_url %></p>
+      <p id="model-url" style="display:none;"><%= @model.model_url %></p>
       <div id="preview-box" style="display:table;">
         <div id="preview-panel" style="display:table-cell; vertical-align:top;">
           <h3 style="display:inline;">3D Viewer quality</h3>
-          <input type="radio" name="quality" id="quality_ll" value="ll"> VERY LOW
-          <input type="radio" name="quality" id="quality_l" value="l"> LOW
-          <input type="radio" name="quality" id="quality_m" value="m" checked> MEDIUM
-          <input type="radio" name="quality" id="quality_h" value="h"> HIGH
-          <input type="radio" name="quality" id="quality_hh" value="hh"> VERY HIGH
+          <input type="radio" name="quality" id="quality-ll" value="ll"> VERY LOW
+          <input type="radio" name="quality" id="quality-l" value="l"> LOW
+          <input type="radio" name="quality" id="quality-m" value="m" checked> MEDIUM
+          <input type="radio" name="quality" id="quality-h" value="h"> HIGH
+          <input type="radio" name="quality" id="quality-hh" value="hh"> VERY HIGH
           </br></br>
         </div>
         <div id="options-panel" style="display:table-cell; vertical-align:top;">
           <form action="" style="padding-left:5rem;">
             <h3 style="margin-top:0;">Select printing size</h3>
-            Height : <input type="text" name="print_height" placeholder="height"></br>
-            Width : <input type="text" name="print_width" placeholder="width"></br>
-            Depth : <input type="text" name="print_depth" placeholder="depth">
+            <p id="model-scale"></p>
+            Height : <input type="text" id="print-height" name="print-height" placeholder="height"> mm.</br>
+            Width : <input type="text" id="print-width" name="print-width" placeholder="width"> mm.</br>
+            Depth : <input type="text" id="print-depth" name="print-depth" placeholder="depth"> mm.
             <h3>Select model color</h3>
             <select id="model-color">
               <option value="0xaaaaaa">ABS, White</option>
@@ -37,8 +38,8 @@
               <option value="0xe5c347">0xe5c347</option>
             </select>
             <h3>Select printing speed</h3>
-            <input type="radio" name="print_speed_id" id="speed_regular" value="1" checked> Regular
-            <input type="radio" name="print_speed_id" id="speed_express" value="2"> Express
+            <input type="radio" name="print-speed-id" id="speed-regular" value="1" checked> Regular
+            <input type="radio" name="print-speed-id" id="speed-express" value="2"> Express
           </form>
         </div>
       </div>
