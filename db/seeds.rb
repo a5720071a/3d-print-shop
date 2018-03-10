@@ -22,3 +22,5 @@ Filament.create(description: "PLA Green", hex_color_value: "0x9FED9C", price_per
 Filament.create(description: "PLA Blue", hex_color_value: "0x5AEDE0", price_per_gram: "1", remaining: "1000")
 Filament.create(description: "PLA Purple", hex_color_value: "0x8364BC", price_per_gram: "1", remaining: "1000")
 Filament.create(description: "PLA Orange", hex_color_value: "0xd17947", price_per_gram: "1", remaining: "1000")
+PrintSpeed.create(configuration: "normal")
+PrintSpeed.create(configuration: "fast")

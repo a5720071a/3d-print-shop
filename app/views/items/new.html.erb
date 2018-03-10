@@ -17,22 +17,24 @@
           </br></br>
         </div>
         <div id="options-panel" style="display:table-cell; vertical-align:top;">
-          <form action="" style="padding-left:5rem;">
+          <form action="/add_to_cart" method="post" style="padding-left:5rem;">
+            <input type="hidden" name="item[model_id]" value="<%= @model.id %>">
             <h3 style="margin-top:0;">Select printing size</h3>
             <p id="model-scale"></p>
-            Height : <input type="number" min="5" id="print-height" name="print-height" placeholder="height"> mm.</br>
-            Width : <input type="number" min="5" id="print-width" name="print-width" placeholder="width"> mm.</br>
-            Depth : <input type="number" min="5" id="print-depth" name="print-depth" placeholder="depth"> mm.</br>
+            Height : <input type="number" min="5" step="0.1" id="print-height" name="item[print_height]" placeholder="height"> mm.</br>
+            Width : <input type="number" min="5" step="0.1" id="print-width" name="item[print_width]" placeholder="width"> mm.</br>
+            Depth : <input type="number" min="5" step="0.1" id="print-depth" name="item[print_depth]" placeholder="depth"> mm.</br>
             </br><p style="color:red;">*Minimum dimension : 5 mm.</p>
             <h3>Select model color</h3>
-            <select id="model-color" name="filament-id">
+            <select id="model-color" name="item[filament_id]">
               <% @filaments.each do |filament| %>
                 <option id="<%= filament.id %>_<%= filament.hex_color_value %>"><%= filament.description %></option>
               <% end %>
             </select>
             <h3>Select printing speed</h3>
-            <input type="radio" name="print-speed-id" id="speed-regular" value="1" checked> Regular
-            <input type="radio" name="print-speed-id" id="speed-express" value="2"> Express
+            <input type="radio" name="item[print_speed_id]" id="speed-regular" value="1" checked> Regular</input>
+            <input type="radio" name="item[print_speed_id]" id="speed-express" value="2"> Express</input>
+            <input type="submit" value="Add to cart"></input>
           </form>
         </div>
       </div>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<div class="page-content">
+  <% if [*@cart].length > 0 %>
+    <% [*@cart].each do |item| %>
+      <div class="card" id="item_<%= item.id %>">
+        <div class="card-content">
+          <%= item.id %>
+          <%= item.print_height %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="card">
+      <div class="card-content">
+        <h4><b>ไม่มีสินค้า</b></h4> 
+        <p>คุณไม่มีสินค้าในตะกร้า</p> 
+      </div>
+    </div>
+  <% end %>
+</div>

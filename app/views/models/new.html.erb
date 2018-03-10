@@ -11,8 +11,8 @@
       </ul>
       <form action="/upload" method="post" enctype="multipart/form-data">
         <p>ตั้งค่าการแชร์</p></br>
-        <input type="radio" name="share" value="false" checked>Private
-        <input type="radio" name="share" value="true">Public</br></br>
+        <input type="radio" name="upload[share]" value="false" checked>Private
+        <input type="radio" name="upload[share]" value="true">Public</br></br>
         <input name="upload[model]" type="hidden" value="<%= @upload.cached_model_data %>">
         <label for="model-upload" class="custom-file-upload">เลือกไฟล์</label>
         <input id="model-upload" name="upload[model]" accept=".stl, .obj" type="file" onchange="this.form.submit()">

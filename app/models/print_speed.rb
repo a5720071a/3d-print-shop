@@ -1,0 +1,2 @@
+class PrintSpeed < ApplicationRecord
+end

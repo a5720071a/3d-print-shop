@@ -4,7 +4,7 @@
     <% [*@models].each do |model| %>
       <div class="card" id="model_<%= model.id %>">
         <div class="card-content">
-         <%= link_to "model ID: #{model.id}", controller: "orders", action: "new", model: "#{ model.id }" %>
+         <%= link_to "model ID: #{model.id}", controller: "items", action: "new", model: "#{ model.id }" %>
          <ul>
            <li>Shared : <%= model.share %></li>
             <li>Uploaded on : <%= model.created_at %></li>
