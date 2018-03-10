@@ -1,28 +1,47 @@
 <!DOCTYPE html>
 <div class="page-content">
-  <div id="preview-box">
-    <p id="model_url" style="display:none"><%= @model.model_url %></p>
-    <h3>Select model color</h3>
-    <select id="model-color">
-      <option value="0xaaaaaa">0xaaaaaa</option>
-      <option value="0xc879ce">0xc879ce</option>
-      <option value="0xc5f442">0xc5f442</option>
-      <option value="0xed8b9c">0xed8b9c</option>
-      <option value="0x9fed9c">0x9fed9c</option>
-      <option value="0x27c6be">0x27c6be</option>
-      <option value="0x8364bc">0x8364bc</option>
-      <option value="0xd17947">0xd17947</option>
-      <option value="0x5aede0">0x5aede0</option>
-      <option value="0x8388d3">0x8388d3</option>
-      <option value="0xe5c347">0xe5c347</option>
-    </select>
-    <form action="">
-      <h3>3D Viewer quality</h3>
-      <input type="radio" name="quality" id="quality_ll" value="ll"> VERY LOW<br>
-      <input type="radio" name="quality" id="quality_l" value="l"> LOW<br>
-      <input type="radio" name="quality" id="quality_m" value="m" checked> MEDIUM<br>
-      <input type="radio" name="quality" id="quality_h" value="h"> HIGH<br>
-      <input type="radio" name="quality" id="quality_hh" value="hh"> VERY HIGH<br>
-    </form>
+  <div class="panel">
+    <div class="panel-header">
+      <p>Customize your print</p>
+    </div>
+    <div class="panel-content">
+      <p id="model_url" style="display:none;"><%= @model.model_url %></p>
+      <div id="preview-box" style="display:table;">
+        <div id="preview-panel" style="display:table-cell; vertical-align:top;">
+          <h3 style="display:inline;">3D Viewer quality</h3>
+          <input type="radio" name="quality" id="quality_ll" value="ll"> VERY LOW
+          <input type="radio" name="quality" id="quality_l" value="l"> LOW
+          <input type="radio" name="quality" id="quality_m" value="m" checked> MEDIUM
+          <input type="radio" name="quality" id="quality_h" value="h"> HIGH
+          <input type="radio" name="quality" id="quality_hh" value="hh"> VERY HIGH
+          </br></br>
+        </div>
+        <div id="options-panel" style="display:table-cell; vertical-align:top;">
+          <form action="" style="padding-left:5rem;">
+            <h3 style="margin-top:0;">Select printing size</h3>
+            Height : <input type="text" name="print_height" placeholder="height"></br>
+            Width : <input type="text" name="print_width" placeholder="width"></br>
+            Depth : <input type="text" name="print_depth" placeholder="depth">
+            <h3>Select model color</h3>
+            <select id="model-color">
+              <option value="0xaaaaaa">ABS, White</option>
+              <option value="0xc879ce">0xc879ce</option>
+              <option value="0xc5f442">0xc5f442</option>
+              <option value="0xed8b9c">0xed8b9c</option>
+              <option value="0x9fed9c">0x9fed9c</option>
+              <option value="0x27c6be">0x27c6be</option>
+              <option value="0x8364bc">0x8364bc</option>
+              <option value="0xd17947">0xd17947</option>
+              <option value="0x5aede0">0x5aede0</option>
+              <option value="0x8388d3">0x8388d3</option>
+              <option value="0xe5c347">0xe5c347</option>
+            </select>
+            <h3>Select printing speed</h3>
+            <input type="radio" name="print_speed_id" id="speed_regular" value="1" checked> Regular
+            <input type="radio" name="print_speed_id" id="speed_express" value="2"> Express
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

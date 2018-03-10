@@ -1,6 +1,4 @@
 .model-preview canvas {
-  display: block;
-  margin: 5rem auto;
   width: 500px;
   height: 500px;
 }
