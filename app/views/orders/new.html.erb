@@ -20,9 +20,9 @@
           <form action="" style="padding-left:5rem;">
             <h3 style="margin-top:0;">Select printing size</h3>
             <p id="model-scale"></p>
-            Height : <input type="text" id="print-height" name="print-height" placeholder="height"> mm.</br>
-            Width : <input type="text" id="print-width" name="print-width" placeholder="width"> mm.</br>
-            Depth : <input type="text" id="print-depth" name="print-depth" placeholder="depth"> mm.</br>
+            Height : <input type="number" min="5" id="print-height" name="print-height" placeholder="height"> mm.</br>
+            Width : <input type="number" min="5" id="print-width" name="print-width" placeholder="width"> mm.</br>
+            Depth : <input type="number" min="5" id="print-depth" name="print-depth" placeholder="depth"> mm.</br>
             </br><p style="color:red;">*Minimum dimension : 5 mm.</p>
             <h3>Select model color</h3>
             <select id="model-color" name="filament-id">
