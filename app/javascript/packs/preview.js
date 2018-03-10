@@ -4,7 +4,7 @@ const OrbitControls = require('three-orbit-controls')(THREE)
 
 $(document).on("turbolinks:load", function() {
   var model_url_container = $("#model-url");
-  if(model_url_container.length) {
+  if (model_url_container.length) {
 
     //if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
@@ -57,7 +57,7 @@ $(document).on("turbolinks:load", function() {
 	    // create renderer
 	    renderer = new THREE.WebGLRenderer( { antialias: true } );
 	    renderer.setPixelRatio( window.devicePixelRatio );
-      renderer.setSize( 250 , 250 , false );
+      renderer.setSize( 150 , 150 , false );
 	    renderer.gammaInput = true;
 	    renderer.gammaOutput = true;
 	    renderer.shadowMap.enabled = true;
@@ -80,23 +80,18 @@ $(document).on("turbolinks:load", function() {
       });
       $("#quality-ll").on( 'change', function(e){
         renderer.setSize( 150 , 150 , false );
-        console.log("very low")
       });
       $("#quality-l").on( 'change', function(e){
         renderer.setSize( 200 , 200 , false );
-        console.log("low")
       });
       $("#quality-m").on( 'change', function(e){
         renderer.setSize( 250 , 250 , false );
-        console.log("medium")
       });
       $("#quality-h").on( 'change', function(e){
         renderer.setSize( 375 , 375 , false );
-        console.log("high")
       });
       $("#quality-hh").on( 'change', function(e){
         renderer.setSize( 500 , 500 , false );
-        console.log("very high")
       });
 
     }
@@ -114,21 +109,37 @@ $(document).on("turbolinks:load", function() {
       var geo_depth = Math.abs(boundingBox.min.y) + boundingBox.max.y;
       var geo_height = Math.abs(boundingBox.min.z) + boundingBox.max.z;
       var min_dimension = Math.min(geo_width,geo_depth,geo_height);
+      var max_dimension = Math.max(geo_width,geo_depth,geo_height);
       var ratio_width = (geo_width / min_dimension).toFixed(2);
       var ratio_depth = (geo_depth / min_dimension).toFixed(2);
       var ratio_height = (geo_height / min_dimension).toFixed(2);
       $('#model-scale').text("Scale - "+ratio_height+"(H) : "+ratio_width+"(W) : "+ratio_depth+"(D)")
 	    $("#print-depth").on( 'change', function(e){
-        $("#print-width").val((this.value / ratio_depth * ratio_width).toFixed(1));
-        $("#print-height").val((this.value / ratio_depth * ratio_height).toFixed(1));
+        if(this.value < 5 * ratio_depth) {
+          this.value = 5 * ratio_depth;
+        }
+        var new_width = (this.value / ratio_depth * ratio_width).toFixed(1);
+        var new_height = (this.value / ratio_depth * ratio_height).toFixed(1);
+        $("#print-width").val(new_width);
+        $("#print-height").val(new_height);
       });
 	    $("#print-width").on( 'change', function(e){
-        $("#print-depth").val((this.value / ratio_width * ratio_depth).toFixed(1));
-        $("#print-height").val((this.value / ratio_width * ratio_height).toFixed(1));
+        if(this.value < 5 * ratio_width) {
+          this.value = 5 * ratio_width;
+        }
+        var new_depth = (this.value / ratio_width * ratio_depth).toFixed(1);
+        var new_height = (this.value / ratio_width * ratio_height).toFixed(1);
+        $("#print-depth").val(new_depth)
+        $("#print-height").val(new_height);
       });
 	    $("#print-height").on( 'change', function(e){
-        $("#print-depth").val((this.value / ratio_height * ratio_depth).toFixed(1));
-        $("#print-width").val((this.value / ratio_height * ratio_width).toFixed(1));
+        if(this.value < 5 * ratio_height) {
+          this.value = 5 * ratio_height;
+        }
+        var new_depth = (this.value / ratio_height * ratio_depth).toFixed(1);
+        var new_width = (this.value / ratio_height * ratio_width).toFixed(1);
+        $("#print-depth").val(new_depth);
+        $("#print-width").val(new_width);
       });
     }
     

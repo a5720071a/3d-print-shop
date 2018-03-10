@@ -2,16 +2,16 @@
 <div class="page-content">
   <div class="panel">
     <div class="panel-header">
-      <p>Customize your print</p>
+      <p>Customize your print, model id=<%= @model.id %></p>
     </div>
     <div class="panel-content">
       <p id="model-url" style="display:none;"><%= @model.model_url %></p>
       <div id="preview-box" style="display:table;">
         <div id="preview-panel" style="display:table-cell; vertical-align:top;">
           <h3 style="display:inline;">3D Viewer quality</h3>
-          <input type="radio" name="quality" id="quality-ll" value="ll"> VERY LOW
+          <input type="radio" name="quality" id="quality-ll" value="ll" checked> VERY LOW
           <input type="radio" name="quality" id="quality-l" value="l"> LOW
-          <input type="radio" name="quality" id="quality-m" value="m" checked> MEDIUM
+          <input type="radio" name="quality" id="quality-m" value="m"> MEDIUM
           <input type="radio" name="quality" id="quality-h" value="h"> HIGH
           <input type="radio" name="quality" id="quality-hh" value="hh"> VERY HIGH
           </br></br>
@@ -22,9 +22,10 @@
             <p id="model-scale"></p>
             Height : <input type="text" id="print-height" name="print-height" placeholder="height"> mm.</br>
             Width : <input type="text" id="print-width" name="print-width" placeholder="width"> mm.</br>
-            Depth : <input type="text" id="print-depth" name="print-depth" placeholder="depth"> mm.
+            Depth : <input type="text" id="print-depth" name="print-depth" placeholder="depth"> mm.</br>
+            </br><p style="color:red;">*Minimum dimension : 5 mm.</p>
             <h3>Select model color</h3>
-            <select id="model-color">
+            <select id="model-color" name="filament-id">
               <option value="0xaaaaaa">ABS, White</option>
               <option value="0xc879ce">0xc879ce</option>
               <option value="0xc5f442">0xc5f442</option>
