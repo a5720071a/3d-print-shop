@@ -10,7 +10,7 @@ class ItemsController < ApplicationController
     @item = @current_user.items.new(add_item_params)
     @item.in_cart = "true"
     if @item.save!
-      redirect_to '/'
+      redirect_to '/my_cart'
     else
       redirect_to controller: "items", action: "new", model: "#{ @upload.id }"
     end

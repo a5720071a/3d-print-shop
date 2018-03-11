@@ -103,43 +103,46 @@ $(document).on("turbolinks:load", function() {
     }
 
     function getModelScale(geometry) {
+
+      // Calculate and set minimum value of each side
       geometry.computeBoundingBox()
       var boundingBox = geometry.boundingBox.clone();
       var geo_width = Math.abs(boundingBox.min.x) + boundingBox.max.x;
       var geo_depth = Math.abs(boundingBox.min.y) + boundingBox.max.y;
       var geo_height = Math.abs(boundingBox.min.z) + boundingBox.max.z;
       var min_dimension = Math.min(geo_width,geo_depth,geo_height);
-      var max_dimension = Math.max(geo_width,geo_depth,geo_height);
       var ratio_width = (geo_width / min_dimension).toFixed(2);
       var ratio_depth = (geo_depth / min_dimension).toFixed(2);
       var ratio_height = (geo_height / min_dimension).toFixed(2);
       $('#model-scale').text("Scale - "+ratio_height+"(H) : "+ratio_width+"(W) : "+ratio_depth+"(D)")
-	    $("#print-depth").on( 'change', function(e){
-        if(this.value < 5 * ratio_depth) {
-          this.value = 5 * ratio_depth;
+      var min_width = (Math.ceil(ratio_width * 10) / 2).toFixed(1)
+      var min_depth = (Math.ceil(ratio_depth * 10) / 2).toFixed(1)
+      var min_height = (Math.ceil(ratio_height * 10) / 2).toFixed(1)
+      $("#print-width").attr({"min" : min_width, "value" : min_width});
+      $("#print-depth").attr({"min" : min_depth, "value" : min_depth});
+      $("#print-height").attr({"min" : min_height, "value" : min_height});
+
+      // Calculate scaled value
+      function recalculateValue(value, ratio) {
+        var currentValue = value
+        if(currentValue < 5 * ratio) {
+          currentValue = 5 * ratio;
         }
-        var new_width = (this.value / ratio_depth * ratio_width).toFixed(1);
-        var new_height = (this.value / ratio_depth * ratio_height).toFixed(1);
+        var new_width = (Math.ceil(currentValue / ratio * ratio_width * 2) / 2).toFixed(1);
+        var new_depth = (Math.ceil(currentValue / ratio * ratio_depth * 2) / 2).toFixed(1);
+        var new_height = (Math.ceil(currentValue / ratio * ratio_height * 2) / 2).toFixed(1);
         $("#print-width").val(new_width);
+        $("#print-depth").val(new_depth);
         $("#print-height").val(new_height);
-      });
+      }
 	    $("#print-width").on( 'change', function(e){
-        if(this.value < 5 * ratio_width) {
-          this.value = 5 * ratio_width;
-        }
-        var new_depth = (this.value / ratio_width * ratio_depth).toFixed(1);
-        var new_height = (this.value / ratio_width * ratio_height).toFixed(1);
-        $("#print-depth").val(new_depth)
-        $("#print-height").val(new_height);
+        recalculateValue(this.value, ratio_width)
+      });
+	    $("#print-depth").on( 'change', function(e){
+        recalculateValue(this.value, ratio_depth)
       });
 	    $("#print-height").on( 'change', function(e){
-        if(this.value < 5 * ratio_height) {
-          this.value = 5 * ratio_height;
-        }
-        var new_depth = (this.value / ratio_height * ratio_depth).toFixed(1);
-        var new_width = (this.value / ratio_height * ratio_width).toFixed(1);
-        $("#print-depth").val(new_depth);
-        $("#print-width").val(new_width);
+        recalculateValue(this.value, ratio_height)
       });
     }
     
