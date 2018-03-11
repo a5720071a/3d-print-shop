@@ -24,11 +24,17 @@
           </div>
           <div class="navbar-right">
             <% if current_user %>
-              <p style="display:inline; margin-right:1rem;">Hello, <%= current_user.username %> <i class="user-arrow"></i></p>
-              <% if is_customer? %>
-                <a style="margin-right:1rem;" href="/my_models">My uploads</a>
-              <% end %>
-              <a href="/logout">Log Out</a>
+              <div id="dropdown-menu">
+                <span>Hello, <%= current_user.username %> <span style="font-size:150%; padding-left:1rem;">☰</span></span>
+                <div id="dropdown-container">
+                  <ul>
+                    <% if is_customer? %>
+                        <li><a href="/my_models">My uploads</a></li>
+                    <% end %>
+                    <li><a href="/logout">Log Out</a></li>
+                  </ul>
+                </div>
+              </div>
             <% else %>
               <a style="margin-right:1rem;" href="/login">Log In</a>
               <a href="/signup">Sign Up</a>
