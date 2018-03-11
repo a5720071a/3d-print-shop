@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180310183042) do
+ActiveRecord::Schema.define(version: 20180311193243) do
 
   create_table "address_books", force: :cascade do |t|
     t.string "address"
@@ -18,15 +18,6 @@ ActiveRecord::Schema.define(version: 20180310183042) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.index ["user_id"], name: "index_address_books_on_user_id"
-  end
-
-  create_table "carts", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.integer "item_id"
-    t.index ["item_id"], name: "index_carts_on_item_id"
-    t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
   create_table "filaments", force: :cascade do |t|
@@ -48,6 +39,7 @@ ActiveRecord::Schema.define(version: 20180310183042) do
     t.integer "filament_id"
     t.integer "print_speed_id"
     t.integer "user_id"
+    t.boolean "in_cart"
     t.index ["filament_id"], name: "index_items_on_filament_id"
     t.index ["model_id"], name: "index_items_on_model_id"
     t.index ["print_speed_id"], name: "index_items_on_print_speed_id"

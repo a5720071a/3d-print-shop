@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <div class="page-content">
-  <% if [*@cart].length > 0 %>
-    <% [*@cart].each do |item| %>
+  <% if [*@items].length > 0 %>
+    <% [*@items].each do |item| %>
       <div class="card" id="item_<%= item.id %>">
         <div class="card-content">
           <%= item.id %>

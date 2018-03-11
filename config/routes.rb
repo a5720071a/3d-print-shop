@@ -10,8 +10,7 @@ Rails.application.routes.draw do
 
   get '/print_settings' => 'items#new'
   post '/add_to_cart' => 'items#create'
-
-  get '/my_cart' => 'carts#my_cart'
+  get '/my_cart' => 'items#my_cart'
 
   get '/signup' => 'users#new'
   post '/signup' => 'users#create'

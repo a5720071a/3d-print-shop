@@ -1,11 +1,11 @@
 class User < ApplicationRecord
+  has_secure_password
   has_many :models
   has_many :items
-  has_many :carts
   has_many :orders
   has_many :addresses
-  has_secure_password
-  validates :email, presence: true, uniqueness: true
-  validates :username, presence: true, uniqueness: true
+  [:email, :username].each do |field|
+    validates field, presence: true, uniqueness: true
+  end
   validates :password, presence: true
 end
