@@ -9,14 +9,18 @@
       <ul>
         <li>.STL</li>
       </ul>
-      <form action="/upload" method="post" enctype="multipart/form-data">
+      <%= form_for @model, url: upload_path do |f| %>
         <p>ตั้งค่าการแชร์</p></br>
-        <input type="radio" name="upload[share]" value="false" checked>Private
-        <input type="radio" name="upload[share]" value="true">Public</br></br>
-        <input name="upload[model]" type="hidden" value="<%= @upload.cached_model_data %>">
-        <label for="model-upload" class="custom-file-upload">เลือกไฟล์</label>
-        <input id="model-upload" name="upload[model]" accept=".stl, .obj" type="file" onchange="this.form.submit()">
-      </form>
+        <%= f.radio_button(:share, "false", {checked: true} ) %>
+        <%= f.label(:share_false, "Private") %>
+        <%= f.radio_button(:share, "true") %>
+        <%= f.label(:share_true, "Public") %></br></br>
+        <%= f.hidden_field(:model, :value => "#{@model.cached_model_data}") %>
+        <%= f.file_field(:model, :id =>  "model_file_upload", :onchange => "this.form.submit()", accept: ".stl, .obj") %>
+        <%= f.label(:file_upload, "เลือกไฟล์", class: "custom-file-upload") %>
+      <% end %>
     </div>
   </div>
 </div>
+
+

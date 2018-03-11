@@ -8,19 +8,19 @@ class ModelsController < ApplicationController
     @models = Model.where user_id: @current_user.id
   end
   def new
-    @upload = Model.new
+    @model = Model.new
   end
   def create
-    @upload = Model.new(model_upload_params)
-    @upload.user_id = @current_user.id
-    if @upload.save!
-      redirect_to controller: "items", action: "new", model: "#{ @upload.id }"
+    @model = Model.new(model_params)
+    @model.user_id = @current_user.id
+    if @model.save!
+      redirect_to controller: "items", action: "new", model: "#{ @model.id }"
     else
       redirect_to '/upload'
     end
   end
   private
-  def model_upload_params
-    params.require(:upload).permit(:model,:share)
+  def model_params
+    params.require(:model).permit(:model,:share)
   end
 end
