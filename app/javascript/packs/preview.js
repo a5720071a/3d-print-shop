@@ -114,7 +114,7 @@ $(document).on("turbolinks:load", function() {
       var ratio_width = (geo_width / min_dimension).toFixed(2);
       var ratio_depth = (geo_depth / min_dimension).toFixed(2);
       var ratio_height = (geo_height / min_dimension).toFixed(2);
-      $('#model-scale').text("Scale - "+ratio_height+"(H) : "+ratio_width+"(W) : "+ratio_depth+"(D)")
+      $('#model-scale').text("มาตราส่วน สูง "+ratio_height+" : กว้าง "+ratio_width+" : ลึก "+ratio_depth)
       var min_width = (Math.ceil(ratio_width * 10) / 2).toFixed(1)
       var min_depth = (Math.ceil(ratio_depth * 10) / 2).toFixed(1)
       var min_height = (Math.ceil(ratio_height * 10) / 2).toFixed(1)

@@ -17,29 +17,29 @@
         <div class="navbar">
           <div class="navbar-left">
             <a style="font-size:200%;" href="/">3D Print Shop</a>
-            <a style="margin-left:1rem;" href="/">วิธีการใช้งาน</a>
+            <a style="margin-left:1rem;" href="/">Tutorials</a>
             <p style="display:inline; margin:0 1rem 0 1rem;">|</p>
-            <a href="/">อัตราค่าบริการ</a>
+            <a href="/">Pricing</a>
             <p style="display:inline; margin:0 1rem 0 1rem;">|</p>
-            <a href="/">ติดต่อเรา</a>
+            <a href="/">Contact Us</a>
           </div>
           <div class="navbar-right">
             <% if current_user %>
-              <b style="color:#3F51B5; padding-right:1rem;">ยินดีต้อนรับ <%= current_user.username %></b>
-              <a href="/my_cart">ตะกร้าสินค้า</a>
+              <b style="color:#3F51B5; padding-right:1rem;">Hello, <%= current_user.username %></b>
+              <a href="/my_cart">Shopping Cart</a>
               <div id="dropdown-menu">
                 <span style="font-size:150%; padding-left:1rem;">☰</span>
                 <div id="dropdown-container">
                     <% if is_customer? %>
-                        <a href="#">บัญชีของฉัน</a>
-                        <a href="/my_models">โมเดลที่ฉันอัพโหลด</a>
+                        <a href="#">My account</a>
+                        <a href="/my_models">My uploads</a>
                     <% end %>
-                    <a href="/logout">ออกจากระบบ</a>
+                    <a href="/logout">Log Out</a>
                 </div>
               </div>
             <% else %>
-              <a style="margin-right:1rem;" href="/login">เข้าสู่ระบบ</a>
-              <a href="/signup">สมัครใช้บริการ</a>
+              <a style="margin-right:1rem;" href="/login">Log In</a>
+              <a href="/signup">Sign Up</a>
             <% end %>
           </div>
         </div>

@@ -12,9 +12,9 @@
       <%= form_for @model, url: upload_path do |f| %>
         <p>ตั้งค่าการแชร์</p></br>
         <%= f.radio_button(:share, "false", {checked: true} ) %>
-        <%= f.label(:share_false, "Private") %>
+        <%= f.label(:share_false, "ส่วนตัว") %>
         <%= f.radio_button(:share, "true") %>
-        <%= f.label(:share_true, "Public") %></br></br>
+        <%= f.label(:share_true, "สาธารณะ") %></br></br>
         <%= f.hidden_field(:model, :value => "#{@model.cached_model_data}") %>
         <%= f.file_field(:model, :id =>  "model_file_upload", :onchange => "this.form.submit()", accept: ".stl, .obj") %>
         <%= f.label(:file_upload, "เลือกไฟล์", class: "custom-file-upload") %>

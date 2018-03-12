@@ -8,42 +8,68 @@
       <p id="model-url" style="display:none;"><%= @model.model_url %></p>
       <div id="preview-box" style="display:table;">
         <div id="preview-panel" style="display:table-cell; vertical-align:top;">
-          <h3 style="display:inline;">3D Viewer quality</h3>
+          <h3 style="margin-top:0;">คุณภาพการแสดงรูป 3 มิติ</h3>
           <input type="radio" name="quality" id="quality-ll" value="ll" checked>
-          <label for="quality-ll">VERY LOW</label>
+          <label for="quality-ll">ต่ำที่สุด</label>
           <input type="radio" name="quality" id="quality-l" value="l">
-          <label for="quality-l">LOW</label>
+          <label for="quality-l">ต่ำกว่า</label>
           <input type="radio" name="quality" id="quality-m" value="m">
-          <label for="quality-m">MEDIUM</label>
+          <label for="quality-m">ปานกลาง</label>
           <input type="radio" name="quality" id="quality-h" value="h">
-          <label for="quality-h">HIGH</label>
+          <label for="quality-h">สูงกว่า</label>
           <input type="radio" name="quality" id="quality-hh" value="hh">
-          <label for="quality-hh">VERY HIGH</label>
+          <label for="quality-hh">สูงที่สุด</label>
           </br></br>
         </div>
         <div id="options-panel" style="display:table-cell; vertical-align:top; padding-left:5rem;">
           <form action="/add_to_cart" method="post">
             <input type="hidden" name="item[model_id]" value="<%= @model.id %>">
-            <h3 style="margin-top:0;">Select printing size</h3>
-            <p id="model-scale"></p>
-            Height : <input type="number" min="5" step="0.5" id="print-height" name="item[print_height]" placeholder="height"> mm.</br>
-            Width : <input type="number" min="5" step="0.5" id="print-width" name="item[print_width]" placeholder="width"> mm.</br>
-            Depth : <input type="number" min="5" step="0.5" id="print-depth" name="item[print_depth]" placeholder="depth"> mm.</br>
-            </br><p style="color:red;">*Minimum dimension : 5 mm.</p>
-            <p style="color:red;">*Minimum resolution : 0.5 mm.</p>
-            <h3>Select model color</h3>
+            <h3 style="margin-top:0;">เลือกขนาดชิ้นงานปริ้นท์</h3>
+            <div id="print-sizing" style="display:table">
+              <div id="print-sizing-height" style="display:table-row">
+                <div style="display:table-cell">
+                  <p style="display:inline;">ความสูง </p>
+                </div>
+                <div style="display:table-cell; padding-left:1rem;">
+                  <input type="number" min="5" step="0.5" id="print-height" name="item[print_height]" placeholder="height">
+                  <p style="display:inline;"> มม.</p></br>
+                </div>
+              </div>
+              <div id="print-sizing-width" style="display:table-row">
+                <div style="display:table-cell">
+                 <p style="display:inline;">ความกว้าง </p>
+                </div>
+                <div style="display:table-cell; padding-left:1rem;">
+                  <input type="number" min="5" step="0.5" id="print-width" name="item[print_width]" placeholder="width">
+                  <p style="display:inline;"> มม.</p></br>
+                </div>
+              </div>
+              <div id="print-sizing-depth" style="display:table-row">
+                <div style="display:table-cell">
+                  <p style="display:inline;">ความลึก </p>
+                </div>
+                <div style="display:table-cell; padding-left:1rem;">
+                  <input type="number" min="5" step="0.5" id="print-depth" name="item[print_depth]" placeholder="depth">
+                  <p style="display:inline;"> มม.</p></br>
+                </div>
+              </div>
+            </div>
+            </br><p id="model-scale" style="color:grey;"></p>
+            </br><p style="color:red;">*ด้านที่สั้นที่สุด: 5 มม.</p>
+            <p style="color:red;">*ความละเอียด: 0.5 มม.</p>
+            <h3>เลือกชนิดและสีของฟิลาเมนต์</h3>
             <select id="model-color" name="item[filament_id]">
               <% @filaments.each do |filament| %>
-                <option id="<%= filament.id %>_<%= filament.hex_color_value %>"><%= filament.description %></option>
+                <option id="<%= filament.id %>_<%= filament.hex_color_value %>" value="<%= filament.id %>"><%= filament.description %></option>
               <% end %>
             </select>
-            <h3>Select printing speed</h3>
+            <h3>เลือกความเร็วในการปริ้นท์</h3>
             <input type="radio" name="item[print_speed_id]" id="speed-regular" value="1" checked>
-            <label for="speed-regular">Regular</label>
+            <label for="speed-regular">ธรรมดา</label>
             <input type="radio" name="item[print_speed_id]" id="speed-express" value="2">
-            <label for="speed-express">Express</label>
+            <label for="speed-express">ด่วน</label>
             </br></br>
-            <input class="btn-small" type="submit" value="Add to cart"></input>
+            <input class="btn-small" type="submit" value="นำใส่ตะกร้า"></input>
           </form>
         </div>
       </div>
