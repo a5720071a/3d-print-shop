@@ -145,6 +145,18 @@ $(document).on("turbolinks:load", function() {
         recalculateValue(this.value, ratio_height)
       });
     }
+
+    function takeScreenshot() {
+      var w = window.open('', '');
+      w.document.title = "Screenshot";
+      var img = new Image();
+      renderer.render(scene, camera);
+      img.src = renderer.domElement.toDataURL();
+      w.document.body.appendChild(img);
+    }
+    $("#screenshot").on( 'click', function(e){
+        takeScreenshot()
+    });
     
     function animate() {
 	    requestAnimationFrame( animate );
