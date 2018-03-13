@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
     end
   end
   def new
-    @order = Order.new(select_delivery_params)
+    @order = Order.new(create_order_params)
     @delivery_info = %W(#{@current_user.username} #{AddressBook.find_by(id: @order.address_id).address} #{@order.delivery_courier})
     @items = @current_user.items.where in_cart: true
   end
@@ -22,8 +22,8 @@ class OrdersController < ApplicationController
     if @order.save!
       @items = @current_user.items.where in_cart: true
       [*@items].each do |item|
-        ItemsInOrder.create order_id: @order.id, item_id: item.id
         item.in_cart = false
+        item.order_id = @order.id
         item.save!
       end
       redirect_to '/payment_options'
@@ -33,9 +33,6 @@ class OrdersController < ApplicationController
   end
   private
   def create_order_params
-    params.require(:order).permit(:delivery_courier,:address_id)
-  end
-  def select_delivery_params
     params.require(:order).permit(:delivery_courier,:address_id)
   end
 end

@@ -25,8 +25,8 @@ Filament.create(description: "PLA Blue", hex_color_value: "0x5AEDE0", price_per_
 Filament.create(description: "PLA Purple", hex_color_value: "0x8364BC", price_per_gram: "1", remaining: "1000")
 Filament.create(description: "PLA Orange", hex_color_value: "0xd17947", price_per_gram: "1", remaining: "1000")
 
-PrintSpeed.create(configuration: "normal")
-PrintSpeed.create(configuration: "fast")
+PrintSpeed.create(configuration: "ธรรมดา")
+PrintSpeed.create(configuration: "ด่วน")
 
 PostalCode.create(number_code: "10100", city: "Samphanthawong", province: "Bangkok")
 PostalCode.create(number_code: "10110", city: "Wattana", province: "Bangkok")

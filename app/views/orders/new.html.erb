@@ -13,14 +13,21 @@
           <% [*@items].each do |item| %>
             <div class="card" id="item_<%= item.id %>">
               <div class="card-content">
-                  <p>หมายเลขชิ้นงาน: #<%= item.id %></p>
+                <p>หมายเลขชิ้นงาน: #<%= item.id %></p>
                 <ul>
                   <li>ความสูง: <%= item.print_height %> มม.</li>
                   <li>ความกว้าง: <%= item.print_width %> มม.</li>
                   <li>ความลึก: <%= item.print_depth %> มม.</li>
-                  <li>ชนิดและสีของฟิลาเมนต์: <%= item.filament_id %></li>
-                  <li>ความเร็วในการปริ้นท์: <%= item.print_speed_id %></li>
-                  <li>โมเดลฐาน: <%= link_to "#{item.model_id}", controller: "items", action: "new", model: "#{ item.model_id }" %></li>
+                  <li>ชนิดและสีของฟิลาเมนต์: <%= item.filament.description %></li>
+                  <li>ความเร็วในการปริ้นท์: <%= item.print_speed.configuration %></li>
+                  <li>โมเดลฐาน: 
+                      <%= 
+                          link_to "#{ JSON.parse(item.model.model_data)["metadata"]["filename"] }", 
+                          controller: "items",
+                          action: "new", 
+                          model: "#{ item.model_id }"
+                      %>
+                  </li>
                 </ul>
               </div>
             </div>
