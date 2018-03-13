@@ -28,4 +28,7 @@ class ApplicationController < ActionController::Base
       redirect_to_home unless UserGroup.find_by(id: current_user.user_group_id).group_name == method.to_s[4..-13]
     end
   end
+  def has_item_in_cart?
+    redirect_to_home unless current_user.items.where(in_cart: true).length != 0
+  end
 end

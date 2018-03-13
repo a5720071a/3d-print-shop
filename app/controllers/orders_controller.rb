@@ -1,16 +1,12 @@
 class OrdersController < ApplicationController
-  before_action :require_user, :has_customer_privillege?
+  before_action :require_user, :has_customer_privillege?, :has_item_in_cart?
   protect_from_forgery with: :null_session
   def select_delivery_option
     @addresses = @current_user.address_books
     @order = Order.new
   end
-  def index
+  def my_orders
     @orders = @current_user.orders
-    @item_lists = []
-    [*@orders].each do |order|
-      @item_lists.push ItemsInOrder.where order_id: order.id
-    end
   end
   def new
     @order = Order.new(create_order_params)

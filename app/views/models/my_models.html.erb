@@ -1,23 +1,37 @@
 <!DOCTYPE html>
 <div class="page-content">
-  <% if [*@models].length > 0 %>
-    <% [*@models].each do |model| %>
-      <div class="card" id="model_<%= model.id %>">
-        <div class="card-content">
-         <%= link_to "model ID: #{model.id}", controller: "items", action: "new", model: "#{ model.id }" %>
-         <ul>
-           <li>Shared : <%= model.share %></li>
-            <li>Uploaded on : <%= model.created_at %></li>
-          </ul>
-        </div>
-      </div>
-    <% end %>
-  <% else %>
-    <div class="card">
-      <div class="card-content">
-        <h4><b>ไม่มีโมเดล</b></h4> 
-        <p>คุณยังไม่ได้อัพโหลดโมเดล</p> 
-      </div>
+  <div class="panel">
+    <div class="panel-header">
+      <p>โมเดลของฉัน</p>
     </div>
-  <% end %>
+    <div class="panel-content">
+      <% if [*@models].length > 0 %>
+        <% [*@models].each do |model| %>
+          <div class="card" id="model_<%= model.id %>">
+            <div class="card-content">
+              <p>หมายเลขโมเดล: #<%= model.id %></p>
+              <ul>
+                <li>ชื่อไฟล์: <%= JSON.parse(model.model_data)["metadata"]["filename"]%></li>
+                <li>ขนาดไฟล์: <%= JSON.parse(model.model_data)["metadata"]["size"]%> ไบต์</li>
+                <% if model.share %>
+                  <li>การตั้งค่าการแชร์: สาธารณะ</li>
+                <% else %>
+                  <li>การตั้งค่าการแชร์: ส่วนตัว</li>
+                <% end %>
+                <li>อัพโหลดเมื่อ: <%= model.created_at %></li>
+              </ul>
+              <%= link_to "ปริ้นท์โมเดลนี้", {controller: "items", action: "new", model: "#{ model.id }"}, {:class => "btn-small"} %>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="card">
+          <div class="card-content">
+            <h4><b>ไม่มีโมเดล</b></h4> 
+            <p>คุณยังไม่ได้อัพโหลดโมเดล</p> 
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

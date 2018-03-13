@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   post '/add_to_cart' => 'items#create'
   get '/my_cart' => 'items#my_cart'
 
-  get '/my_orders' => 'orders#index'
+  get '/my_orders' => 'orders#my_orders'
   get '/checkout' => 'orders#select_delivery_option'
   get '/confirm' => redirect('/checkout')
   post '/confirm' => 'orders#new'
