@@ -19,6 +19,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'shrine', '~> 2.6', '>= 2.6.1'
 gem 'webpacker', '~> 3.0'
+gem 'data_uri', '~> 0.1.0'
 
 group :development, :test do
   gem 'capybara', '~> 2.13'

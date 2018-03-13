@@ -8,7 +8,7 @@ $(document).on("turbolinks:load", function() {
 
     //if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
-    var model_url = model_url_container.html();
+    var model_url = model_url_container.val();
     var container;
     var mesh, scene, camera, cameraTarget, renderer, control;
 
@@ -30,18 +30,6 @@ $(document).on("turbolinks:load", function() {
 	    scene = new THREE.Scene();  
 	    scene.background = new THREE.Color( 0xc9c9c9 );
 
-      // create mesh
-	    var loader = new STLLoader();
-	    loader.load( model_url, function ( geometry ) {
-        getModelScale(geometry)
-		    var meshMaterial = new THREE.MeshPhongMaterial( { color: 0xAAAAAA, specular: 0x111111, shininess: 200 } );
-		    mesh = new THREE.Mesh( geometry, meshMaterial );
-		    mesh.position.set( 0, -0.5, 0 );
-		    mesh.rotation.set( 3 * Math.PI / 2 , 0, 0 );
-        mesh.scale.set( 0.015, 0.015, 0.015 );
-		    scene.add( mesh );
-	    } );
-
 	    // create light source
       scene.add( new THREE.HemisphereLight( 0x555555, 0x111111 ) );
 	    addDirectionalLight( 0, 1, 0, 0xffffff, 0.2 );
@@ -62,6 +50,20 @@ $(document).on("turbolinks:load", function() {
 	    renderer.gammaOutput = true;
 	    renderer.shadowMap.enabled = true;
 	    renderer.shadowMap.renderReverseSided = false;
+
+      // create mesh
+	    var loader = new STLLoader();
+	    loader.load( model_url, function ( geometry ) {
+        getModelScale(geometry)
+		    var meshMaterial = new THREE.MeshPhongMaterial( { color: 0xAAAAAA, specular: 0x111111, shininess: 200 } );
+		    mesh = new THREE.Mesh( geometry, meshMaterial );
+		    mesh.position.set( 0, -0.5, 0 );
+		    mesh.rotation.set( 3 * Math.PI / 2 , 0, 0 );
+        mesh.scale.set( 0.015, 0.015, 0.015 );
+		    scene.add( mesh );
+        renderer.render( scene, camera );
+        $("#screenshot").val(renderer.domElement.toDataURL());
+	    } );
 
       //put domElement into container
 	    container.appendChild( renderer.domElement );
@@ -145,18 +147,6 @@ $(document).on("turbolinks:load", function() {
         recalculateValue(this.value, ratio_height)
       });
     }
-
-    function takeScreenshot() {
-      var w = window.open('', '');
-      w.document.title = "Screenshot";
-      var img = new Image();
-      renderer.render(scene, camera);
-      img.src = renderer.domElement.toDataURL();
-      w.document.body.appendChild(img);
-    }
-    $("#screenshot").on( 'click', function(e){
-        takeScreenshot()
-    });
     
     function animate() {
 	    requestAnimationFrame( animate );

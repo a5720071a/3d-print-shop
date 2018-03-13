@@ -10,17 +10,24 @@
           <div class="card" id="model_<%= model.id %>">
             <div class="card-content">
               <p>หมายเลขโมเดล: #<%= model.id %></p>
-              <ul>
-                <li>ชื่อไฟล์: <%= JSON.parse(model.model_data)["metadata"]["filename"]%></li>
-                <li>ขนาดไฟล์: <%= JSON.parse(model.model_data)["metadata"]["size"]%> ไบต์</li>
-                <% if model.share %>
-                  <li>การตั้งค่าการแชร์: สาธารณะ</li>
-                <% else %>
-                  <li>การตั้งค่าการแชร์: ส่วนตัว</li>
-                <% end %>
-                <li>อัพโหลดเมื่อ: <%= model.created_at %></li>
-              </ul>
-              <%= link_to "ปริ้นท์โมเดลนี้", {controller: "items", action: "new", model: "#{ model.id }"}, {:class => "btn-small"} %>
+              <div style="display:table; width:100%; padding-top:1rem;">
+                <div style="display:table-cell; vertical-align:top; width:calc(150px + 1rem);">
+                  <img src="<%= model.model_url.split('.')[0] %>.png">
+                </div>
+                <div style="display:table-cell;">
+                  <ul style="list-style-type:none;">
+                    <li>ชื่อไฟล์: <%= JSON.parse(model.model_data)["metadata"]["filename"]%></li>
+                    <li>ขนาดไฟล์: <%= JSON.parse(model.model_data)["metadata"]["size"]%> ไบต์</li>
+                    <% if model.share %>
+                      <li>การตั้งค่าการแชร์: สาธารณะ</li>
+                    <% else %>
+                      <li>การตั้งค่าการแชร์: ส่วนตัว</li>
+                    <% end %>
+                    <li>อัพโหลดเมื่อ: <%= model.created_at %></li>
+                    <li style="padding-top:0.5rem;"><%= link_to "ปริ้นท์โมเดลนี้", {controller: "items", action: "new", model: "#{ model.id }"}, {:class => "btn-small"} %></li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         <% end %>
