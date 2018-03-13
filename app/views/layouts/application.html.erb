@@ -26,7 +26,9 @@
           <div class="navbar-right">
             <% if current_user %>
               <b style="color:#3F51B5; padding-right:1rem;">ยินดีต้อนรับ <%= current_user.username %></b>
-              <a href="/my_cart">ตะกร้าสินค้า</a>
+              <% if is_customer? %>
+                <a href="/my_cart">ตะกร้าสินค้า</a>
+              <% end %>
               <div id="dropdown-menu">
                 <span style="font-size:150%; padding-left:1rem;">☰</span>
                 <div id="dropdown-container">
