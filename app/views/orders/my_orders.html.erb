@@ -5,22 +5,26 @@
       <p>คำสั่งซื้อของฉัน</p>
     </div>
     <div class="panel-content">
-    <% [*@orders].each do |order| %>
-      <div class="card">
-      <p>หมายเลขคำสั่งซื้อ: <%= order.id %></p>
-      <ul>
-        <li>สถานะคำสั่งซื้อ: กำลังดำเนินการ</li>
-        <li>สถานะการชำระเงิน: <span style="color:#FF6666;">รอการชำระเงิน</span></li>
-        <li>สถานะการปริ้นท์: <span style="color:#FF6666;">เตรียมงานปริ้นท์</span></li>
-      </ul>
-      <p>รายการสินค้า</p>
-      <ul>
-      <% [*order.items].each do |item| %>
-        <li>หมายเลขชิ้นงาน: #<%= item.id %></li>
+      <% if [*@orders].length > 0 %>>
+        <% [*@orders].each do |order| %>
+          <div class="card">
+          <p>หมายเลขคำสั่งซื้อ: <%= order.id %></p>
+          <ul>
+            <li>สถานะคำสั่งซื้อ: กำลังดำเนินการ</li>
+            <li>สถานะการชำระเงิน: <span style="color:#FF6666;">รอการชำระเงิน</span></li>
+            <li>สถานะการปริ้นท์: <span style="color:#FF6666;">เตรียมงานปริ้นท์</span></li>
+          </ul>
+          <p>รายการสินค้า</p>
+          <ul>
+          <% [*order.items].each do |item| %>
+            <li>หมายเลขชิ้นงาน: #<%= item.id %></li>
+          <% end %>
+          </ul>
+          </div>
+        <% end %>
+      <% else %>
+        <p>คุณยังไม่ได้สั่งซื้อสินค้า</p>
       <% end %>
-      </ul>
-      </div>
-    <% end %>
     </div>
   </div>
 </div>

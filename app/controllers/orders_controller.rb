@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
-  before_action :require_user, :has_customer_privillege?, :has_item_in_cart?
+  before_action :require_user, :has_customer_privillege?
+  before_action :has_item_in_cart?, except: :my_orders
   protect_from_forgery with: :null_session
   def select_delivery_option
     @addresses = @current_user.address_books
