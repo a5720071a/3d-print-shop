@@ -4,9 +4,11 @@
     <div class="panel-header">
       <div style="display:table; width:100%;">
         <p style="display:table-cell">ตะกร้าสินค้า</p>
-        <div id="order-now" style="display:table-cell; text-align:right;">
-          <a class="btn-small" href="#">ดำเนินการสั่งซื้อ</a>
-        </div>
+        <% if [*@items].length > 0 %>
+          <div id="order-now" style="display:table-cell; text-align:right;">
+            <a class="btn-small" href="/checkout">ดำเนินการสั่งซื้อ</a>
+          </div>
+        <% end %>
       </div>
     </div>
     <div class="panel-content">

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<div class="page-content">
+  <div class="panel">
+    <div class="panel-header">
+      <p>ตรวจสอบรายละเอียดการสั่งซื้อ</p>
+    </div>
+    <div class="panel-content">
+      <div style="display:table; width:100%;">
+        <div style="display:table-row;">
+          <p>ส่งคุณ: <%= @delivery_info[0] %></p>
+          <p>สถานที่จัดส่ง: <%= @delivery_info[1] %></p>
+          <p>บริการจัดส่งสินค้า: <%= @delivery_info[2] %></p>
+          <% [*@items].each do |item| %>
+            <div class="card" id="item_<%= item.id %>">
+              <div class="card-content">
+                  <p>หมายเลขชิ้นงาน: #<%= item.id %></p>
+                <ul>
+                  <li>ความสูง: <%= item.print_height %> มม.</li>
+                  <li>ความกว้าง: <%= item.print_width %> มม.</li>
+                  <li>ความลึก: <%= item.print_depth %> มม.</li>
+                  <li>ชนิดและสีของฟิลาเมนต์: <%= item.filament_id %></li>
+                  <li>ความเร็วในการปริ้นท์: <%= item.print_speed_id %></li>
+                  <li>โมเดลฐาน: <%= link_to "#{item.model_id}", controller: "items", action: "new", model: "#{ item.model_id }" %></li>
+                </ul>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div style="display:table-row; text-align:center;">
+          <%= form_for @order, url: order_path do |f| %>
+            <%= f.hidden_field(:delivery_courier, :value => "#{@order.delivery_courier}") %>
+            <%= f.hidden_field(:address_id, :value => "#{@order.address_id}") %>
+            <%= f.submit("ดำเนินการต่อขั้นถัดไป : เลือกช่องทางการชำระค่าบริการ", class: "btn-small") %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

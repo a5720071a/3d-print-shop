@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<div class="page-content">
+  <div class="panel">
+    <div class="panel-header">
+      <p>ตัวเลือกการจัดส่ง</p>
+    </div>
+    <div class="panel-content">
+      <% if [*@addresses].length > 0 %>
+        <%= form_for @order, url: confirm_path do |f| %>
+          <div style="display:table; width:100%;">
+            <div style="display:table-row; text-align:left;">
+              <h3>สถานที่จัดส่ง</h3>
+              <% [*@addresses].each.with_index do |address,index| %>
+                <% if index == 0 %>
+                  <%= f.radio_button(:address_id, address.id, {checked: true} ) %>
+                <% else %>
+                  <%= f.radio_button(:address_id, address.id) %>
+                <% end %>
+                <%= f.label("address_id_#{address.id}", address.address) %></br>
+              <% end %>
+              </br>
+              <a class="btn-small" href="/new_address">เพิ่มสถานที่จัดส่ง</a>
+              <h3>บริการจัดส่งสินค้า</h3>
+              <%= f.radio_button(:delivery_courier, "Kerry Express", {checked: true} ) %>
+              <%= f.label(:courier_kerry_express, "Kerry Express") %></br>
+              <%= f.radio_button(:delivery_courier, "EMS" ) %>
+              <%= f.label(:delivery_courier_ems, "EMS") %></br>
+            </div>
+            <div style="display:table-row; text-align:center;">
+              <%= f.submit("ดำเนินการต่อขั้นถัดไป : ตรวจสอบรายละเอียดการสั่งซื้อ", class: "btn-small") %>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <div style="display:table; width:100%; margin: 3rem 0;">
+          <div style="display:table-row; text-align:center;">
+          <p>คุณยังไม่ได้ตั้งค่าสถานที่จัดส่ง</p></br> 
+            <a class="btn-small" href="/new_address">เพิ่มสถานที่จัดส่ง</a>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

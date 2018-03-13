@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<div class="page-content">
+  <div class="panel">
+    <div class="panel-header">
+      <p>เพิ่มสถานที่ใหม่</p>
+    </div>
+    <div class="panel-content">
+      <p>Select postal code</p></br>
+      <%= form_for @address_book, url: create_address_path do |f| %>
+        <%= f.select(:address) do %>
+          <% @postal_codes.each do |post_address| %>
+            <%= content_tag(:option, post_address.number_code, value: post_address.number_code+", "+post_address.city+", "+post_address.province) %>
+          <% end %>
+        <% end %>
+        </br></br>
+        <%= f.submit %>
+      <% end %>
+      </br>
+      <p style="color:grey">Hint: click on the box then type your postal code</p>
+    </div>
+  </div>
+</div>
