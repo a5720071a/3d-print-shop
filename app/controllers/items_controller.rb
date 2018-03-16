@@ -22,7 +22,9 @@ class ItemsController < ApplicationController
     end
   end
   def my_cart
-    @items = @current_user.items.where in_cart: true
+    @items = @current_user.items.where(in_cart: true)
+    @cart = @items.joins(:filament,:print_speed,:model)
+    @cart = @cart.select("items.*, filaments.description as f_description, print_speeds.configuration as p_configuration, models.model_data as m_model_data")
   end
   private
   def add_item_params

@@ -5,7 +5,7 @@
       <p>คำสั่งซื้อของฉัน</p>
     </div>
     <div class="panel-content">
-      <% if [*@orders].length > 0 %>>
+      <% if [*@orders].length > 0 %>
         <% [*@orders].each do |order| %>
           <div class="card">
           <p>หมายเลขคำสั่งซื้อ: <%= order.id %></p>

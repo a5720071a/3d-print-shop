@@ -4,7 +4,7 @@
     <div class="panel-header">
       <div style="display:table; width:100%;">
         <p style="display:table-cell">ตะกร้าสินค้า</p>
-        <% if [*@items].length > 0 %>
+        <% if [*@cart].length > 0 %>
           <div id="order-now" style="display:table-cell; text-align:right;">
             <a class="btn-small" href="/checkout">ดำเนินการสั่งซื้อ</a>
           </div>
@@ -12,8 +12,8 @@
       </div>
     </div>
     <div class="panel-content">
-      <% if [*@items].length > 0 %>
-        <% [*@items].each do |item| %>
+      <% if [*@cart].length > 0 %>
+        <% [*@cart].each do |item| %>
           <div class="card" id="item_<%= item.id %>">
             <div class="card-content">
                 <p>หมายเลขชิ้นงาน: #<%= item.id %></p>
@@ -21,11 +21,11 @@
                 <li>ความสูง: <%= item.print_height %> มม.</li>
                 <li>ความกว้าง: <%= item.print_width %> มม.</li>
                 <li>ความลึก: <%= item.print_depth %> มม.</li>
-                <li>ชนิดและสีของฟิลาเมนต์: <%= item.filament.description %></li>
-                <li>ความเร็วในการปริ้นท์: <%= item.print_speed.configuration %></li>
+                <li>ชนิดและสีของฟิลาเมนต์: <%= item.f_description %></li>
+                <li>ความเร็วในการปริ้นท์: <%= item.p_configuration %></li>
                 <li>โมเดลฐาน: 
                     <%= 
-                        link_to "#{ JSON.parse(item.model.model_data)["metadata"]["filename"] }", 
+                        link_to "#{ JSON.parse(item.m_model_data)["metadata"]["filename"] }", 
                         controller: "items",
                         action: "new", 
                         model: "#{ item.model_id }"
