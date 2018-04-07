@@ -70,7 +70,7 @@ $(document).on("turbolinks:load", function() {
         mesh.scale.set( 0.015, 0.015, 0.015 );
         var box = new THREE.Box3().setFromObject( mesh );
         var middle_y = -( box.getSize()["y"] / 2 );
-        var box_max = Math.max( box.getSize()["x"], box.getSize()["y"], box.getSize()["z"] );
+        var box_max = Math.max( box.getSize()["x"], box.getSize()["y"], box.getSize()["z"] ) * 1.5;
         mesh.position.set( 0, middle_y, 0 );
         camera.position.set( 0, 0, box_max); 
         scene.add( mesh );
