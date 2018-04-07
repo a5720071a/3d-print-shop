@@ -75,6 +75,9 @@ $(document).on("turbolinks:load", function() {
         camera.position.set( 0, 0, box_max); 
         scene.add( mesh );
         renderer.render( scene, camera );
+      }, function(e) {
+        var percentage = Math.round((e.loaded / e.total * 100));
+        $("#percent").text(percentage);
       });
 
       //put domElement into container
