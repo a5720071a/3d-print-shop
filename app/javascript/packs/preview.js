@@ -11,12 +11,22 @@ $(document).on("turbolinks:load", function() {
     var model_url = model_url_container.val();
     var container;
     var mesh, scene, camera, cameraTarget, renderer, control;
+    var model_loaded = false;
+    var loading_manager = null;
 
     function init() {
 
+      loading_manager = new THREE.LoadingManager();
+      loading_manager.onProgress = function(item, loaded, total){
+        console.log(item, loaded, total);
+      }
+      loading_manager.onLoad = function(){
+        console.log("All loaded");
+        model_loaded = true;
+      }
       // Put domElement container into page
       var preview_panel = $('#preview-panel');
-	    container = document.createElement('div');
+      container = document.createElement('div');
       container.setAttribute('id', 'model-preview');
       container.setAttribute('class', 'model-preview');
       preview_panel.append(container);
@@ -24,60 +34,61 @@ $(document).on("turbolinks:load", function() {
       // create camera
       camera = new THREE.PerspectiveCamera( 65, 1, 0.1, 25 );
       camera.position.set( 0, 0.5, 3 );
-	    cameraTarget = new THREE.Vector3( 0, 0.5, 0 );
+      cameraTarget = new THREE.Vector3( 0, 0.5, 0 );
 
       // create scene
-	    scene = new THREE.Scene();  
-	    scene.background = new THREE.Color( 0xc9c9c9 );
+      scene = new THREE.Scene();  
+      scene.background = new THREE.Color( 0xc9c9c9 );
 
-	    // create light source
+      // create light source
       scene.add( new THREE.HemisphereLight( 0x555555, 0x111111 ) );
-	    addDirectionalLight( 0, 1, 0, 0xffffff, 0.2 );
-	    addDirectionalLight( 0.5, 1, 0, 0xffffff, 0.2 );
-	    addDirectionalLight( 1, 1, 0, 0xffffff, 0.2 );
-	    addDirectionalLight( 0, 1, 0.5, 0xffffff, 0.2 );
-	    addDirectionalLight( 0, 1, 1, 0xffffff, 0.2 );
-	    addDirectionalLight( 0, 1, -0.5, 0xffffff, 0.2 );
-	    addDirectionalLight( 0, 1, -1, 0xffffff, 0.2 );
-	    addDirectionalLight( -0.5, 1, 0, 0xffffff, 0.2 );
-	    addDirectionalLight( -1, 1, 0, 0xffffff, 0.2 );
+      addDirectionalLight( 0, 1, 0, 0xffffff, 0.2 );
+      addDirectionalLight( 0.5, 1, 0, 0xffffff, 0.2 );
+      addDirectionalLight( 1, 1, 0, 0xffffff, 0.2 );
+      addDirectionalLight( 0, 1, 0.5, 0xffffff, 0.2 );
+      addDirectionalLight( 0, 1, 1, 0xffffff, 0.2 );
+      addDirectionalLight( 0, 1, -0.5, 0xffffff, 0.2 );
+      addDirectionalLight( 0, 1, -1, 0xffffff, 0.2 );
+      addDirectionalLight( -0.5, 1, 0, 0xffffff, 0.2 );
+      addDirectionalLight( -1, 1, 0, 0xffffff, 0.2 );
 
-	    // create renderer
-	    renderer = new THREE.WebGLRenderer( { antialias: true } );
-	    renderer.setPixelRatio( window.devicePixelRatio );
+      // create renderer
+      renderer = new THREE.WebGLRenderer( { antialias: true } );
+      renderer.setPixelRatio( window.devicePixelRatio );
       renderer.setSize( 150 , 150 , false );
-	    renderer.gammaInput = true;
-	    renderer.gammaOutput = true;
-	    renderer.shadowMap.enabled = true;
-	    renderer.shadowMap.renderReverseSided = false;
+      renderer.gammaInput = true;
+      renderer.gammaOutput = true;
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.renderReverseSided = false;
 
       // create mesh
-	    var loader = new STLLoader();
-	    loader.load( model_url, function ( geometry ) {
-        getModelScale(geometry)
-		    var meshMaterial = new THREE.MeshPhongMaterial( { color: 0xAAAAAA, specular: 0x111111, shininess: 200 } );
-		    mesh = new THREE.Mesh( geometry, meshMaterial );
-		    mesh.position.set( 0, -0.5, 0 );
-		    mesh.rotation.set( 3 * Math.PI / 2 , 0, 0 );
+      var loader = new STLLoader(loading_manager);
+      loader.load( model_url, function ( geometry ) {
+        getModelScale(geometry);
+        var meshMaterial = new THREE.MeshPhongMaterial( { color: 0xAAAAAA, specular: 0x111111, shininess: 200 } );
+        mesh = new THREE.Mesh( geometry, meshMaterial );
+        mesh.position.set( 0, -0.5, 0 );
+        mesh.rotation.set( 3 * Math.PI / 2 , 0, 0 );
         mesh.scale.set( 0.015, 0.015, 0.015 );
-		    scene.add( mesh );
+        scene.add( mesh );
         renderer.render( scene, camera );
         $("#screenshot").val(renderer.domElement.toDataURL());
-	    } );
+        model_loaded = true;
+      });
 
       //put domElement into container
-	    container.appendChild( renderer.domElement );
+      container.appendChild( renderer.domElement );
 
-	    // stats
-	    //stats = new Stats();
-	    //container.appendChild( stats.dom );
+      // stats
+      //stats = new Stats();
+      //container.appendChild( stats.dom );
 
-	    // create orbit controls
+      // create orbit controls
       controls = new OrbitControls( camera, renderer.domElement );
       controls.enablePan = false;
       
       // create user controls
-	    $("#model-color").on( 'change', function(e){
+      $("#model-color").on( 'change', function(e){
         mesh.material.color.setHex( $(this).children(":selected").attr("id").split('_').pop() );
       });
       $("#quality-ll").on( 'change', function(e){
@@ -99,9 +110,9 @@ $(document).on("turbolinks:load", function() {
     }
 
     function addDirectionalLight( x, y, z, color, intensity ) {
-	    var directionalLight = new THREE.DirectionalLight( color, intensity );
-	    directionalLight.position.set( x, y, z );
-	    scene.add( directionalLight );
+      var directionalLight = new THREE.DirectionalLight( color, intensity );
+      directionalLight.position.set( x, y, z );
+      scene.add( directionalLight );
     }
 
     function getModelScale(geometry) {
@@ -137,26 +148,28 @@ $(document).on("turbolinks:load", function() {
         $("#print-depth").val(new_depth);
         $("#print-height").val(new_height);
       }
-	    $("#print-width").on( 'change', function(e){
+        $("#print-width").on( 'change', function(e){
         recalculateValue(this.value, ratio_width)
       });
-	    $("#print-depth").on( 'change', function(e){
+        $("#print-depth").on( 'change', function(e){
         recalculateValue(this.value, ratio_depth)
       });
-	    $("#print-height").on( 'change', function(e){
+        $("#print-height").on( 'change', function(e){
         recalculateValue(this.value, ratio_height)
       });
     }
     
     function animate() {
-	    requestAnimationFrame( animate );
-	    render();
-	    //stats.update();
+        requestAnimationFrame( animate );
+        render();
+        //stats.update();
     }
 
     function render() {
-	    camera.lookAt( cameraTarget );
-	    renderer.render( scene, camera );
+      camera.lookAt( cameraTarget );
+	    if(model_loaded){
+        renderer.render( scene, camera );
+	    }
     }
 
     init();
