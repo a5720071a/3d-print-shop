@@ -34,7 +34,7 @@ $(document).on("turbolinks:load", function() {
       // create camera
       camera = new THREE.PerspectiveCamera( 65, 1, 0.1, 25 );
       camera.position.set( 0, 0.5, 3 );
-      cameraTarget = new THREE.Vector3( 0, 0.5, 0 );
+      cameraTarget = new THREE.Vector3( 0, 0, 0 );
 
       // create scene
       scene = new THREE.Scene();  
@@ -72,6 +72,10 @@ $(document).on("turbolinks:load", function() {
         mesh.scale.set( 0.015, 0.015, 0.015 );
         scene.add( mesh );
         renderer.render( scene, camera );
+        var box = new THREE.Box3().setFromObject( mesh );
+        console.log(box.getSize()["y"]);
+        mesh.position.set( 0, -( box.getSize()["y"] / 2 ), 0 );
+        camera.position.set( 0, 0, box.getSize()["y"] );
         $("#screenshot").val(renderer.domElement.toDataURL());
         $("#loading-model").css({"display": "none"});
       });
