@@ -17,9 +17,9 @@ $(document).on("turbolinks:load", function() {
     function init() {
 
       loading_manager = new THREE.LoadingManager();
-      loading_manager.onProgress = function(item, loaded, total){
-        console.log(item, loaded, total);
-      }
+      loading_manager.onProgress = function ( item, loaded, total ) {
+        console.log((loaded / total * 100) + '%');
+      };
       loading_manager.onLoad = function(){
         console.log("All loaded");
         model_loaded = true;
@@ -73,7 +73,7 @@ $(document).on("turbolinks:load", function() {
         scene.add( mesh );
         renderer.render( scene, camera );
         $("#screenshot").val(renderer.domElement.toDataURL());
-        model_loaded = true;
+        $("#loading-model").css({"display": "none"});
       });
 
       //put domElement into container

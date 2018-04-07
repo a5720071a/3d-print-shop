@@ -2,17 +2,18 @@
   "name": "print-shop",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "^3.2.1",
+    "@rails/webpacker": "^3.4.3",
     "promptpay-qr": "^0.4.4",
     "three": "0.89.0",
-    "three-stl-loader": "1.0.6",
-    "three-orbit-controls": "82.1.0"
+    "three-orbit-controls": "82.1.0",
+    "three-stl-loader": "1.0.6"
   },
   "devDependencies": {
-    "webpack-dev-server": "^2.11.1",
     "promptpay-qr": "^0.4.4",
     "three": "0.89.0",
+    "three-orbit-controls": "82.1.0",
     "three-stl-loader": "1.0.6",
-    "three-orbit-controls": "82.1.0"
+    "webpack-cli": "^2.0.14",
+    "webpack-dev-server": "^3.1.2"
   }
 }
