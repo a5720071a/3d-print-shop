@@ -17,12 +17,10 @@ $(document).on("turbolinks:load", function() {
     function init() {
 
       loading_manager = new THREE.LoadingManager();
-      loading_manager.onProgress = function ( item, loaded, total ) {
-        console.log((loaded / total * 100) + '%');
-      };
       loading_manager.onLoad = function(){
-        console.log("All loaded");
         model_loaded = true;
+        $("#loading-model").css({"display": "none"});
+        $("#screenshot").val(renderer.domElement.toDataURL());
       }
       // Put domElement container into page
       var preview_panel = $('#preview-panel');
@@ -32,7 +30,7 @@ $(document).on("turbolinks:load", function() {
       preview_panel.append(container);
 
       // create camera
-      camera = new THREE.PerspectiveCamera( 65, 1, 0.1, 25 );
+      camera = new THREE.PerspectiveCamera( 65, 1, 0.001, 25 );
       camera.position.set( 0, 0.5, 3 );
       cameraTarget = new THREE.Vector3( 0, 0, 0 );
 
@@ -70,14 +68,13 @@ $(document).on("turbolinks:load", function() {
         mesh.position.set( 0, -0.5, 0 );
         mesh.rotation.set( 3 * Math.PI / 2 , 0, 0 );
         mesh.scale.set( 0.015, 0.015, 0.015 );
+        var box = new THREE.Box3().setFromObject( mesh );
+        var middle_y = -( box.getSize()["y"] / 2 );
+        var box_max = Math.max( box.getSize()["x"], box.getSize()["y"], box.getSize()["z"] );
+        mesh.position.set( 0, middle_y, 0 );
+        camera.position.set( 0, 0, box_max); 
         scene.add( mesh );
         renderer.render( scene, camera );
-        var box = new THREE.Box3().setFromObject( mesh );
-        console.log(box.getSize()["y"]);
-        mesh.position.set( 0, -( box.getSize()["y"] / 2 ), 0 );
-        camera.position.set( 0, 0, box.getSize()["y"] );
-        $("#screenshot").val(renderer.domElement.toDataURL());
-        $("#loading-model").css({"display": "none"});
       });
 
       //put domElement into container
