@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <div class="page-content">
-  <% if [*@models].length > 0 %>
-    <% [*@models].each do |model| %>
-      <div class="card" id="model_<%= model.id %>">
-        <div class="card-content">
-         <%= link_to "model ID: #{model.id}", controller: "items", action: "new", model: "#{ model.id }" %>
-         <ul>
-           <li>Shared : <%= model.share %></li>
-            <li>Uploaded on : <%= model.created_at %></li>
-          </ul>
-        </div>
-      </div>
-    <% end %>
-  <% else %>
-    <div class="card">
-      <div class="card-content">
-        <h4><b>ไม่มีโมเดล</b></h4> 
-        <p>ไม่มีโมเดลที่ถูกแชร์</p> 
+  <div class="grid">
+    <div class="col-1-5 browse-filter">
+      <div class="filter-panel">
+        <p>Filter panel</p>
+        <input type="checkbox">a</input>
       </div>
     </div>
-  <% end %>
+    <div class="col-4-5 browse-items">
+        <% if [*@models].length > 0 %>
+          <% [*@models].each do |model| %>
+            <div class="model-card item" id="model_<%= model.id %>">
+              <div class="card-content">
+                <img src="<%= model.model_url.split('.')[0] %>.png"></br>
+                <p>Model name</p>
+                <%= link_to "ปริ้นท์โมเดลนี้", print_settings_path(:model => model.id), class: "btn-small" %>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="card">
+            <div class="card-content">
+              <h4><b>ไม่มีโมเดล</b></h4> 
+              <p>ไม่มีโมเดลที่ถูกแชร์</p> 
+            </div>
+          </div>
+        <% end %>
+    </div>
+  </div>
 </div>

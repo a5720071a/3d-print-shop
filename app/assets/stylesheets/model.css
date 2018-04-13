@@ -1,3 +1,4 @@
+/* upload page*/
 .upload input[type="file"] {
     display: none;
 }
@@ -11,4 +12,32 @@
 }
 .upload .custom-file-upload:hover {
   background: #4563C6;
+}
+/* browse page*/
+.browse-filter {
+  padding: 1rem;
+  vertical-align: top;
+}
+.filter-panel {
+  background: whitesmoke;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+}
+.browse-items {
+  padding: 1rem;
+}
+.item {
+  float: left;
+}
+.model-card {
+  background: #D9DDF2;
+  padding: 1rem;
+  margin: 0 1rem 2rem 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+  transition: 0.3s;
+}
+.model-card .card-content {
+  text-align: center;
 }
