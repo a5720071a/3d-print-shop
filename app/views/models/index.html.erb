@@ -13,7 +13,7 @@
             <div class="model-card item" id="model_<%= model.id %>">
               <div class="card-content">
                 <img src="<%= model.model_url.split('.')[0] %>.png"></br>
-                <p>Model name</p>
+                <p><%= JSON.parse(model.model_data)["metadata"]["filename"] %></p>
                 <%= link_to "ปริ้นท์โมเดลนี้", print_settings_path(:model => model.id), class: "btn-small" %>
               </div>
             </div>
