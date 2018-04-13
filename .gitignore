@@ -57,3 +57,4 @@ yarn-error.log*
 
 # Ignore webpack uploads
 /public/uploads/*
+/config/initializers/omise.rb

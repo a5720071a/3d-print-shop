@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get '/confirm' => redirect('/checkout')
   post '/confirm' => 'orders#new'
   post '/order' => 'orders#create'
+  post '/checkout' => 'payments#check'
 
   get '/payment_options' => 'payments#new'
 

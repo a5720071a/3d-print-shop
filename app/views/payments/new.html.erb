@@ -5,8 +5,13 @@
       <p>Hello</p>
     </div>
     <div class="panel-content">
-      <p>If you see this message, your order is probably created successfully. Check the link below to see if your order showed up.</p>
-      <%= link_to "LINK", my_orders_path %>
+      <form class="checkout-form" name="checkoutForm" method="POST" action="/checkout">
+        <script type="text/javascript" src="https://cdn.omise.co/omise.js"
+                data-key="pkey_test_5blfndm8jdo06v35pu8"
+                data-amount="12345"
+                data-button-label="Pay now">
+        </script>
+      </form>
     </div>
   </div>
 </div>
