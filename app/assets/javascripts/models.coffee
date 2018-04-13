@@ -7,9 +7,10 @@ $(document).on "turbolinks:load", ->
       if types.test(file.type) || types.test(file.name)
         data.context = $(tmpl("template-upload", file))
         $('[type=file]').append(data.context)
+        $('.progress').slideToggle('fast')
         data.submit()
       else
-        alert("#{file.name} is not a gif, jpeg, or png image file")
+        alert("#{file.name} is not a stl file")
     progress: (e, data) ->
       if data.context
         progress = parseInt(data.loaded / data.total * 100, 10)
