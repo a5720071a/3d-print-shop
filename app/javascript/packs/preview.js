@@ -31,7 +31,7 @@ $(document).on("turbolinks:load", function() {
 
       // create camera
       camera = new THREE.PerspectiveCamera( 65, 1, 0.001, 25 );
-      camera.position.set( 0, 0.5, 3 );
+      camera.position.set( 0, 0, 0 );
       cameraTarget = new THREE.Vector3( 0, 0, 0 );
 
       // create scene
@@ -51,7 +51,7 @@ $(document).on("turbolinks:load", function() {
       addDirectionalLight( -1, 1, 0, 0xffffff, 0.2 );
 
       // create renderer
-      renderer = new THREE.WebGLRenderer( { antialias: true } );
+      renderer = new THREE.WebGLRenderer( { preserveDrawingBuffer: true, antialias: true } );
       renderer.setPixelRatio( window.devicePixelRatio );
       renderer.setSize( 150 , 150 , false );
       renderer.gammaInput = true;
