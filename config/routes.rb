@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get '/upload' => 'models#new'
   post '/upload' => 'models#create'
 
+  post '/thumbnailer' => 'items#thumbnailer'
+
   get '/print_settings' => 'items#new'
   post '/add_to_cart' => 'items#create'
   get '/my_cart' => 'items#my_cart'

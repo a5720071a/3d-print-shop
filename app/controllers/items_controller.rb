@@ -26,6 +26,14 @@ class ItemsController < ApplicationController
     @cart = @items.joins(:filament,:print_speed,:model)
     @cart = @cart.select("items.*, filaments.description as f_description, print_speeds.configuration as p_configuration, models.model_data as m_model_data")
   end
+  def thumbnailer
+    unless File.exists?(ajax_create_thumb_path)
+      uri = URI::Data.new(ajax_get_screenshot)
+      File.open(ajax_create_thumb_path, 'wb') do |f|
+        f.write(uri.data)
+      end
+    end
+  end
   private
   def add_item_params
     params.require(:item).permit(:model_id,:print_height,:print_width,:print_depth,:model_id,:filament_id,:print_speed_id)
@@ -35,5 +43,11 @@ class ItemsController < ApplicationController
   end
   def create_thumb_path
     "public" + params.require(:item).permit(:model_url)[:model_url].split('.')[0] + ".png"
+  end
+  def ajax_create_thumb_path
+    p "public" + params.require(:model_url).split('.')[0] + ".png"
+  end
+  def ajax_get_screenshot
+    p params.require(:screenshot)
   end
 end

@@ -21,6 +21,18 @@ $(document).on("turbolinks:load", function() {
         model_loaded = true;
         $("#loading-model").css({"display": "none"});
         $("#screenshot").val(renderer.domElement.toDataURL());
+        $.ajax({
+          url: "/thumbnailer",
+          method: "POST",
+          dataType: "script",
+          data: { screenshot: $('#screenshot').val(), model_url: $("#model-url").val()},
+          error: function(xhr, status, error) {
+            console.log('error')
+          },
+          success: function(data, status, xhr) {
+            console.log('success')
+          }
+        });
       }
       // Put domElement container into page
       var preview_panel = $('#preview-panel');
