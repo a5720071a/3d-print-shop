@@ -87,6 +87,32 @@ $(document).on("turbolinks:load", function() {
         camera.position.set( 0, 0, box_max); 
         scene.add( mesh );
         renderer.render( scene, camera );
+        var new_geometry = new THREE.Geometry().fromBufferGeometry(geometry)
+        console.log(new_geometry.faces.length)
+        calculateVolume(new_geometry);
+        function volumeOfT(p1, p2, p3){
+          var v321 = p3.x*p2.y*p1.z;
+          var v231 = p2.x*p3.y*p1.z;
+          var v312 = p3.x*p1.y*p2.z;
+          var v132 = p1.x*p3.y*p2.z;
+          var v213 = p2.x*p1.y*p3.z;
+          var v123 = p1.x*p2.y*p3.z;
+          return (-v321 + v231 + v312 - v132 - v213 + v123)/6.0;
+        }
+        function calculateVolume(object){
+          var volumes = 0.0;
+          for(var i = 0; i < object.faces.length; i++){
+              var Pi = object.faces[i].a;
+              var Qi = object.faces[i].b;
+              var Ri = object.faces[i].c;
+
+              var P = new THREE.Vector3(object.vertices[Pi].x, object.vertices[Pi].y, object.vertices[Pi].z);
+              var Q = new THREE.Vector3(object.vertices[Qi].x, object.vertices[Qi].y, object.vertices[Qi].z);
+              var R = new THREE.Vector3(object.vertices[Ri].x, object.vertices[Ri].y, object.vertices[Ri].z);
+              volumes += volumeOfT(P, Q, R);
+          }
+          console.log(Math.abs(volumes));
+        }
       }, function(e) {
         var percentage = Math.round((e.loaded / e.total * 100));
         $("#percent").text(percentage);
