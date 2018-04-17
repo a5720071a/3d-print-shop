@@ -88,7 +88,6 @@ $(document).on("turbolinks:load", function() {
         scene.add( mesh );
         renderer.render( scene, camera );
         var new_geometry = new THREE.Geometry().fromBufferGeometry(geometry)
-        console.log(new_geometry.faces.length)
         calculateVolume(new_geometry);
         function volumeOfT(p1, p2, p3){
           var v321 = p3.x*p2.y*p1.z;
@@ -111,7 +110,7 @@ $(document).on("turbolinks:load", function() {
               var R = new THREE.Vector3(object.vertices[Ri].x, object.vertices[Ri].y, object.vertices[Ri].z);
               volumes += volumeOfT(P, Q, R);
           }
-          console.log(Math.abs(volumes));
+          console.log("original volume : " + Math.abs(volumes) + "mm.3");
         }
       }, function(e) {
         var percentage = Math.round((e.loaded / e.total * 100));
@@ -165,6 +164,10 @@ $(document).on("turbolinks:load", function() {
       var geo_width = Math.abs(boundingBox.min.x) + boundingBox.max.x;
       var geo_depth = Math.abs(boundingBox.min.y) + boundingBox.max.y;
       var geo_height = Math.abs(boundingBox.min.z) + boundingBox.max.z;
+      console.log("original width : " + geo_width + "mm.")
+      console.log("original depth : " + geo_depth + "mm.")
+      console.log("original height : " + geo_height + "mm.")
+      console.log("original bounding box volume : " + (geo_width * geo_depth * geo_height))
       var min_dimension = Math.min(geo_width,geo_depth,geo_height);
       var ratio_width = (geo_width / min_dimension).toFixed(2);
       var ratio_depth = (geo_depth / min_dimension).toFixed(2);
