@@ -14,6 +14,10 @@ $(document).on("turbolinks:load", function() {
     var model_loaded = false;
     var loading_manager = null;
 
+    var geo_width, geo_depth, geo_height, geo_volume;
+    var ratio_width, ratio_depth, ratio_height, ratio_volume;
+    var default_width, default_depth, default_height;
+
     function init() {
 
       loading_manager = new THREE.LoadingManager();
@@ -21,6 +25,11 @@ $(document).on("turbolinks:load", function() {
         model_loaded = true;
         $("#loading-model").css({"display": "none"});
         $("#screenshot").val(renderer.domElement.toDataURL());
+        console.log("original volume : " + geo_volumes + " mm3");
+        console.log("original width : " + geo_width + " mm")
+        console.log("original depth : " + geo_depth + " mm")
+        console.log("original height : " + geo_height + " mm")
+        console.log("original bounding box volume : " + (geo_width * geo_depth * geo_height) + " mm3")
         $.ajax({
           url: "/thumbnailer",
           method: "POST",
@@ -99,7 +108,7 @@ $(document).on("turbolinks:load", function() {
           return (-v321 + v231 + v312 - v132 - v213 + v123)/6.0;
         }
         function calculateVolume(object){
-          var volumes = 0.0;
+          geo_volumes = 0.0;
           for(var i = 0; i < object.faces.length; i++){
               var Pi = object.faces[i].a;
               var Qi = object.faces[i].b;
@@ -108,9 +117,10 @@ $(document).on("turbolinks:load", function() {
               var P = new THREE.Vector3(object.vertices[Pi].x, object.vertices[Pi].y, object.vertices[Pi].z);
               var Q = new THREE.Vector3(object.vertices[Qi].x, object.vertices[Qi].y, object.vertices[Qi].z);
               var R = new THREE.Vector3(object.vertices[Ri].x, object.vertices[Ri].y, object.vertices[Ri].z);
-              volumes += volumeOfT(P, Q, R);
+              geo_volumes += volumeOfT(P, Q, R);
           }
-          console.log("original volume : " + Math.abs(volumes) + "mm.3");
+          geo_volumes = Math.abs(geo_volumes);
+          ratio_volumes = (geo_width * geo_depth * geo_height) / geo_volumes;
         }
       }, function(e) {
         var percentage = Math.round((e.loaded / e.total * 100));
@@ -161,24 +171,20 @@ $(document).on("turbolinks:load", function() {
       // Calculate and set minimum value of each side
       geometry.computeBoundingBox()
       var boundingBox = geometry.boundingBox.clone();
-      var geo_width = Math.abs(boundingBox.min.x) + boundingBox.max.x;
-      var geo_depth = Math.abs(boundingBox.min.y) + boundingBox.max.y;
-      var geo_height = Math.abs(boundingBox.min.z) + boundingBox.max.z;
-      console.log("original width : " + geo_width + "mm.")
-      console.log("original depth : " + geo_depth + "mm.")
-      console.log("original height : " + geo_height + "mm.")
-      console.log("original bounding box volume : " + (geo_width * geo_depth * geo_height))
+      geo_width = Math.abs(boundingBox.min.x) + boundingBox.max.x;
+      geo_depth = Math.abs(boundingBox.min.y) + boundingBox.max.y;
+      geo_height = Math.abs(boundingBox.min.z) + boundingBox.max.z;
       var min_dimension = Math.min(geo_width,geo_depth,geo_height);
-      var ratio_width = (geo_width / min_dimension).toFixed(2);
-      var ratio_depth = (geo_depth / min_dimension).toFixed(2);
-      var ratio_height = (geo_height / min_dimension).toFixed(2);
+      ratio_width = (geo_width / min_dimension).toFixed(2);
+      ratio_depth = (geo_depth / min_dimension).toFixed(2);
+      ratio_height = (geo_height / min_dimension).toFixed(2);
       $('#model-scale').text("มาตราส่วน สูง "+ratio_height+" : กว้าง "+ratio_width+" : ลึก "+ratio_depth)
-      var min_width = (Math.ceil(ratio_width * 10) / 2).toFixed(1)
-      var min_depth = (Math.ceil(ratio_depth * 10) / 2).toFixed(1)
-      var min_height = (Math.ceil(ratio_height * 10) / 2).toFixed(1)
-      $("#print-width").attr({"min" : min_width, "value" : min_width});
-      $("#print-depth").attr({"min" : min_depth, "value" : min_depth});
-      $("#print-height").attr({"min" : min_height, "value" : min_height});
+      default_width = (Math.ceil(ratio_width * 10) / 2).toFixed(1)
+      default_depth = (Math.ceil(ratio_depth * 10) / 2).toFixed(1)
+      default_height = (Math.ceil(ratio_height * 10) / 2).toFixed(1)
+      $("#print-width").attr({"min" : default_width, "value" : default_width});
+      $("#print-depth").attr({"min" : default_depth, "value" : default_depth});
+      $("#print-height").attr({"min" : default_height, "value" : default_height});
 
       // Calculate scaled value
       function recalculateValue(value, ratio) {
@@ -189,17 +195,19 @@ $(document).on("turbolinks:load", function() {
         var new_width = (Math.ceil(currentValue / ratio * ratio_width * 2) / 2).toFixed(1);
         var new_depth = (Math.ceil(currentValue / ratio * ratio_depth * 2) / 2).toFixed(1);
         var new_height = (Math.ceil(currentValue / ratio * ratio_height * 2) / 2).toFixed(1);
+        var new_price = 50 + 0.1 * (new_width * new_depth * new_height)/(default_width * default_depth * default_height)
         $("#print-width").val(new_width);
         $("#print-depth").val(new_depth);
         $("#print-height").val(new_height);
+        $("#price").text(Math.round(new_price*1)/1);
       }
-        $("#print-width").on( 'change', function(e){
+      $("#print-width").on( 'change', function(e){
         recalculateValue(this.value, ratio_width)
       });
-        $("#print-depth").on( 'change', function(e){
+      $("#print-depth").on( 'change', function(e){
         recalculateValue(this.value, ratio_depth)
       });
-        $("#print-height").on( 'change', function(e){
+      $("#print-height").on( 'change', function(e){
         recalculateValue(this.value, ratio_height)
       });
     }
