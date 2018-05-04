@@ -10,11 +10,12 @@ html * {
 body {
   margin: 0;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  display:table;
+  width:100%;
 }
 .content {
-  flex: 1;
+  display: table-row;
+  height: 90%;
 }
 .page-header {
   margin: 0% 5% 0% 5%;
@@ -52,7 +53,8 @@ body {
 }
 .footer {
   padding: 1rem;
-  background: gainsboro;
+  "background: gainsboro;"
+  display: table-row;
 }
 .card {
   background: #D9DDF2;
