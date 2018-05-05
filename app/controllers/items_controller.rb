@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :require_user, :has_customer_privillege?
+  before_action :require_user, :has_customer_privillege?, except: :print_job_generated
   protect_from_forgery with: :null_session
   def new
     @item = Item.new
@@ -34,6 +34,15 @@ class ItemsController < ApplicationController
       end
     end
   end
+  def print_job_generated
+    @item = Item.find_by id: print_job_for_item
+    @item.print_job_generated = "true"
+    if @item.save
+      render :plain=> "Ok"
+    else
+      render :plain => "Error"
+    end
+  end
   private
   def add_item_params
     params.require(:item).permit(:model_id,:print_height,:print_width,:print_depth,:model_id,:filament_id,:print_speed_id)
@@ -49,5 +58,8 @@ class ItemsController < ApplicationController
   end
   def ajax_get_screenshot
     p params.require(:screenshot)
+  end
+  def print_job_for_item
+    params[:item_id]
   end
 end

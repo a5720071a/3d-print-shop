@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180313160203) do
+ActiveRecord::Schema.define(version: 20180505173922) do
 
   create_table "address_books", force: :cascade do |t|
     t.string "address"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20180313160203) do
     t.integer "user_id"
     t.boolean "in_cart"
     t.integer "order_id"
+    t.boolean "print_job_generated", default: false
     t.index ["filament_id"], name: "index_items_on_filament_id"
     t.index ["model_id"], name: "index_items_on_model_id"
     t.index ["order_id"], name: "index_items_on_order_id"

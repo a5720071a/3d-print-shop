@@ -38,4 +38,6 @@ Rails.application.routes.draw do
 
   get '/admin' => 'admin#index'
 
+  # for print jobs management
+  post '/print_job_generated' => 'items#print_job_generated'
 end
