@@ -132,10 +132,6 @@ $(document).on("turbolinks:load", function() {
       //put domElement into container
       container.appendChild( renderer.domElement );
 
-      // stats
-      //stats = new Stats();
-      //container.appendChild( stats.dom );
-
       // create orbit controls
       controls = new OrbitControls( camera, renderer.domElement );
       controls.enablePan = false;
@@ -171,12 +167,15 @@ $(document).on("turbolinks:load", function() {
       ratio_height = (geo_height / min_dimension).toFixed(2);
       */
       // max print size is 140 mm
-      max_scale = (140 / max_dimension).toFixed(3);
-      scale_slider_value = 1
-      if(max_scale < 1) {
-        scale_slider_value = max_scale
+      var scale_slider_value = 1;
+      var min_scale = (10 / min_dimension).toFixed(3);
+      if(min_scale > 1) {
+        scale_slider_value = min_scale;
       }
-      min_scale = (10 / min_dimension).toFixed(3);
+      var max_scale = (140 / max_dimension).toFixed(3);
+      if(max_scale < 1) {
+        scale_slider_value = max_scale;
+      }
       $(".print-scaling").attr({"min" : min_scale, "max" : max_scale, "value" : scale_slider_value});
       $("#print-width").val((geo_width * scale_slider_value).toFixed(1));
       $("#print-depth").val((geo_depth * scale_slider_value).toFixed(1));
@@ -184,7 +183,7 @@ $(document).on("turbolinks:load", function() {
       // Calculate scaled value
       /*
       function recalculateValue(value, ratio) {
-        var currentValue = value
+        var currentValue = value;
         if(currentValue < (5 * ratio)) {
           currentValue = 5 * ratio;
         }
