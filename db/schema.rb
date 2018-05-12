@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180512052332) do
+ActiveRecord::Schema.define(version: 20180512121525) do
 
   create_table "address_books", force: :cascade do |t|
     t.string "address"
@@ -29,6 +29,16 @@ ActiveRecord::Schema.define(version: 20180512052332) do
     t.string "hex_color_value"
   end
 
+  create_table "item_in_orders", force: :cascade do |t|
+    t.integer "order_id"
+    t.integer "item_id"
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_item_in_orders_on_item_id"
+    t.index ["order_id"], name: "index_item_in_orders_on_order_id"
+  end
+
   create_table "items", force: :cascade do |t|
     t.decimal "print_height"
     t.decimal "print_width"
@@ -37,16 +47,12 @@ ActiveRecord::Schema.define(version: 20180512052332) do
     t.datetime "updated_at", null: false
     t.integer "model_id"
     t.integer "filament_id"
-    t.integer "print_speed_id"
     t.integer "user_id"
     t.boolean "in_cart"
-    t.integer "order_id"
     t.boolean "print_job_generated", default: false
     t.decimal "scale"
     t.index ["filament_id"], name: "index_items_on_filament_id"
     t.index ["model_id"], name: "index_items_on_model_id"
-    t.index ["order_id"], name: "index_items_on_order_id"
-    t.index ["print_speed_id"], name: "index_items_on_print_speed_id"
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
@@ -77,7 +83,9 @@ ActiveRecord::Schema.define(version: 20180512052332) do
     t.string "status"
     t.integer "user_id"
     t.integer "address_id"
+    t.integer "print_speed_id"
     t.index ["address_id"], name: "index_orders_on_address_id"
+    t.index ["print_speed_id"], name: "index_orders_on_print_speed_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 

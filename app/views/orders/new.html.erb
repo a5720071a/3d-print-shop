@@ -10,28 +10,7 @@
           <p>ส่งคุณ: <%= @delivery_info[0] %></p>
           <p>สถานที่จัดส่ง: <%= @delivery_info[1] %></p>
           <p>บริการจัดส่งสินค้า: <%= @delivery_info[2] %></p>
-          <% [*@items].each do |item| %>
-            <div class="card" id="item_<%= item.id %>">
-              <div class="card-content">
-                <p>หมายเลขชิ้นงาน: #<%= item.id %></p>
-                <ul>
-                  <li>ความสูง: <%= item.print_height %> มม.</li>
-                  <li>ความกว้าง: <%= item.print_width %> มม.</li>
-                  <li>ความลึก: <%= item.print_depth %> มม.</li>
-                  <li>ชนิดและสีของฟิลาเมนต์: <%= item.filament.description %></li>
-                  <li>ความเร็วในการปริ้นท์: <%= item.print_speed.configuration %></li>
-                  <li>โมเดลฐาน: 
-                      <%= 
-                          link_to "#{ JSON.parse(item.model.model_data)["metadata"]["filename"] }", 
-                          controller: "items",
-                          action: "new", 
-                          model: "#{ item.model_id }"
-                      %>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          <% end %>
+          <%= render partial: "items/item", collection: @cart, as: :item%>
         </div>
         <div style="display:table-row; text-align:center;">
           <%= form_for @order, url: order_path do |f| %>

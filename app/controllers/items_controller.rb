@@ -10,11 +10,15 @@ class ItemsController < ApplicationController
     @item = @current_user.items.new(add_item_params)
     @item.in_cart = "true"
     if @item.save!
-      unless File.exists?(create_thumb_path)
-        uri = URI::Data.new(get_screenshot)
-        File.open(create_thumb_path, 'wb') do |f|
+      unless File.exists?(create_model_thumb_path)
+        uri = URI::Data.new(get_model_screenshot)
+        File.open(create_model_thumb_path, 'wb') do |f|
           f.write(uri.data)
         end
+      end
+      uri = URI::Data.new(get_item_screenshot)
+      File.open(create_item_thumb_path(String(@item.id)), 'wb') do |f|
+        f.write(uri.data)
       end
       redirect_to '/my_cart'
     else
@@ -22,14 +26,14 @@ class ItemsController < ApplicationController
     end
   end
   def my_cart
-    @items = @current_user.items.where(in_cart: true)
-    @cart = @items.joins(:filament,:print_speed,:model)
-    @cart = @cart.select("items.*, filaments.description as f_description, print_speeds.configuration as p_configuration, models.model_data as m_model_data")
+    @items = @current_user.items.where in_cart: true
+    @cart = @items.joins :filament,:model
+    @cart = @cart.select("items.*, filaments.description as f_description, models.model_data as m_model_data")
   end
   def thumbnailer
-    unless File.exists?(ajax_create_thumb_path)
+    unless File.exists?(ajax_create_model_thumb_path)
       uri = URI::Data.new(ajax_get_screenshot)
-      File.open(ajax_create_thumb_path, 'wb') do |f|
+      File.open(ajax_create_model_thumb_path, 'wb') do |f|
         f.write(uri.data)
       end
     end
@@ -45,19 +49,25 @@ class ItemsController < ApplicationController
   end
   private
   def add_item_params
-    params.require(:item).permit(:model_id,:scale,:print_height,:print_width,:print_depth,:model_id,:filament_id,:print_speed_id)
+    params.require(:item).permit(:model_id,:scale,:print_height,:print_width,:print_depth,:model_id,:filament_id)
   end
-  def get_screenshot
+  def get_model_screenshot
     params.require(:item).permit(:screenshot)[:screenshot]
   end
-  def create_thumb_path
+  def get_item_screenshot
+    params.require(:item).permit(:finished_item)[:finished_item]
+  end
+  def create_model_thumb_path
     "public" + params.require(:item).permit(:model_url)[:model_url].split('.')[0] + ".png"
   end
-  def ajax_create_thumb_path
-    p "public" + params.require(:model_url).split('.')[0] + ".png"
+  def ajax_create_model_thumb_path
+    "public" + params.require(:model_url).split('.')[0] + ".png"
   end
   def ajax_get_screenshot
-    p params.require(:screenshot)
+    params.require(:screenshot)
+  end
+  def create_item_thumb_path(id)
+    "public/items/" + id + ".png"
   end
   def print_job_for_item
     params[:item_id]

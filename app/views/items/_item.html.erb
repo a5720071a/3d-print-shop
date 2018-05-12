@@ -1,0 +1,26 @@
+<div class="card" id="item_<%= item.id %>">
+  <div class="card-content">
+    <p>หมายเลขชิ้นงาน: #<%= item.id %></p>
+    <div style="display:table; width:100%; padding-top:1rem;">
+     <div style="display:table-cell; vertical-align:top; width:calc(150px + 1rem);">
+       <img src="/items/<%= item.id %>.png" width="150px" height="150px">
+     </div>
+     <div style="display:table-cell;">
+       <ul style="list-style-type:none;">
+         <li>ความสูง: <%= item.print_height %> มม.</li>
+         <li>ความกว้าง: <%= item.print_width %> มม.</li>
+         <li>ความลึก: <%= item.print_depth %> มม.</li>
+         <li>ฟิลาเมนต์: <%= item.f_description %></li>
+         <li>โมเดลฐาน: 
+             <%= 
+                 link_to "#{ JSON.parse(item.m_model_data)["metadata"]["filename"] }", 
+                 controller: "items",
+                 action: "new", 
+                 model: "#{ item.model_id }"
+             %>
+         </li>
+       </ul>
+     </div>
+    </div>
+  </div>
+</div>

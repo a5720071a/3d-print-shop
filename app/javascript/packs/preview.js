@@ -143,6 +143,10 @@ $(document).on("turbolinks:load", function() {
       $(".render-quality").on( 'change', function(e){
         renderer.setSize( this.value, this.value, false );
       });
+      $('#create-item').submit(function() {
+        $("#finished-item").val(renderer.domElement.toDataURL());
+        return true; // return false to cancel form action
+      });
     }
 
     function addDirectionalLight( x, y, z, color, intensity ) {

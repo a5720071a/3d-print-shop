@@ -12,29 +12,8 @@
       </div>
     </div>
     <div class="panel-content">
-      <% if [*@cart].length > 0 %>
-        <% [*@cart].each do |item| %>
-          <div class="card" id="item_<%= item.id %>">
-            <div class="card-content">
-                <p>หมายเลขชิ้นงาน: #<%= item.id %></p>
-              <ul>
-                <li>ความสูง: <%= item.print_height %> มม.</li>
-                <li>ความกว้าง: <%= item.print_width %> มม.</li>
-                <li>ความลึก: <%= item.print_depth %> มม.</li>
-                <li>ชนิดและสีของฟิลาเมนต์: <%= item.f_description %></li>
-                <li>ความเร็วในการปริ้นท์: <%= item.p_configuration %></li>
-                <li>โมเดลฐาน: 
-                    <%= 
-                        link_to "#{ JSON.parse(item.m_model_data)["metadata"]["filename"] }", 
-                        controller: "items",
-                        action: "new", 
-                        model: "#{ item.model_id }"
-                    %>
-                </li>
-              </ul>
-            </div>
-          </div>
-        <% end %>
+      <% if @cart.present? %>
+        <%= render @cart %>
       <% else %>
         <p>คุณไม่มีสินค้าในตะกร้า</p>
       <% end %>

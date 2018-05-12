@@ -28,10 +28,11 @@
           </br></br>
         </div>
         <div id="options-panel" style="display:table-cell; vertical-align:top; padding-left:5rem;">
-          <form action="/add_to_cart" method="post">
+          <form action="/add_to_cart" id="create-item" method="post">
             <input type="hidden" name="item[model_url]" id="model-url" value="<%= @model.model_url %>">
             <input type="hidden" name="item[model_id]" value="<%= @model.id %>">
             <input type="hidden" id="screenshot" name="item[screenshot]">
+            <input type="hidden" id="finished-item" name="item[finished_item]">
             <h3 style="margin-top:0;">เลือกขนาดชิ้นงานปริ้นท์</h3>
             <div id="print-sizing" style="display:table">
               <div id="print-sizing-height" style="display:table-row">
@@ -79,11 +80,6 @@
                 <option id="<%= filament.id %>_<%= filament.hex_color_value %>" value="<%= filament.id %>"><%= filament.description %></option>
               <% end %>
             </select>
-            <h3>เลือกความเร็วในการปริ้นท์</h3>
-            <input type="radio" name="item[print_speed_id]" id="speed-regular" value="1" checked>
-            <label for="speed-regular">ธรรมดา</label>
-            <input type="radio" name="item[print_speed_id]" id="speed-express" value="2">
-            <label for="speed-express">ด่วน</label>
             </br></br>
             <input class="btn-small" type="submit" value="นำใส่ตะกร้า"></input>
           </form>
