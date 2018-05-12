@@ -1,6 +1,6 @@
-const THREE = require('three')
-const STLLoader = require('three-stl-loader')(THREE)
-const OrbitControls = require('three-orbit-controls')(THREE)
+const THREE = require('three');
+const STLLoader = require('three-stl-loader')(THREE);
+const OrbitControls = require('three-orbit-controls')(THREE);
 
 $(document).on("turbolinks:load", function() {
   var model_url_container = $("#model-url");
@@ -26,22 +26,24 @@ $(document).on("turbolinks:load", function() {
         $("#loading-model").css({"display": "none"});
         $("#screenshot").val(renderer.domElement.toDataURL());
         console.log("original volume : " + geo_volumes + " mm3");
-        console.log("original width : " + geo_width + " mm")
-        console.log("original depth : " + geo_depth + " mm")
-        console.log("original height : " + geo_height + " mm")
-        console.log("original bounding box volume : " + (geo_width * geo_depth * geo_height) + " mm3")
+        console.log("original width : " + geo_width + " mm");
+        console.log("original depth : " + geo_depth + " mm");
+        console.log("original height : " + geo_height + " mm");
+        console.log("original bounding box volume : " + (geo_width * geo_depth * geo_height) + " mm3");
         $.ajax({
           url: "/thumbnailer",
           method: "POST",
           dataType: "script",
           data: { screenshot: $('#screenshot').val(), model_url: $("#model-url").val()},
           error: function(xhr, status, error) {
-            console.log('error')
+            console.log('error');
           },
           success: function(data, status, xhr) {
-            console.log('success')
+            console.log('success');
           }
         });
+        $('input').removeAttr('disabled');
+        $('select').removeAttr('disabled');
       }
       // Put domElement container into page
       var preview_panel = $('#preview-panel');
@@ -96,7 +98,7 @@ $(document).on("turbolinks:load", function() {
         camera.position.set( 0, 0, box_max); 
         scene.add( mesh );
         renderer.render( scene, camera );
-        var new_geometry = new THREE.Geometry().fromBufferGeometry(geometry)
+        var new_geometry = new THREE.Geometry().fromBufferGeometry(geometry);
         calculateVolume(new_geometry);
         function volumeOfT(p1, p2, p3){
           var v321 = p3.x*p2.y*p1.z;
@@ -142,22 +144,9 @@ $(document).on("turbolinks:load", function() {
       $("#model-color").on( 'change', function(e){
         mesh.material.color.setHex( $(this).children(":selected").attr("id").split('_').pop() );
       });
-      $("#quality-ll").on( 'change', function(e){
-        renderer.setSize( 150 , 150 , false );
+      $(".render-quality").on( 'change', function(e){
+        renderer.setSize( this.value, this.value, false );
       });
-      $("#quality-l").on( 'change', function(e){
-        renderer.setSize( 200 , 200 , false );
-      });
-      $("#quality-m").on( 'change', function(e){
-        renderer.setSize( 250 , 250 , false );
-      });
-      $("#quality-h").on( 'change', function(e){
-        renderer.setSize( 375 , 375 , false );
-      });
-      $("#quality-hh").on( 'change', function(e){
-        renderer.setSize( 500 , 500 , false );
-      });
-
     }
 
     function addDirectionalLight( x, y, z, color, intensity ) {
@@ -169,46 +158,67 @@ $(document).on("turbolinks:load", function() {
     function getModelScale(geometry) {
 
       // Calculate and set minimum value of each side
-      geometry.computeBoundingBox()
+      geometry.computeBoundingBox();
       var boundingBox = geometry.boundingBox.clone();
       geo_width = Math.abs(boundingBox.min.x) + boundingBox.max.x;
       geo_depth = Math.abs(boundingBox.min.y) + boundingBox.max.y;
       geo_height = Math.abs(boundingBox.min.z) + boundingBox.max.z;
+      var max_dimension = Math.max(geo_width,geo_depth,geo_height);
       var min_dimension = Math.min(geo_width,geo_depth,geo_height);
+      /*
       ratio_width = (geo_width / min_dimension).toFixed(2);
       ratio_depth = (geo_depth / min_dimension).toFixed(2);
       ratio_height = (geo_height / min_dimension).toFixed(2);
-      $('#model-scale').text("มาตราส่วน สูง "+ratio_height+" : กว้าง "+ratio_width+" : ลึก "+ratio_depth)
-      default_width = (Math.ceil(ratio_width * 10) / 2).toFixed(1)
-      default_depth = (Math.ceil(ratio_depth * 10) / 2).toFixed(1)
-      default_height = (Math.ceil(ratio_height * 10) / 2).toFixed(1)
-      $("#print-width").attr({"min" : default_width, "value" : default_width});
-      $("#print-depth").attr({"min" : default_depth, "value" : default_depth});
-      $("#print-height").attr({"min" : default_height, "value" : default_height});
-
+      */
+      // max print size is 140 mm
+      max_scale = (140 / max_dimension).toFixed(3);
+      scale_slider_value = 1
+      if(max_scale < 1) {
+        scale_slider_value = max_scale
+      }
+      min_scale = (10 / min_dimension).toFixed(3);
+      $(".print-scaling").attr({"min" : min_scale, "max" : max_scale, "value" : scale_slider_value});
+      $("#print-width").val((geo_width * scale_slider_value).toFixed(1));
+      $("#print-depth").val((geo_depth * scale_slider_value).toFixed(1));
+      $("#print-height").val((geo_height * scale_slider_value).toFixed(1));
       // Calculate scaled value
+      /*
       function recalculateValue(value, ratio) {
         var currentValue = value
-        if(currentValue < 5 * ratio) {
+        if(currentValue < (5 * ratio)) {
           currentValue = 5 * ratio;
         }
-        var new_width = (Math.ceil(currentValue / ratio * ratio_width * 2) / 2).toFixed(1);
-        var new_depth = (Math.ceil(currentValue / ratio * ratio_depth * 2) / 2).toFixed(1);
-        var new_height = (Math.ceil(currentValue / ratio * ratio_height * 2) / 2).toFixed(1);
-        var new_price = 50 + 0.1 * (new_width * new_depth * new_height)/(default_width * default_depth * default_height)
+        var new_width = (Math.ceil(currentValue / ratio * ratio_width)).toFixed(1);
+        var new_depth = (Math.ceil(currentValue / ratio * ratio_depth)).toFixed(1);
+        var new_height = (Math.ceil(currentValue / ratio * ratio_height)).toFixed(1);
+        var new_price = 50 + 0.1 * (new_width * new_depth * new_height)/(default_width * default_depth * default_height);
+        var new_scale = (new_height / geo_height).toFixed(3);
+        $(".print-scaling").val(new_scale);
         $("#print-width").val(new_width);
         $("#print-depth").val(new_depth);
         $("#print-height").val(new_height);
         $("#price").text(Math.round(new_price*1)/1);
       }
       $("#print-width").on( 'change', function(e){
-        recalculateValue(this.value, ratio_width)
+        recalculateValue(this.value, ratio_width);
       });
       $("#print-depth").on( 'change', function(e){
-        recalculateValue(this.value, ratio_depth)
+        recalculateValue(this.value, ratio_depth);
       });
       $("#print-height").on( 'change', function(e){
-        recalculateValue(this.value, ratio_height)
+        recalculateValue(this.value, ratio_height);
+      });
+      */
+      $(".print-scaling").on( 'input', function(e){
+        var new_width = (this.value * geo_width).toFixed(1);
+        var new_depth = (this.value * geo_depth).toFixed(1);
+        var new_height =(this.value * geo_height).toFixed(1);
+        var new_price = 50 + 0.1 * (new_width * new_depth * new_height);
+        $("#print-width").val(new_width);
+        $("#print-depth").val(new_depth);
+        $("#print-height").val(new_height);
+        $(".print-scaling").val(this.value);
+        $("#price").text(Math.round(new_price*1)/1);
       });
     }
     
@@ -229,4 +239,4 @@ $(document).on("turbolinks:load", function() {
     animate();
 
   }
-})
+});

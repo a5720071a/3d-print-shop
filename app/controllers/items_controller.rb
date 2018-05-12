@@ -45,7 +45,7 @@ class ItemsController < ApplicationController
   end
   private
   def add_item_params
-    params.require(:item).permit(:model_id,:print_height,:print_width,:print_depth,:model_id,:filament_id,:print_speed_id)
+    params.require(:item).permit(:model_id,:scale,:print_height,:print_width,:print_depth,:model_id,:filament_id,:print_speed_id)
   end
   def get_screenshot
     params.require(:item).permit(:screenshot)[:screenshot]
