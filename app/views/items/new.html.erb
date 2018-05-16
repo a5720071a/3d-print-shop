@@ -40,7 +40,7 @@
                   <p style="display:inline;">ความสูง </p>
                 </div>
                 <div style="display:table-cell; padding-left:1rem;">
-                  <input class="scale-display" type="number" id="print-height" name="item[print_height]" placeholder="ความสูง" readonly>
+                  <input class="scale-display" type="number" step="0.1" id="print-height" name="item[print_height]" placeholder="ความสูง" style="color:grey;" readonly>
                   <p style="display:inline;"> มม.</p></br>
                 </div>
               </div>
@@ -49,7 +49,7 @@
                  <p style="display:inline;">ความกว้าง </p>
                 </div>
                 <div style="display:table-cell; padding-left:1rem;">
-                  <input class="scale-display" type="number" id="print-width" name="item[print_width]" placeholder="ความกว้าง"readonly>
+                  <input class="scale-display" type="number" step="0.1" id="print-width" name="item[print_width]" placeholder="ความกว้าง"style="color:grey;" readonly>
                   <p style="display:inline;"> มม.</p></br>
                 </div>
               </div>
@@ -58,7 +58,7 @@
                   <p style="display:inline;">ความลึก </p>
                 </div>
                 <div style="display:table-cell; padding-left:1rem;">
-                  <input class="scale-display" type="number" id="print-depth" name="item[print_depth]" placeholder="ความลึก" readonly>
+                  <input class="scale-display" type="number" step="0.1" id="print-depth" name="item[print_depth]" placeholder="ความลึก" style="color:grey;" readonly>
                   <p style="display:inline;"> มม.</p></br>
                 </div>
               </div>
@@ -83,7 +83,15 @@
             </br></br>
             <input class="btn-small" type="submit" value="นำใส่ตะกร้า"></input>
           </form>
-          <input class="btn-small" type="button" id="calculate-price" value="calculate"></input>
+          </br></br>
+          <button class="btn-small" id="calculate-price">คำนวณราคา</button>
+          <div id="calculating-price" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5)">
+            <div id="calculating-price-description" style="display:table; width:100%; height:100%;">
+              <div id="calculating-price-desc-box" style="display:table-cell; text-align:center; vertical-align:middle">
+                <p style="color:white; font-size:200%;">กำลังคำนวณราคา ...</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

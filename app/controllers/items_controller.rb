@@ -48,8 +48,19 @@ class ItemsController < ApplicationController
     end
   end
   def calculate_price
-    @gcode_gen = `slic3r --load ~/Downloads/config.ini --scale 0.933 --print-center 0x0 ~/Downloads/owl.stl -o ~/owl.g`
-    @result = `python2.7 ~/Downloads/gcoder.py ~/owl.g`
+    @gcode_params = get_gcode_params
+    @scale = @gcode_params[1]
+    @stl_path = './public' + @gcode_params[0]
+    @gcode_path = './public/gcodes/' + @gcode_params[0].split('/')[-1].split('.')[0] + '_' + @scale + '.g'
+    @work = Thread.new do
+      Rails.application.executor.wrap do
+        unless File.exists?(@gcode_path)
+          @gcode_gen =  `slic3r --load ~/Downloads/config.ini --scale #{@scale} --print-center 0x0 --support-material #{@stl_path} -o #{@gcode_path}`
+        end
+        @result = `python2.7 ~/Downloads/gcoder.py #{@gcode_path}`
+      end
+    end
+    @work.join
     respond_to do |format|
       format.js
     end
@@ -78,5 +89,8 @@ class ItemsController < ApplicationController
   end
   def print_job_for_item
     params[:item_id]
+  end
+  def get_gcode_params
+    [params[:model_url],params[:scale]]
   end
 end

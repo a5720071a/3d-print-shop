@@ -23,7 +23,7 @@ $(document).on("turbolinks:load", function() {
       loading_manager = new THREE.LoadingManager();
       loading_manager.onLoad = function(){
         model_loaded = true;
-        $("#loading-model").css({"display": "none"});
+        $("#loading-model").fadeToggle();
         $("#screenshot").val(renderer.domElement.toDataURL());
         console.log("original volume : " + geo_volumes + " mm3");
         console.log("original width : " + geo_width + " mm");
@@ -148,16 +148,22 @@ $(document).on("turbolinks:load", function() {
         return true; // return false to cancel form action
       });
       $('#calculate-price').on( 'click', function(e){
+        $('#calculating-price').fadeToggle();
+        $('input').attr('disabled', true);
+        $('select').attr('disabled', true);
         $.ajax({
           url: "/calculate_price",
           method: "POST",
           dataType: "script",
-          data: { model_id : $("#model-id").val()},
+          data: { model_url: $("#model-url").val(), scale: $("#print-scaling").val() },
           error: function(xhr, status, error) {
             console.log('error');
           },
           success: function(data, status, xhr) {
             console.log('success');
+            $('input').removeAttr('disabled');
+            $('select').removeAttr('disabled');
+            $('#calculating-price').fadeToggle()
           }
         });
       });

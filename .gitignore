@@ -61,3 +61,5 @@ yarn-error.log*
 
 # Ignore item screenshot
 /public/items/*.png
+# Ignore gcode files 
+/public/gcodes/*.g
