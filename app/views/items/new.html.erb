@@ -30,7 +30,7 @@
         <div id="options-panel" style="display:table-cell; vertical-align:top; padding-left:5rem;">
           <form action="/add_to_cart" id="create-item" method="post">
             <input type="hidden" name="item[model_url]" id="model-url" value="<%= @model.model_url %>">
-            <input type="hidden" name="item[model_id]" value="<%= @model.id %>">
+            <input type="hidden" name="item[model_id]" id="model-id" value="<%= @model.id %>">
             <input type="hidden" id="screenshot" name="item[screenshot]">
             <input type="hidden" id="finished-item" name="item[finished_item]">
             <h3 style="margin-top:0;">เลือกขนาดชิ้นงานปริ้นท์</h3>
@@ -83,6 +83,7 @@
             </br></br>
             <input class="btn-small" type="submit" value="นำใส่ตะกร้า"></input>
           </form>
+          <input class="btn-small" type="button" id="calculate-price" value="calculate"></input>
         </div>
       </div>
     </div>

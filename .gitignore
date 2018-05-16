@@ -60,4 +60,4 @@ yarn-error.log*
 /config/initializers/omise.rb
 
 # Ignore item screenshot
-/public/items/*
+/public/items/*.png

@@ -47,6 +47,13 @@ class ItemsController < ApplicationController
       render :plain => "Error"
     end
   end
+  def calculate_price
+    @gcode_gen = `slic3r --load ~/Downloads/config.ini --scale 0.933 --print-center 0x0 ~/Downloads/owl.stl -o ~/owl.g`
+    @result = `python2.7 ~/Downloads/gcoder.py ~/owl.g`
+    respond_to do |format|
+      format.js
+    end
+  end
   private
   def add_item_params
     params.require(:item).permit(:model_id,:scale,:print_height,:print_width,:print_depth,:model_id,:filament_id)

@@ -147,6 +147,20 @@ $(document).on("turbolinks:load", function() {
         $("#finished-item").val(renderer.domElement.toDataURL());
         return true; // return false to cancel form action
       });
+      $('#calculate-price').on( 'click', function(e){
+        $.ajax({
+          url: "/calculate_price",
+          method: "POST",
+          dataType: "script",
+          data: { model_id : $("#model-id").val()},
+          error: function(xhr, status, error) {
+            console.log('error');
+          },
+          success: function(data, status, xhr) {
+            console.log('success');
+          }
+        });
+      });
     }
 
     function addDirectionalLight( x, y, z, color, intensity ) {

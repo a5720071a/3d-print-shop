@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get '/print_settings' => 'items#new'
   post '/add_to_cart' => 'items#create'
   get '/my_cart' => 'items#my_cart'
+  post '/calculate_price' => 'items#calculate_price'
 
   get '/my_orders' => 'orders#my_orders'
   get '/checkout' => 'orders#select_delivery_option'
