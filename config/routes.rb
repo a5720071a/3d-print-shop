@@ -36,6 +36,8 @@ Rails.application.routes.draw do
   get '/logout' => 'sessions#destroy'
 
   get '/staff' => 'staff#index'
+  get '/staff/orders' => 'staff#orders'
+  get '/staff/models' => 'staff#models'
 
   get '/admin' => 'admin#index'
 

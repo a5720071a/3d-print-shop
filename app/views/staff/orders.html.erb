@@ -1,0 +1,7 @@
+<ol>
+
+<% [*@orders].each do |order| %>
+  <li><a href="/staff/order/<%= order.id %>">order id: <%= order.id %></a></li>
+<% end %>
+
+</ol>

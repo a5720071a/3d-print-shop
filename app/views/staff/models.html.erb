@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<div class="page-content">
+  <div class="grid">
+    <% if [*@models].length > 0 %>
+      <% [*@models].each do |model| %>
+        <div class="model-card item" id="model_<%= model.id %>">
+          <div class="card-content">
+            <img src="<%= model.model_url.split('.')[0] %>.png" width="150px" height="150px">
+            <p><%= JSON.parse(model.model_data)["metadata"]["filename"] %></p>
+            <%= link_to "ปริ้นท์โมเดลนี้", print_settings_path(:model => model.id), class: "btn-small" %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="card">
+        <div class="card-content">
+          <h4><b>ไม่มีโมเดล</b></h4> 
+          <p>ไม่มีโมเดลที่ถูกแชร์</p> 
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

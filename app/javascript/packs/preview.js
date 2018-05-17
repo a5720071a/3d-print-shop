@@ -147,6 +147,18 @@ $(document).on("turbolinks:load", function() {
         $("#finished-item").val(renderer.domElement.toDataURL());
         return true; // return false to cancel form action
       });
+      $('#cancel-form').on( 'click', function(e){
+        $('#calculating-price').fadeToggle();
+        $('#submit-form').fadeToggle();
+        $('#cancel-form').fadeToggle();
+        $('#calculating-price-desc-text').toggle();
+        $('input').removeAttr('disabled');
+        $('select').removeAttr('disabled');
+      });
+      $('#create-item').on( 'submit', function(e){
+        $('input').removeAttr('disabled');
+        $('select').removeAttr('disabled');
+      });
       $('#calculate-price').on( 'click', function(e){
         $('#calculating-price').fadeToggle();
         $('input').attr('disabled', true);
@@ -161,9 +173,10 @@ $(document).on("turbolinks:load", function() {
           },
           success: function(data, status, xhr) {
             console.log('success');
-            $('input').removeAttr('disabled');
-            $('select').removeAttr('disabled');
-            $('#calculating-price').fadeToggle()
+            $('#calculating-price-desc-text').fadeToggle();
+            $('#submit-form').removeAttr('disabled');
+            $('#submit-form').fadeToggle();
+            $('#cancel-form').fadeToggle();
           }
         });
       });
@@ -236,12 +249,12 @@ $(document).on("turbolinks:load", function() {
         var new_width = (this.value * geo_width).toFixed(1);
         var new_depth = (this.value * geo_depth).toFixed(1);
         var new_height =(this.value * geo_height).toFixed(1);
-        var new_price = 50 + 0.1 * (new_width * new_depth * new_height);
+        //var new_price = 50 + 0.1 * (new_width * new_depth * new_height);
         $("#print-width").val(new_width);
         $("#print-depth").val(new_depth);
         $("#print-height").val(new_height);
         $(".print-scaling").val(this.value);
-        $("#price").text(Math.round(new_price*1)/1);
+        //$("#price").text(Math.round(new_price*1)/1);
       });
     }
     

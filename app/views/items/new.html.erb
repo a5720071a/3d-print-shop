@@ -72,7 +72,7 @@
                 </div>
               </div>
             </div>
-            </br><p id="priceing" style="color:#3f51b5;">ราคา <span id="price">50</span> บาท</p>
+            <!--</br><p id="priceing" style="color:#3f51b5;">ราคา <span id="price">50</span> บาท</p>-->
             </br><p style="color:red;">ขนาดชิ้นงานที่รองรับ ~10x10x10 มม.<sup style="font-size:50%;">3</sup> ถึง ~140x140x140 มม.<sup style="font-size:50%;">3</sup></p>
             <h3>เลือกชนิดและสีของฟิลาเมนต์</h3>
             <select id="model-color" name="item[filament_id]" disabled>
@@ -80,18 +80,18 @@
                 <option id="<%= filament.id %>_<%= filament.hex_color_value %>" value="<%= filament.id %>"><%= filament.description %></option>
               <% end %>
             </select>
-            </br></br>
-            <input class="btn-small" type="submit" value="นำใส่ตะกร้า"></input>
-          </form>
-          </br></br>
-          <button class="btn-small" id="calculate-price">คำนวณราคา</button>
-          <div id="calculating-price" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5)">
-            <div id="calculating-price-description" style="display:table; width:100%; height:100%;">
-              <div id="calculating-price-desc-box" style="display:table-cell; text-align:center; vertical-align:middle">
-                <p style="color:white; font-size:200%;">กำลังคำนวณราคา ...</p>
+            <div id="calculating-price" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5)">
+              <div id="calculating-price-description" style="display:table; width:100%; height:100%;">
+                <div id="calculating-price-desc-box" style="display:table-cell; text-align:center; vertical-align:middle">
+                  <p id="calculating-price-desc-text" style="color:white; font-size:200%;">กำลังคำนวณราคา ...</p>
+                  <input class="btn-small" style="display:none;" id="submit-form" type="submit" value="นำใส่ตะกร้า"></input>
+                  <a class="btn-small" style="display:none; cursor:pointer;" id="cancel-form">แก้ไข</a>
+                </div>
               </div>
             </div>
-          </div>
+          </form>
+          </br>
+          <a class="btn-small" style="cursor:pointer;" id="calculate-price">คำนวณราคา</a>
         </div>
       </div>
     </div>
