@@ -49,25 +49,49 @@ class ItemsController < ApplicationController
   end
   def calculate_price
     @gcode_params = get_gcode_params
+    @model_id = @gcode_params[0]
+    @model = Model.find_by id: @model_id
     @scale = @gcode_params[1]
-    @stl_path = './public' + @gcode_params[0]
-    @gcode_path = './public/gcodes/' + @gcode_params[0].split('/')[-1].split('.')[0] + '_' + @scale + '.g'
-    @work = Thread.new do
-      Rails.application.executor.wrap do
-        unless File.exists?(@gcode_path)
-          @gcode_gen =  `slic3r --load ~/Downloads/config.ini --scale #{@scale} --print-center 0x0 --support-material #{@stl_path} -o #{@gcode_path}`
+    @filament_type = @gcode_params[2]
+    @stl_path = './public' + @model.model_url
+    @gcode_path = './public/gcodes/' + @model.model_url.split('/')[-1].split('.')[0] + '_' + @scale + '.g'
+    unless Gcode.exists?(model_id: @model_id, filename: @gcode_path)
+      @work = Thread.new do
+        Rails.application.executor.wrap do
+          unless File.exists?(@gcode_path)
+            @gcode_gen =  `slic3r --load ~/Downloads/config.ini --scale #{@scale} --print-center 0x0 --support-material #{@stl_path} -o #{@gcode_path}`
+          end
+          @result = `python2.7 ~/Downloads/gcoder.py #{@gcode_path}`
+          @filament_used = @result.split("\n")[-4].split(":\ ",2)[-1].gsub(/[^0-9,\.]/, "").to_f
+          @total_time = @result.split("\n")[-1].split(":\ ",2)[-1]
+          if @total_time.include? "day"
+            @hour = @total_time.split('day')[0].gsub(/[^\d]/,"").to_i * 24
+            @hour += @total_time.split('day')[1].split(':')[0].gsub(/[^\d]/,"").to_i
+            @hour += ((@total_time.split('day')[1].split(':')[1].to_i + 1) / 60.0)
+          else
+            @hour = @total_time.split(':')[0].to_i
+            @hour += ((@total_time.split(':')[1].to_i + 1)/ 60.0)
+          end
+          @gcode = @model.gcodes.new(filename: @gcode_path, print_time: @hour.round(3), filament_length: @filament_used)
+          @gcode.save!
         end
-        @result = `python2.7 ~/Downloads/gcoder.py #{@gcode_path}`
       end
+      @work.join
+    else
+      @gcode = Gcode.find_by model_id: @model_id, filename: @gcode_path
     end
-    @work.join
+    @price = @gcode.print_time.round(3) * 5.33673058261
+    @price += ((Math::PI * ((0.17 / 2) ** 2) * (@gcode.filament_length/10) * 1.25) * 0.95) if @filament_type.include? "PLA"
+    @price += ((Math::PI * ((0.17 / 2) ** 2) * (@gcode.filament_length/10) * 1.04) * 0.90) if @filament_type.include? "ABS"
+    @price += 105
+    @price = @price.round(2) * 2
     respond_to do |format|
       format.js
     end
   end
   private
   def add_item_params
-    params.require(:item).permit(:model_id,:scale,:print_height,:print_width,:print_depth,:model_id,:filament_id)
+    params.require(:item).permit(:model_id, :scale, :print_height, :print_width, :print_depth, :model_id, :filament_id, :price)
   end
   def get_model_screenshot
     params.require(:item).permit(:screenshot)[:screenshot]
@@ -91,6 +115,6 @@ class ItemsController < ApplicationController
     params[:item_id]
   end
   def get_gcode_params
-    [params[:model_url],params[:scale]]
+    [params[:model_id],params[:scale],params[:filament]]
   end
 end

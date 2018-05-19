@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  model: one
+  filename: MyString
+  filament_length: 9.99
+  print_time: 9.99
+
+two:
+  model: two
+  filename: MyString
+  filament_length: 9.99
+  print_time: 9.99

@@ -6,7 +6,7 @@
        <img src="/items/<%= item.id %>.png" width="150px" height="150px">
      </div>
      <div style="display:table-cell;">
-       <ul style="list-style-type:none;">
+       <ul style="list-style-type:none; margin:0;">
          <li>ความสูง: <%= item.print_height %> มม.</li>
          <li>ความกว้าง: <%= item.print_width %> มม.</li>
          <li>ความลึก: <%= item.print_depth %> มม.</li>
@@ -19,6 +19,8 @@
                  model: "#{ item.model_id }"
              %>
          </li>
+         <li>ราคา: <%= item.price %> บาท</li>
+
        </ul>
      </div>
     </div>

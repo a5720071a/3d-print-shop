@@ -148,12 +148,12 @@ $(document).on("turbolinks:load", function() {
         return true; // return false to cancel form action
       });
       $('#cancel-form').on( 'click', function(e){
-        $('#calculating-price').fadeToggle();
-        $('#submit-form').fadeToggle();
-        $('#cancel-form').fadeToggle();
-        $('#calculating-price-desc-text').toggle();
-        $('input').removeAttr('disabled');
-        $('select').removeAttr('disabled');
+        $('#calculating-price').fadeToggle( function(e){
+          $('#calculating-price-desc-text').toggle();
+          $('#price-result').toggle();
+          $('input').removeAttr('disabled');
+          $('select').removeAttr('disabled');
+        });
       });
       $('#create-item').on( 'submit', function(e){
         $('input').removeAttr('disabled');
@@ -167,16 +167,16 @@ $(document).on("turbolinks:load", function() {
           url: "/calculate_price",
           method: "POST",
           dataType: "script",
-          data: { model_url: $("#model-url").val(), scale: $("#print-scaling").val() },
+          data: { model_id: $("#model-id").val(), scale: $("#print-scaling").val(), filament: $("#model-color option:selected").text() },
           error: function(xhr, status, error) {
             console.log('error');
           },
           success: function(data, status, xhr) {
             console.log('success');
-            $('#calculating-price-desc-text').fadeToggle();
+            $('#calculating-price-desc-text').fadeToggle( function(e){
+              $('#price-result').fadeToggle();
+            });
             $('#submit-form').removeAttr('disabled');
-            $('#submit-form').fadeToggle();
-            $('#cancel-form').fadeToggle();
           }
         });
       });

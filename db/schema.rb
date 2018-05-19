@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180512121525) do
+ActiveRecord::Schema.define(version: 20180519065706) do
 
   create_table "address_books", force: :cascade do |t|
     t.string "address"
@@ -27,6 +27,16 @@ ActiveRecord::Schema.define(version: 20180512121525) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "hex_color_value"
+  end
+
+  create_table "gcodes", force: :cascade do |t|
+    t.integer "model_id"
+    t.string "filename"
+    t.decimal "filament_length"
+    t.decimal "print_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["model_id"], name: "index_gcodes_on_model_id"
   end
 
   create_table "item_in_orders", force: :cascade do |t|
@@ -51,6 +61,7 @@ ActiveRecord::Schema.define(version: 20180512121525) do
     t.boolean "in_cart"
     t.boolean "print_job_generated", default: false
     t.decimal "scale"
+    t.decimal "price"
     t.index ["filament_id"], name: "index_items_on_filament_id"
     t.index ["model_id"], name: "index_items_on_model_id"
     t.index ["user_id"], name: "index_items_on_user_id"
