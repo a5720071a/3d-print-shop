@@ -29,7 +29,7 @@ class OrdersController < ApplicationController
         item_in_order.quantity = 1
         item_in_order.save!
       end
-      redirect_to '/payment_options'
+      redirect_to controller: "payments", action: "new", order: "#{ @order.id }"
     else
       redirect_to '/my_cart'
     end
