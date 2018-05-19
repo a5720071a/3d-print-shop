@@ -178,3 +178,7 @@ input[type="text"], input[type="password"], input[type="number"] {
 .green-bg {
   background: #57af4c;
 }
+.scale-display {
+  width: 5rem;
+  color: gray;
+}
