@@ -13,6 +13,11 @@ class PaymentsController < ApplicationController
     @items.each do |item|
       @price += item.price
     end
+    if @order.delivery_courier == 'Kerry Express'
+      @price += 80
+    else
+      @price += 50
+    end
     @total = @price.to_s
     if @total.include? '.'
       @total = @total.split('.')[0] + @total.split('.')[-1]
@@ -28,7 +33,12 @@ class PaymentsController < ApplicationController
     @items.each do |item|
       @price += item.price
     end
-    @total = @price.to_s.gsub(/\./,"").to_i
+    if @order.delivery_courier == 'Kerry Express'
+      @price += 80
+    else
+      @price += 50
+    end
+    @total = @price.to_s.gsub(/\./,'').to_i
     charge = Omise::Charge.create({
       amount: @total,
       currency: "thb",
