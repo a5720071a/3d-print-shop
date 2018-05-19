@@ -12,6 +12,7 @@
 //
 //= require turbolinks
 //= require jquery3
+//= require jquery.validate
 //= require jquery_ujs
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl

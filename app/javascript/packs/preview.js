@@ -21,7 +21,7 @@ $(document).on("turbolinks:load", function() {
     function init() {
 
       loading_manager = new THREE.LoadingManager();
-      loading_manager.onLoad = function(){
+      loading_manager.onLoad = function() {
         model_loaded = true;
         $("#loading-model").fadeToggle();
         $("#screenshot").val(renderer.domElement.toDataURL());
@@ -137,48 +137,51 @@ $(document).on("turbolinks:load", function() {
       controls.enablePan = false;
       
       // create user controls
-      $("#model-color").on( 'change', function(e){
+      $("#model-color").on( 'change', function(e) {
         mesh.material.color.setHex( $(this).children(":selected").attr("id").split('_').pop() );
       });
-      $(".render-quality").on( 'change', function(e){
+      $(".render-quality").on( 'change', function(e) {
         renderer.setSize( this.value, this.value, false );
       });
       $('#create-item').submit(function() {
         $("#finished-item").val(renderer.domElement.toDataURL());
         return true; // return false to cancel form action
       });
-      $('#cancel-form').on( 'click', function(e){
-        $('#calculating-price').fadeToggle( function(e){
+      $('#cancel-form').on( 'click', function(e) {
+        $('#calculating-price').fadeToggle( function(e) {
           $('#calculating-price-desc-text').toggle();
           $('#price-result').toggle();
           $('input').removeAttr('disabled');
           $('select').removeAttr('disabled');
         });
       });
-      $('#create-item').on( 'submit', function(e){
+      $('#create-item').on( 'submit', function(e) {
         $('input').removeAttr('disabled');
         $('select').removeAttr('disabled');
       });
-      $('#calculate-price').on( 'click', function(e){
-        $('#calculating-price').fadeToggle();
-        $('input').attr('disabled', true);
-        $('select').attr('disabled', true);
-        $.ajax({
-          url: "/calculate_price",
-          method: "POST",
-          dataType: "script",
-          data: { model_id: $("#model-id").val(), scale: $("#print-scaling").val(), filament: $("#model-color option:selected").text() },
-          error: function(xhr, status, error) {
-            console.log('error');
-          },
-          success: function(data, status, xhr) {
-            console.log('success');
-            $('#calculating-price-desc-text').fadeToggle( function(e){
-              $('#price-result').fadeToggle();
-            });
-            $('#submit-form').removeAttr('disabled');
-          }
-        });
+      $('#calculate-price').on( 'click', function(e) {
+        $('#create-item').validate();
+        if($('#create-item').valid()) {
+          $('#calculating-price').fadeToggle();
+          $('input').attr('disabled', true);
+          $('select').attr('disabled', true);
+          $.ajax({
+            url: "/calculate_price",
+            method: "POST",
+            dataType: "script",
+            data: { model_id: $("#model-id").val(), scale: $("#print-scaling").val(), filament: $("#model-color option:selected").text() },
+            error: function(xhr, status, error) {
+              console.log('error');
+            },
+            success: function(data, status, xhr) {
+              console.log('success');
+              $('#calculating-price-desc-text').fadeToggle( function(e) {
+                $('#price-result').fadeToggle();
+              });
+              $('#submit-form').removeAttr('disabled');
+            }
+          });
+        }
       });
     }
 
@@ -198,12 +201,6 @@ $(document).on("turbolinks:load", function() {
       geo_height = Math.abs(boundingBox.min.z) + boundingBox.max.z;
       var max_dimension = Math.max(geo_width,geo_depth,geo_height);
       var min_dimension = Math.min(geo_width,geo_depth,geo_height);
-      /*
-      ratio_width = (geo_width / min_dimension).toFixed(2);
-      ratio_depth = (geo_depth / min_dimension).toFixed(2);
-      ratio_height = (geo_height / min_dimension).toFixed(2);
-      */
-      // max print size is 140 mm
       var scale_slider_value = 1;
       var min_scale = (10 / min_dimension).toFixed(3);
       if(min_scale > 1) {
@@ -217,44 +214,14 @@ $(document).on("turbolinks:load", function() {
       $("#print-width").val((geo_width * scale_slider_value).toFixed(1));
       $("#print-depth").val((geo_depth * scale_slider_value).toFixed(1));
       $("#print-height").val((geo_height * scale_slider_value).toFixed(1));
-      // Calculate scaled value
-      /*
-      function recalculateValue(value, ratio) {
-        var currentValue = value;
-        if(currentValue < (5 * ratio)) {
-          currentValue = 5 * ratio;
-        }
-        var new_width = (Math.ceil(currentValue / ratio * ratio_width)).toFixed(1);
-        var new_depth = (Math.ceil(currentValue / ratio * ratio_depth)).toFixed(1);
-        var new_height = (Math.ceil(currentValue / ratio * ratio_height)).toFixed(1);
-        var new_price = 50 + 0.1 * (new_width * new_depth * new_height)/(default_width * default_depth * default_height);
-        var new_scale = (new_height / geo_height).toFixed(3);
-        $(".print-scaling").val(new_scale);
-        $("#print-width").val(new_width);
-        $("#print-depth").val(new_depth);
-        $("#print-height").val(new_height);
-        $("#price").text(Math.round(new_price*1)/1);
-      }
-      $("#print-width").on( 'change', function(e){
-        recalculateValue(this.value, ratio_width);
-      });
-      $("#print-depth").on( 'change', function(e){
-        recalculateValue(this.value, ratio_depth);
-      });
-      $("#print-height").on( 'change', function(e){
-        recalculateValue(this.value, ratio_height);
-      });
-      */
-      $(".print-scaling").on( 'input', function(e){
+      $(".print-scaling").on( 'input', function(e) {
         var new_width = (this.value * geo_width).toFixed(1);
         var new_depth = (this.value * geo_depth).toFixed(1);
-        var new_height =(this.value * geo_height).toFixed(1);
-        //var new_price = 50 + 0.1 * (new_width * new_depth * new_height);
+        var new_height = (this.value * geo_height).toFixed(1);
         $("#print-width").val(new_width);
         $("#print-depth").val(new_depth);
         $("#print-height").val(new_height);
         $(".print-scaling").val(this.value);
-        //$("#price").text(Math.round(new_price*1)/1);
       });
     }
     
