@@ -28,7 +28,7 @@ class ItemsController < ApplicationController
   def my_cart
     @items = @current_user.items.where in_cart: true
     @cart = @items.joins(:filament, :gcode).joins("LEFT JOIN models ON models.id = gcodes.model_id")
-    @cart = @cart.select("items.*, filaments.description as f_description, models.id as m_id, models.model_data as m_model_data")
+    @cart = @cart.select("items.*, filaments.description as f_description, models.id as m_id, models.model_data as m_model_data").reverse
   end
   def thumbnailer
     unless File.exists?(ajax_create_model_thumb_path)
