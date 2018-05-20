@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180519065706) do
+ActiveRecord::Schema.define(version: 20180520072457) do
 
   create_table "address_books", force: :cascade do |t|
     t.string "address"
@@ -55,15 +55,14 @@ ActiveRecord::Schema.define(version: 20180519065706) do
     t.decimal "print_depth"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "model_id"
     t.integer "filament_id"
     t.integer "user_id"
     t.boolean "in_cart"
-    t.boolean "print_job_generated", default: false
     t.decimal "scale"
     t.decimal "price"
+    t.integer "gcode_id"
     t.index ["filament_id"], name: "index_items_on_filament_id"
-    t.index ["model_id"], name: "index_items_on_model_id"
+    t.index ["gcode_id"], name: "index_items_on_gcode_id"
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
@@ -95,6 +94,8 @@ ActiveRecord::Schema.define(version: 20180519065706) do
     t.integer "user_id"
     t.integer "address_id"
     t.integer "print_speed_id"
+    t.boolean "print_job_generated", default: false
+    t.boolean "completed", default: false
     t.index ["address_id"], name: "index_orders_on_address_id"
     t.index ["print_speed_id"], name: "index_orders_on_print_speed_id"
     t.index ["user_id"], name: "index_orders_on_user_id"

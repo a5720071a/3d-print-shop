@@ -27,8 +27,8 @@ class ItemsController < ApplicationController
   end
   def my_cart
     @items = @current_user.items.where in_cart: true
-    @cart = @items.joins :filament,:model
-    @cart = @cart.select("items.*, filaments.description as f_description, models.model_data as m_model_data")
+    @cart = @items.joins(:filament, :gcode).joins("LEFT JOIN models ON models.id = gcodes.model_id")
+    @cart = @cart.select("items.*, filaments.description as f_description, models.id as m_id, models.model_data as m_model_data")
   end
   def thumbnailer
     unless File.exists?(ajax_create_model_thumb_path)
@@ -91,7 +91,7 @@ class ItemsController < ApplicationController
   end
   private
   def add_item_params
-    params.require(:item).permit(:model_id, :scale, :print_height, :print_width, :print_depth, :model_id, :filament_id, :price)
+    params.require(:item).permit(:scale, :print_height, :print_width, :print_depth, :filament_id, :price, :gcode_id)
   end
   def get_model_screenshot
     params.require(:item).permit(:screenshot)[:screenshot]
@@ -100,7 +100,7 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:finished_item)[:finished_item]
   end
   def create_model_thumb_path
-    "public" + params.require(:item).permit(:model_url)[:model_url].split('.')[0] + ".png"
+    "public" + params[:model_url].split('.')[0] + ".png"
   end
   def ajax_create_model_thumb_path
     "public" + params.require(:model_url).split('.')[0] + ".png"

@@ -29,8 +29,9 @@
         </div>
         <div id="options-panel" style="display:table-cell; vertical-align:top; padding-left:5rem;">
           <form action="/add_to_cart" id="create-item" method="post">
-            <input type="hidden" name="item[model_url]" id="model-url" value="<%= @model.model_url %>">
-            <input type="hidden" name="item[model_id]" id="model-id" value="<%= @model.id %>">
+            <input type="hidden" name="model_url" id="model-url" value="<%= @model.model_url %>">
+            <input type="hidden" name="model_id" id="model-id" value="<%= @model.id %>">
+            <input type="hidden" name="item[gcode_id]" id="gcode-id">
             <input type="hidden" name="item[price]" id="item-price" value="0">
             <input type="hidden" id="screenshot" name="item[screenshot]">
             <input type="hidden" id="finished-item" name="item[finished_item]">

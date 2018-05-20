@@ -16,7 +16,7 @@
                  link_to "#{ JSON.parse(item.m_model_data)["metadata"]["filename"] }", 
                  controller: "items",
                  action: "new", 
-                 model: "#{ item.model_id }"
+                 model: "#{ item.m_id }"
              %>
          </li>
          <li>ราคา: <%= item.price %> บาท</li>
