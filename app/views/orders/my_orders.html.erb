@@ -13,7 +13,7 @@
             <li>สั่งเมื่อ: <%= order.created_at %></li>
             <li>สถานะคำสั่งซื้อ: กำลังดำเนินการ</li>
             <% if order.payment.nil? %>
-              <li>สถานะการชำระเงิน: <a style="color:#FF6666;" href="/payment_options?order=<%= order.id %>">กรุณาชำระเงิน</a></li>
+              <li>สถานะการชำระเงิน: <a style="color:red;" href="/payment_options?order=<%= order.id %>">กรุณาชำระเงิน</a></li>
             <% else %>
               <li>สถานะการชำระเงิน: <span style="color:green;"><%= order.payment.status == "Success"? "ชำระแล้ว": order.payment.status %></span></li>
               <li>สถานะการปริ้นท์: <span style="color:blue;">เตรียมงานปริ้นท์</span></li>
