@@ -3,7 +3,7 @@ class User < ApplicationRecord
   has_many :models
   has_many :items
   has_many :orders
-  has_many :address_books
+  has_many :addresses
   [:email, :username].each do |field|
     validates field, presence: true, uniqueness: true
   end

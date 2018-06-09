@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   before_action :has_item_in_cart?, except: :my_orders
   protect_from_forgery with: :null_session
   def select_delivery_option
-    @addresses = @current_user.address_books
+    @addresses = @current_user.addresses
     @order = Order.new
   end
   def my_orders

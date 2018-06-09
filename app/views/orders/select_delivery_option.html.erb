@@ -16,7 +16,7 @@
                 <% else %>
                   <%= f.radio_button(:address_id, address.id) %>
                 <% end %>
-                <%= f.label("address_id_#{address.id}", address.address) %></br>
+                <%= f.label("address_id_#{address.id}", address.description) %></br>
               <% end %>
               </br>
               <a class="btn-small" href="/new_address">เพิ่มสถานที่จัดส่ง</a>

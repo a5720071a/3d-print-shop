@@ -24,8 +24,8 @@ Rails.application.routes.draw do
 
   get '/payment_options' => 'payments#new'
 
-  get '/new_address' => 'address_books#new'
-  post '/create_address' => 'address_books#create'
+  get '/new_address' => 'addresses#new'
+  post '/create_address' => 'addresses#create'
 
   get '/signup' => 'users#new'
   post '/signup' => 'users#create'

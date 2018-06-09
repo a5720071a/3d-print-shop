@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <div class="page-content">
   <div class="grid">
-    <div class="col-1-5 browse-filter">
+    <!--<div class="col-1-5 browse-filter">
       <div class="filter-panel">
         <p>Filter panel</p>
         <input type="checkbox">a</input>
       </div>
     </div>
-    <div class="col-4-5 browse-items">
+    <div class="col-4-5 browse-items">-->
+    <div>
         <% if [*@models].length > 0 %>
           <% [*@models].each do |model| %>
             <div class="model-card item" id="model_<%= model.id %>">
