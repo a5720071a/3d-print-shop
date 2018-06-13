@@ -92,18 +92,27 @@ $(document).on("turbolinks:load", function() {
         getModelScale(geometry);
         var meshMaterial = new THREE.MeshPhongMaterial( { color: 0xAAAAAA, specular: 0x111111, shininess: 200 } );
         mesh = new THREE.Mesh( geometry, meshMaterial );
-        mesh.position.set( 0, -0.5, 0 );
+        mesh.position.set( 0, 0, 0 );
         mesh.rotation.set( 3 * Math.PI / 2 , 0, 0 );
         mesh.scale.set( 0.015, 0.015, 0.015 );
         var box = new THREE.Box3().setFromObject( mesh );
         var middle_y = -( box.getSize()["y"] / 2 );
         var box_max = Math.max( box.getSize()["x"], box.getSize()["y"], box.getSize()["z"] ) * 1.5;
-        mesh.position.set( 0, middle_y, 0 );
+        var centroid = getCenterPoint(mesh)
+        console.log(centroid)
+        mesh.position.set( -centroid["x"], -centroid["y"], -centroid["z"] );
         camera.position.set( 0, 0, box_max); 
         scene.add( mesh );
         renderer.render( scene, camera );
         var new_geometry = new THREE.Geometry().fromBufferGeometry(geometry);
         calculateVolume(new_geometry);
+        function getCenterPoint(mesh) {
+            var geometry = mesh.geometry;
+            geometry.computeBoundingBox();   
+            center = geometry.boundingBox.getCenter();
+            mesh.localToWorld( center );
+            return center;
+        }
         function volumeOfT(p1, p2, p3){
           var v321 = p3.x*p2.y*p1.z;
           var v231 = p2.x*p3.y*p1.z;
