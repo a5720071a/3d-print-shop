@@ -1,6 +1,9 @@
-const THREE = require('three');
-const STLLoader = require('three-stl-loader')(THREE);
-const OrbitControls = require('three-orbit-controls')(THREE);
+global.THREE = require('three');
+//const STLLoader = require('three-stl-loader')(THREE);
+const STLLoader = require('three/examples/js/loaders/STLLoader');
+//const OrbitControls = require('three-orbit-controls')(THREE);
+const OrbitControls = require('three/examples/js/controls/OrbitControls');
+
 
 $(document).on("turbolinks:load", function() {
   var model_url_container = $("#model-url");
@@ -83,7 +86,8 @@ $(document).on("turbolinks:load", function() {
       renderer.shadowMap.renderReverseSided = false;
 
       // create mesh
-      var loader = new STLLoader(loading_manager);
+      //var loader = new STLLoader(loading_manager);
+      var loader = new THREE.STLLoader(loading_manager);
       loader.load( model_url, function ( geometry ) {
         getModelScale(geometry);
         var meshMaterial = new THREE.MeshPhongMaterial( { color: 0xAAAAAA, specular: 0x111111, shininess: 200 } );
@@ -133,7 +137,8 @@ $(document).on("turbolinks:load", function() {
       container.appendChild( renderer.domElement );
 
       // create orbit controls
-      controls = new OrbitControls( camera, renderer.domElement );
+      //controls = new OrbitControls( camera, renderer.domElement );
+      controls = new THREE.OrbitControls( camera, renderer.domElement );
       controls.enablePan = false;
       
       // create user controls
